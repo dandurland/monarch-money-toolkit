@@ -1,0 +1,28 @@
+# workspace files
+.DS_Store
+.project
+.idea
+codealike.json
+.wakatime-project
+
+# build/generated files
+node_modules/
+coverage/
+
+# extension deploy stuff
+CHANGELOG.md
+certificates/
+save-commands.json
+
+# python files
+.python-version
+*.pyc
+
+# we use yarn -- ignore package-lock in case someone npm installed
+package-lock.json
+yarn-error.log
+
+# build directory
+dist/
+outDir/
+/chrome-profile

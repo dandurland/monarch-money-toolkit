@@ -1,0 +1,30 @@
+.group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.group-badge {
+  background-color: #EBECF0;
+  border-radius: 2em;
+  color: #172B4D;
+  display: inline-block;
+  font-size: 12;
+  font-weight: normal;
+  line-height: 1;
+  min-width: 1;
+  padding: 0.1666666666667em 0.5em;
+  text-align: center;
+}
+
+.setting {
+  display: flex;
+  align-items: center;
+}
+
+.setting-details {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1rem;
+  min-width: 400px;
+}
