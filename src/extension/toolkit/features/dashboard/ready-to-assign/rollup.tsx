@@ -1,7 +1,7 @@
 import { DocumentNode, useApolloClient } from "@apollo/client";
 import React from "react";
 import { useState } from "react";
-import { $FlatButton } from "toolkit/components/styles/widget-styles.sc";
+import { $FlatButton } from "toolkit/components/styles/buttons.sc";
 import { BudgetRollupData } from "toolkit/core/calculators/budgetRollupCalculator";
 import { CommonUpdateBudgetItemMutation, UpdateBudgetItemInput } from "toolkit/core/graphql/mutations/commonUpdateBudgetItemMutation";
 import { TimeFrame, WebMoveMoneyMutation, WebMoveMoneyMutationInput } from "toolkit/core/graphql/mutations/webMoveMoneyMutation";

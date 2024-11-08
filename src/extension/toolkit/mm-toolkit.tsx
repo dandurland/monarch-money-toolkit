@@ -10,7 +10,6 @@ import { RouterProvider, createMemoryRouter } from 'react-router';
 import { Features } from './features/features';
 import { Router } from "@remix-run/router";
 import { getMonarchTheme } from 'toolkit/core/utilities/monarchSettings';
-import { WidgetsFeature } from './features/dashboard/host';
 import Root from './app/root';
 import { DashboardWidget, DashboardWidgetSettings } from './app/dashboard-widget/component';
 
@@ -97,7 +96,7 @@ export class MMToolkit {
   }
 
   private initalizeFeature(instance?: Feature): void {
-    if (instance instanceof Widget || instance instanceof WidgetsFeature) {
+    if (instance instanceof Widget) {
       return;
     }
 
@@ -154,7 +153,7 @@ export class MMToolkit {
 
   private initalizeFeatureStyles() {
 
-    this.features?.featureInstances?.forEach((instance) => {
+    this.features?.featureInstances?.filter(x => x.settings?.enabled).forEach((instance) => {
       this.injectFeatureCss(instance);
     });
   }

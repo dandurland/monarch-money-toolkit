@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { useState, useEffect, Suspense } from 'react';
 import Select from 'react-select';
-import { faBug, faCog, faStop, faPlay } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { toolkitStorage } from 'toolkit/core/common/storage';
 import { CategoryGroupType, CategoryGroup, RolloverType, Category } from 'toolkit/core/monarch-money-api/model';
 import { TypedDocumentNode, gql, useSuspenseQuery } from '@apollo/client';
 import ToggleSwitch from 'toolkit/components/toggle-switch/component';
+import { $SettingInfo, $SettingTitle, $SettingDescription, $SettingContainer, $SettingOptions, $SettingButton } from 'toolkit/extension/options/component/options.sc';
 
 interface CategoryGroups {
   readonly categoryGroups: CategoryGroup[];
@@ -61,6 +60,7 @@ export function ReadyToAssignSettings({ settings }: { settings: any }) {
 
   settings = settings ?? { enabled: false, includeOverspentCategories: true };
 
+  const [isHidden, setHidden] = useState(!settings.enabled);
   const [isEnabled, setEnabled] = useState(settings.enabled);
   const [includeOverspentCategories, setIncludeOverspentCategories] = useState(settings.includeOverspentCategories);
   const [selectedRollupCategory, setSelectedRollupCategory] = useState<CategoryOption | null>(null);
@@ -110,9 +110,10 @@ export function ReadyToAssignSettings({ settings }: { settings: any }) {
       && selectedRollupCategory !== undefined;
   }
 
-  async function handleEnabledToggle(value: boolean) {
+  async function handleToggle(value: boolean) {
 
     setEnabled(value);
+    setHidden(!value);
 
     if (!value) {
       await saveSettings(value);
@@ -139,12 +140,14 @@ export function ReadyToAssignSettings({ settings }: { settings: any }) {
   );
 
   return (
-    <div>
-      <h3>Ready To Assign</h3>
-      <Suspense fallback={<div>Loading...</div>}>
-        <div className='setting'>
-          <ToggleSwitch id="readyToAssignEnabled" checked={isEnabled} onChange={(checked) => handleEnabledToggle(checked)} />
-          <div className='setting-details'>
+    <>
+      <ToggleSwitch id="readyToAssignEnabled" checked={isEnabled} onChange={(checked) => handleToggle(checked)} />
+      <$SettingInfo> 
+        <div><$SettingTitle>Ready To Assign</$SettingTitle>
+        <$SettingDescription><p>Display total of configured credit account balances as a percentage of configured depository accounts.</p></$SettingDescription></div>
+        <Suspense fallback={<div>Loading...</div>}>
+          <$SettingContainer $hidden={isHidden}>
+            <$SettingOptions>
             <span>Rollup Target Category</span>
             <Select
               value={selectedRollupCategory}
@@ -157,17 +160,16 @@ export function ReadyToAssignSettings({ settings }: { settings: any }) {
 
             <div className="toggle-row">
               <div>
-                <label htmlFor="includeOverspentCategories">Include Overspent Categories</label>
                 <ToggleSwitch id="includeOverspentCategories" checked={includeOverspentCategories} onChange={(checked) => handleOverspentToggle(checked)} />
+                <span>Include Overspent Categories</span>
               </div>
             </div>
-          </div>
+            </$SettingOptions>
 
-          <button onClick={() => saveSettings(isEnabled)} disabled={!canSave()}>
-            Save
-          </button>
-        </div>
-      </Suspense>
-    </div>
+            <$SettingButton $color={'#32AAF0'} onClick={() => saveSettings(isEnabled)} disabled={!canSave()}>Save</$SettingButton>
+          </$SettingContainer>
+        </Suspense>
+      </$SettingInfo>
+    </>
   );
 }

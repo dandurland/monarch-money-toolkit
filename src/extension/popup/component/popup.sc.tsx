@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { $FlatButton } from "toolkit/components/styles/flat-button.sc";
+import { $FlatButton } from "toolkit/components/styles/buttons.sc";
 
 export const $Header = styled.h2`
   text-align: center;

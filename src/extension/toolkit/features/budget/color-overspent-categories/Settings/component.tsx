@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { toolkitStorage } from 'toolkit/core/common/storage';
 import ToggleSwitch from 'toolkit/components/toggle-switch/component';
+import { $SettingInfo, $SettingTitle, $SettingDescription } from 'toolkit/extension/options/component/options.sc';
 
 export function ColorOverspentCategoriesSettings({ settings }: { settings: any }) {
 
@@ -12,7 +13,6 @@ export function ColorOverspentCategoriesSettings({ settings }: { settings: any }
   async function handleToggle(enabled: boolean) {
 
     try {
-
 
       if (!enabled) {
         settings.enabled = false;
@@ -37,13 +37,12 @@ export function ColorOverspentCategoriesSettings({ settings }: { settings: any }
   }, []);
 
   return (
-    <div>
-      <h3>Color Overspent Categories Red</h3>
-
-      <div className='setting'>
-        <ToggleSwitch id="colorOverspentCategoriesEnabled" checked={isEnabled} onChange={(checked) => handleToggle(checked)} />
-      </div>
-
-    </div>
+    <>
+      <ToggleSwitch id="colorOverspentCategoriesEnabled" checked={isEnabled} onChange={(checked) => handleToggle(checked)} />
+      <$SettingInfo> 
+        <div><$SettingTitle>Color Overspent Categories</$SettingTitle>
+        <$SettingDescription><p>Color Overspent Categories Red.</p></$SettingDescription></div>
+      </$SettingInfo>
+    </>
   );
 }

@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { useState, useEffect, Suspense } from 'react';
 import Select, { MultiValue } from 'react-select';
-import { faBug, faCog, faStop, faPlay } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { toolkitStorage } from 'toolkit/core/common/storage';
 import { useSuspenseQuery } from '@apollo/client';
 import ToggleSwitch from 'toolkit/components/toggle-switch/component';
 import { GetAccounts } from 'toolkit/core/graphql/getAccounts';
+import { $SettingInfo, $SettingTitle, $SettingDescription, $SettingContainer, $SettingOptions, $SettingButton } from 'toolkit/extension/options/component/options.sc';
 
 export function EffectiveBalanceSettings({ settings }: { settings: any }) {
 
   settings = settings ?? { enabled: false };
 
+  const [isHidden, setHidden] = useState(!settings.enabled);
   const [isEnabled, setEnabled] = useState(settings.enabled);
   const [selectedDepositoryAccounts, setSelectedDepositoryAccounts] = useState<MultiValue<{ value: string, label: string }>>();
   const [selectedCreditAccounts, setSelectedCreditAccounts] = useState<MultiValue<{ value: string, label: string }>>();
@@ -82,6 +82,7 @@ export function EffectiveBalanceSettings({ settings }: { settings: any }) {
   async function handleToggle(enabled: boolean) {
 
     setEnabled(enabled);
+    setHidden(!enabled);
 
     if (!enabled) {
       await saveSettings(enabled);
@@ -97,38 +98,37 @@ export function EffectiveBalanceSettings({ settings }: { settings: any }) {
   }, []);
 
   return (
-    <div>
-      <h3>Effective Balance</h3>
-      <Suspense fallback={<div>Loading...</div>}>
-        <div className='setting'>
+    <>
+      <ToggleSwitch id="effectiveBalanceEnabled" checked={isEnabled} onChange={(checked) => handleToggle(checked)} />
+      <$SettingInfo> 
+        <div><$SettingTitle>Effective Balance</$SettingTitle>
+        <$SettingDescription><p>Display total of configured credit account balances as a percentage of configured depository accounts.</p></$SettingDescription></div>
+        <Suspense fallback={<div>Loading...</div>}>
+          <$SettingContainer $hidden={isHidden}>
+            <$SettingOptions>
+              <span>Depository Accounts</span>
+              <Select
+                isMulti
+                value={selectedDepositoryAccounts}
+                onChange={setSelectedDepositoryAccounts}
+                options={depositoryAccounts}
+                isDisabled={!isEnabled}
+              />
 
-          <ToggleSwitch id="effectiveBalanceEnabled" checked={isEnabled} onChange={(checked) => handleToggle(checked)} />
+              <span>Credit Accounts</span>
+              <Select
+                isMulti
+                onChange={setSelectedCreditAccounts}
+                value={selectedCreditAccounts}
+                options={creditAccounts}
+                isDisabled={!isEnabled}
+              />
+            </$SettingOptions>
 
-          <div className='setting-details'>
-            <span>Depository Accounts</span>
-            <Select
-              isMulti
-              value={selectedDepositoryAccounts}
-              onChange={setSelectedDepositoryAccounts}
-              options={depositoryAccounts}
-              isDisabled={!isEnabled}
-            />
-
-            <span>Credit Accounts</span>
-            <Select
-              isMulti
-              onChange={setSelectedCreditAccounts}
-              value={selectedCreditAccounts}
-              options={creditAccounts}
-              isDisabled={!isEnabled}
-            />
-          </div>
-
-          <button onClick={() => saveSettings(isEnabled)} disabled={!canSave()}>
-            Save
-          </button>
-        </div>
-      </Suspense>
-    </div>
+            <$SettingButton $color={'#32AAF0'} onClick={() => saveSettings(isEnabled)} disabled={!canSave()}>Save</$SettingButton>
+          </$SettingContainer>
+        </Suspense>
+      </$SettingInfo>
+    </>
   );
 }

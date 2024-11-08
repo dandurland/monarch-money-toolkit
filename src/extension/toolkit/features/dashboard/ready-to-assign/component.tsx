@@ -8,7 +8,7 @@ import {
   $FlexContainerRoot,
 } from 'toolkit/components/styles/widget-styles.sc';
 
-import { $FlatButton } from 'toolkit/components/styles/flat-button.sc';
+import { $FlatButton } from 'toolkit/components/styles/buttons.sc';
 import { useGetJointPlanningData } from 'toolkit/core/graphql/getJointPlanningData';
 import { ErrorBoundary } from '@sentry/react';
 import { ThemePreference } from 'toolkit/core/utilities/monarchSettings';

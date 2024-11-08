@@ -7,6 +7,8 @@ import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@ap
 import { setContext } from '@apollo/client/link/context';
 import { getMonarchAuthToken } from '../../core/utilities/monarchSettings';
 
+import '../../fontawesome';
+
 getUserSettings().then(async (settings) => {
 
   const theme = await toolkitStorage.getItem('theme');

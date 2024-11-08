@@ -15,6 +15,7 @@
   "dependencies": {
     "@apollo/client": "^3.10.1",
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
+    "@fortawesome/free-brands-svg-icons": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@ramonak/react-progress-bar": "^5.2.0",
@@ -35,7 +36,7 @@
     "react-router-dom": "^6.23.0",
     "react-select": "^5.8.0",
     "rxjs": "^7.8.1",
-    "styled-components": "^6.1.9",
+    "styled-components": "^6.1.13",
     "uid": "^2.0.2"
   },
   "devDependencies": {
@@ -64,6 +65,7 @@
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.3",
+    "typescript-plugin-styled-components": "^3.0.0",
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.0.4"

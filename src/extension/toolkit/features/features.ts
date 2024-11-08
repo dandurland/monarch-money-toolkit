@@ -2,13 +2,13 @@ import { Feature } from "./feature";
 import { ColorOverspentCategoriesFeature } from "./budget/color-overspent-categories";
 import { EffectiveBalanceFeature } from "./dashboard/effective-balance";
 import { ReadyToAssignFeature } from "./dashboard/ready-to-assign";
-import { WidgetsFeature } from "./dashboard/host";
 
 export class Features {
 
   private instances: Feature[] = [];
 
   constructor(private readonly settings: any) {
+
     {
       const feature = new ReadyToAssignFeature();
       feature.settings = settings['ReadyToAssignFeature'];
@@ -22,16 +22,8 @@ export class Features {
     }
 
     {
-      //const cocs = settings['ColorOverspentCategoriesFeature'];
       const feature = new ColorOverspentCategoriesFeature();
-      feature.settings = { enabled: true };
-      this.instances.push(feature);
-    }
-
-    {
-      const feature = new WidgetsFeature();
-      feature.settings = {};
-      feature.settings.widgets = this.instances.slice(0, 2);
+      feature.settings = settings['ColorOverspentCategoriesFeature'];
       this.instances.push(feature);
     }
   }

@@ -1,6 +1,5 @@
 import React from 'react';
 import Portal from "../portal";
-import { WidgetHost } from "toolkit/extension/toolkit/features/dashboard/host/component";
 import { useLoaderData } from 'react-router';
 import { ThemePreference } from 'toolkit/core/utilities/monarchSettings';
 import { Widget } from '../../features/dashboard/widget';

@@ -3,6 +3,10 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpack = require('webpack');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const createStyledComponentsTransformer = require('typescript-plugin-styled-components').default;
+const styledComponentsTransformer = createStyledComponentsTransformer({
+  "componentIdPrefix": "mmtk"
+});
 
 const BUILD_ROOT = './dist';
 const BUILD_PATH = `${BUILD_ROOT}/extension`;
@@ -52,6 +56,10 @@ module.exports = function (env) {
           use: [
             {
               loader: 'ts-loader',
+              options: {
+ 
+                getCustomTransformers: () => ({ before: [styledComponentsTransformer] })
+              }
             },
           ],
         },
@@ -63,7 +71,7 @@ module.exports = function (env) {
             {
               loader: 'babel-loader',
               options: {
-                cacheDirectory: true,
+                cacheDirectory: true
               },
             },
           ],
