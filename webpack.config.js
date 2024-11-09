@@ -77,23 +77,29 @@ module.exports = function (env) {
           ],
         },
         {
+          oneOf: [
+            {
+              resourceQuery: /raw/,
+              type: 'asset/source',
+            },
+            {
+              test: /\.scss$/,
+              use: ['style-loader', 'css-loader', 'sass-loader'],
+            },
+          ]
+        },
+        {
           test: /\.css$/,
+          resourceQuery: { not: [/raw/] },
           include: [path.resolve(__dirname, CODE_SOURCE_DIR)],
           use: [
             {
-              loader: 'to-string-loader',
-            },
-            {
               loader: 'css-loader',
               options: {
-                esModule: false,
+                esModule: true,
               },
             },
           ],
-        },
-        {
-          test: /\.scss$/,
-          use: ['style-loader', 'css-loader', 'sass-loader'],
         },
         {
           test: /\.svg$/,

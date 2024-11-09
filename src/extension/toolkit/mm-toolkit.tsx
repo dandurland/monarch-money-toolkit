@@ -78,7 +78,7 @@ export class MMToolkit {
     const css = instance?.css();
 
     if (css) {
-      const id = `${instance?.featureName}-style`;
+      const id = `mmtk-${instance?.featureName}-style`;
       const style = $('<style>', {
         id: id,
         type: 'text/css',
@@ -103,6 +103,20 @@ export class MMToolkit {
     instance?.initialize();
   }
 
+  private destroyFeature = (featureName: string) => {
+    const style = document.head.querySelector(`#mmtk-${featureName}-style`);
+    style?.remove();
+    const feature = this.features?.featureInstances.find((f) => f.constructor.name === featureName);
+    if (!feature) {
+      console.error(`Feature not found: ${featureName}`);
+      return;
+    }
+
+    const wrappedDestroy = feature.destroy.bind(feature);
+    wrappedDestroy();
+  };
+
+
   private onInboundMessage = (event: InboundMessage) => {
 
     switch (event.data.type) {
@@ -121,9 +135,17 @@ export class MMToolkit {
         );
 
         if (feature) {
-          feature.settings = value;
-          this.injectFeatureCss(feature);
-          this.initalizeFeature(feature);
+
+          feature.settings.enabled = value.enabled;
+
+          if(value.enabled)
+          {
+            feature.settings = value;
+            this.injectFeatureCss(feature);
+            this.initalizeFeature(feature);
+          } else {
+            this.destroyFeature(name);
+          }
         }
         break;
       }
