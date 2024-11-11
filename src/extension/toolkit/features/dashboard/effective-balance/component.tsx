@@ -1,5 +1,5 @@
 import ProgressBar from '@ramonak/react-progress-bar';
-import React from 'react';
+import React, { useContext, useEffect, useSyncExternalStore } from 'react';
 import { formatCurrency } from 'toolkit/extension/utilities/currency';
 import {
   $FlexContainerRoot,
@@ -13,8 +13,11 @@ import { useSuspenseQuery } from '@apollo/client';
 import { GetAccounts } from 'toolkit/core/graphql/getAccounts';
 import { ErrorBoundary } from '@sentry/react';
 import { uid } from 'uid';
+import { useWidgetSettings } from 'toolkit/extension/hooks/useWidgetSettings';
 
-export function EffectiveBalance({ settings }: { settings: any }) {
+export function EffectiveBalance() {
+
+  const settings = useWidgetSettings('EffectiveBalanceFeature');
 
   const key = uid();
   const isDark = settings?.theme === 'dark';
@@ -34,6 +37,11 @@ export function EffectiveBalance({ settings }: { settings: any }) {
   });
 
   const progress = 1 - (creditTotal / assetsTotal);
+  const progressColor = progress > .60 
+    ? 'rgb(25, 210, 165)'
+    : progress > .30
+      ? 'rgb(255, 210, 120)'
+      : 'rgb(240, 100, 140)';
 
   return (
     <div>
@@ -44,7 +52,7 @@ export function EffectiveBalance({ settings }: { settings: any }) {
             <ProgressBar
               borderRadius='4px'
               height='8px'
-              bgColor='#19d2a5'
+              bgColor={progressColor}
               isLabelVisible={false}
               completed={progress}
               maxCompleted={1}

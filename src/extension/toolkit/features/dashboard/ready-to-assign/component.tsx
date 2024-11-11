@@ -16,15 +16,16 @@ import Spinner from 'toolkit/components/spinner/component';
 import SideDrawer from 'toolkit/components/side-drawer/component';
 import { BudgetRollupCalculator } from 'toolkit/core/calculators/budgetRollupCalculator';
 import { RollupComponent, RollupData } from './rollup';
+import { useWidgetSettings } from 'toolkit/extension/hooks/useWidgetSettings';
 
 interface State {
   canRollup: boolean,
   rollupAmount: number
 }
 
-export function ReadyToAssignComponent({ settings }: { settings: any }) {
+export function ReadyToAssignComponent() {
 
-  //const userSettingsContext = useContext(UserSettingsContext);
+  const settings = useWidgetSettings('ReadyToAssignFeature');
 
   const isDark = settings?.theme === 'dark';
 

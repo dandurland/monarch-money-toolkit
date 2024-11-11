@@ -3,7 +3,6 @@ import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@ap
 import { setContext } from '@apollo/client/link/context';
 import { getMonarchAuthToken } from 'toolkit/core/utilities/monarchSettings';
 import { Outlet } from 'react-router-dom';
-import { UserSettingsProvider } from 'toolkit/extension/providers/user-settings-provider';
 
 export default function Root() {
   const httpLink = createHttpLink({
@@ -29,11 +28,11 @@ export default function Root() {
 
   return (
     <>
-      <UserSettingsProvider>
+    
         <ApolloProvider client={client}>
           <Outlet />
         </ApolloProvider>
-      </UserSettingsProvider>
+ 
     </>
   );
 }

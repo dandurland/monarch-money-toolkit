@@ -35,7 +35,7 @@ export class ReadyToAssignFeature extends Widget {
     const reactDiv = document.createElement('div')
     reactDiv.id = READY_TO_ASSIGN_CONTAINER_ID;
     const root = createRoot(reactDiv); // createRoot(container!) if you use TypeScript
-    root.render(<ReadyToAssignComponent settings={settings} />);
+    root.render(<ReadyToAssignComponent/>);
 
     const scrollRoot = document.querySelectorAll('[class*=Droppable__Unstyled]')[1];
     scrollRoot.insertBefore(reactDiv, scrollRoot.children[0]);
@@ -49,7 +49,7 @@ export class ReadyToAssignFeature extends Widget {
     return (
       <Fragment key={key}>
 
-        <ReadyToAssignComponent settings={settings} />
+        <ReadyToAssignComponent/>
 
       </Fragment>);
   }

@@ -11,7 +11,8 @@ import { Features } from './features/features';
 import { Router } from "@remix-run/router";
 import { getMonarchTheme } from 'toolkit/core/utilities/monarchSettings';
 import Root from './app/root';
-import { DashboardWidget, DashboardWidgetSettings } from './app/dashboard-widget/component';
+import { DashboardWidget } from './app/dashboard-widget/component';
+import featureStore from './features/feature-store';
 
 export class MMToolkit {
 
@@ -26,13 +27,6 @@ export class MMToolkit {
 
   private initalizeApp() {
 
-    const theme = getMonarchTheme();
-
-    const s = {
-      theme: theme,
-      widgets: this.features?.featureInstances?.filter((f) => f instanceof Widget)
-    }
-
     const routes = [
       {
         path: "/",
@@ -42,7 +36,7 @@ export class MMToolkit {
             path: "dashboard",
             loader: () => {
               return {
-                theme: theme,
+                theme: getMonarchTheme(),
                 widgets: this.features?.featureInstances?.filter((f) => f instanceof Widget && f.settings.enabled).map((f) => f as Widget) ?? []
               }
             },
@@ -65,7 +59,7 @@ export class MMToolkit {
 
     root.render(
       <StrictMode>
-        <RouterProvider router={this.router} />
+          <RouterProvider router={this.router} />
       </StrictMode>
     );
 
@@ -125,6 +119,8 @@ export class MMToolkit {
         this.features = new Features(event.data.settings);
         this.waitForMonarchMoney();
 
+        featureStore.settingsChanged(event.data.settings);
+
         break;
       }
       case InboundMessageType.SettingChanged: {
@@ -140,7 +136,9 @@ export class MMToolkit {
 
           if(value.enabled)
           {
-            feature.settings = value;
+            featureStore.settingChanged(name, value);
+
+            feature.settings = {...feature.settings, ...value};
             this.injectFeatureCss(feature);
             this.initalizeFeature(feature);
           } else {

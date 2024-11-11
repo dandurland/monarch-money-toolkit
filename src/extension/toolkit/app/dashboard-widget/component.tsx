@@ -38,9 +38,9 @@ export function DashboardWidget() {
             <span>Monarch Money Toolkit</span>
           </$WidgetHeader>
           {widgets &&
-            <div>
+            <>
               {widgets}
-            </div>
+            </>
           }
         </$WidgetRoot>
       </Portal>

@@ -1,9 +1,11 @@
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { getUserSettings } from 'toolkit/core/settings';
 import { ThemePreference, getMonarchTheme } from 'toolkit/core/utilities/monarchSettings';
+import featureStore from '../toolkit/features/feature-store';
 
-const UserSettingsContext = createContext({});
+
+const UserSettingsContext = createContext(featureStore.getSnapshot());
 const UserSettingsDispatchContext = createContext({});
 
 /*function UserSettingsProvider({ children }: { children: any }) {
@@ -31,19 +33,15 @@ const UserSettingsDispatchContext = createContext({});
 
 function UserSettingsProvider({ children }: { children: any }) {
 
-  const [settings, setSettings] = useState(ThemePreference.system);
+  const [settings, setSettings] = useState(featureStore.getSnapshot());
 
   useEffect(() => {
-    const theme = getMonarchTheme();
-    setSettings(theme);
-
+    featureStore.subscribe(setSettings);
   }, []);
 
   return (
     <UserSettingsContext.Provider value={settings}>
-      <UserSettingsDispatchContext.Provider value={setSettings}>
-        {children}
-      </UserSettingsDispatchContext.Provider>
+      {children}
     </UserSettingsContext.Provider>
   )
 }

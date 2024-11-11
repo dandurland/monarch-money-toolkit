@@ -31,7 +31,7 @@ export class EffectiveBalanceFeature extends Widget {
     const reactDiv = document.createElement('div')
     reactDiv.id = CONTAINER_ID;
     const root = createRoot(reactDiv); // createRoot(container!) if you use TypeScript
-    root.render(<EffectiveBalance settings={settings} />);
+    root.render(<EffectiveBalance />);
 
     const scrollRoot = document.querySelectorAll('[class*=Droppable__Unstyled]')[1];
     scrollRoot.insertBefore(reactDiv, scrollRoot.children[0]);
@@ -46,7 +46,7 @@ export class EffectiveBalanceFeature extends Widget {
     return (
       <Fragment key={key}>
         <Suspense fallback={<Spinner />}>
-          <EffectiveBalance settings={settings} />
+          <EffectiveBalance />
         </Suspense>
       </Fragment>);
   }
