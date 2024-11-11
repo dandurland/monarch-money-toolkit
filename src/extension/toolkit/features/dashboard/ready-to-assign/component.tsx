@@ -83,7 +83,7 @@ export function ReadyToAssignComponent() {
     <div>
       <ErrorBoundary fallback={<div>Error</div>}>
         {!loading ? (
-          <$Widget id='mmtk-ready-to-assign' $isDark={isDark}>
+          <$Widget id='mmtk-ready-to-assign' $theme={settings.theme}>
             <$WidgetTitle>Ready To Assign</$WidgetTitle>
             <$FlexContainerRoot>
               <$TotalCharges>{formatCurrency(state.rollupAmount)}</$TotalCharges>

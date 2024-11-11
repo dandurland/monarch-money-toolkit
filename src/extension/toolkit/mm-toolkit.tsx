@@ -9,10 +9,10 @@ import { createRoot } from 'react-dom/client';
 import { RouterProvider, createMemoryRouter } from 'react-router';
 import { Features } from './features/features';
 import { Router } from "@remix-run/router";
-import { getMonarchTheme } from 'toolkit/core/utilities/monarchSettings';
 import Root from './app/root';
 import { DashboardWidget } from './app/dashboard-widget/component';
 import featureStore from './features/feature-store';
+import { getTheme } from 'toolkit/core/utilities/theme';
 
 export class MMToolkit {
 
@@ -36,8 +36,8 @@ export class MMToolkit {
             path: "dashboard",
             loader: () => {
               return {
-                theme: getMonarchTheme(),
-                widgets: this.features?.featureInstances?.filter((f) => f instanceof Widget && f.settings.enabled).map((f) => f as Widget) ?? []
+                theme: getTheme(),
+                widgets: this.features?.featureInstances?.filter((f) => f instanceof Widget && f.settings?.enabled).map((f) => f as Widget) ?? []
               }
             },
             element: <DashboardWidget />,

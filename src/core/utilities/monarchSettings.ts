@@ -35,7 +35,7 @@ export async function getMonarchAuthToken(): Promise<string> {
 
 export function getMonarchTheme(): ThemePreference {
 
-  return JSON.parse(JSON.parse(localStorage.getItem('persist:root') ?? '{}').persistentUi).themePreference;
+  return JSON.parse(JSON.parse(localStorage.getItem('persist:root') ?? '{}')?.persistentUi)?.themePreference ?? ThemePreference.system;
 }
 
 export function getMonarchSettingsFromLocalStorage(): MonarchSettings | null {

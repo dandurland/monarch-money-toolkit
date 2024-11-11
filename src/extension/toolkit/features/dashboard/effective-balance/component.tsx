@@ -46,7 +46,7 @@ export function EffectiveBalance() {
   return (
     <div>
       <ErrorBoundary fallback={<div>Error</div>}>
-        <$Widget id='mmtk-effective-balance' $isDark={isDark}>
+        <$Widget id='mmtk-effective-balance' $theme={settings.theme}>
           <$WidgetTitle>Effective Balance</$WidgetTitle>
           <$ProgressBar>
             <ProgressBar

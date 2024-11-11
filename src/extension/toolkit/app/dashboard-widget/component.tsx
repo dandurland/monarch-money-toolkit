@@ -5,11 +5,12 @@ import { ThemePreference } from 'toolkit/core/utilities/monarchSettings';
 import { Widget } from '../../features/dashboard/widget';
 import {
   $WidgetHeader,
-  $WidgetRoot
+  $WidgetRoot,
 } from 'toolkit/components/styles/widget-styles.sc';
+import { ToolkitTheme } from 'toolkit/core/utilities/theme';
 
 export interface DashboardWidgetSettings {
-  theme: ThemePreference,
+  theme: ToolkitTheme,
   widgets: Widget[]
 };
 
@@ -23,18 +24,17 @@ export function DashboardWidget() {
   const scrollRoot = document.querySelectorAll('[class*=Dashboard__DroppableColumn]')[1];
   scrollRoot.insertBefore(mount, scrollRoot.children[0]);
 
-  const isDark = settings?.theme === 'dark';
   const widgetInstances: Widget[] = settings?.widgets;
 
   const widgets = widgetInstances
     .filter((w) => w.settings.enabled)
-    .map((w) => w.getComponent());
+    .map((w) => w.getComponent(settings.theme));
 
   return (
     <>
       <Portal mount={mount}>
-        <$WidgetRoot $isDark={isDark}>
-          <$WidgetHeader $isDark={isDark}>
+        <$WidgetRoot $theme={settings?.theme}>
+          <$WidgetHeader $theme={settings?.theme}>
             <span>Monarch Money Toolkit</span>
           </$WidgetHeader>
           {widgets &&

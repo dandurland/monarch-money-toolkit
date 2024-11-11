@@ -1,21 +1,23 @@
 import styled, { keyframes } from 'styled-components';
 import { darken } from 'polished';
+import { ThemePreference } from 'toolkit/core/utilities/monarchSettings';
+import { ToolkitTheme } from 'toolkit/core/utilities/theme';
 
 export const $WidgetTitle = styled.div`
   margin-bottom: 12px;
 `;
 
-export const $WidgetRoot = styled.div<{ $isDark?: boolean }> `
+export const $WidgetRoot = styled.div<{ $theme?: ToolkitTheme }> `
   display: flex;
   flex-flow: column;
   -webkit-box-pack: start;
   place-content: stretch flex-start;
   border-radius: 8px;
   box-shadow: rgba(0, 40, 100, 0.04) 0px 4px 8px;
-  background-color: ${props => props.$isDark ? '#0D2C5C' : '#ffffff'};
+  background-color: ${props => props.$theme === ToolkitTheme.dark ? '#0D2C5C' : '#ffffff'};
 `;
 
-export const $Widget = styled.div<{ $isDark?: boolean }> `
+export const $Widget = styled.div<{ $theme?: ToolkitTheme }> `
   display: flex;
   flex-flow: column;
   -webkit-box-pack: start;
@@ -23,10 +25,10 @@ export const $Widget = styled.div<{ $isDark?: boolean }> `
   border-radius: 8px;
   box-shadow: rgba(0, 40, 100, 0.04) 0px 4px 8px;
   padding: 16px 24px;
-  background-color: ${props => props.$isDark ? '#0D2C5C' : '#ffffff'};
+  background-color: ${props => props.$theme === ToolkitTheme.dark ? '#0D2C5C' : '#ffffff'};
 `;
 
-export const $WidgetHeader = styled.div<{ $isDark?: boolean }> `
+export const $WidgetHeader = styled.div<{ $theme?: ToolkitTheme }> `
   display: flex;
   flex-flow: row;
   -webkit-box-pack: start;
@@ -34,7 +36,7 @@ export const $WidgetHeader = styled.div<{ $isDark?: boolean }> `
   margin: 0px;
   gap: 0px;
   padding: 20px 20px 16px 24px;
-  border-bottom: 1px solid ${props => props.$isDark ? '#082043' : '#f4f8f0'};
+  border-bottom: 1px solid ${props => props.$theme === ToolkitTheme.dark ? '#082043' : '#f4f8f0'};
   font-size: 20px;
   font-weight: 500;
   line-height: 150%;
