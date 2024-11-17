@@ -1,17 +1,18 @@
 
 import React, { Fragment, ReactNode, Suspense } from 'react';
-import { EffectiveBalance } from './component';
+import { OverBudgetWidget } from './component';
 import { Widget } from '../widget';
 import { unmountComponentAtNode } from 'react-dom';
 import { uid } from 'uid';
 import Spinner from 'toolkit/components/spinner/component';
 import { ToolkitTheme } from 'toolkit/core/theme/getUITheme';
 
-const CONTAINER_ID = 'mmtk-effective-balance';
+const CONTAINER_ID = 'mmtk-over-budget';
 
-export class EffectiveBalanceFeature extends Widget {
+export class OverBudgetFeature extends Widget {
 
   initialize(): void {
+
   }
 
   getComponent(theme: ToolkitTheme): ReactNode {
@@ -22,7 +23,7 @@ export class EffectiveBalanceFeature extends Widget {
     return (
       <Fragment key={key}>
         <Suspense fallback={<Spinner />}>
-          <EffectiveBalance />
+          <OverBudgetWidget />
         </Suspense>
       </Fragment>);
   }

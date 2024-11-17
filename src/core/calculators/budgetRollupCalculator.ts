@@ -14,7 +14,6 @@ export interface BudgetRollupData {
   rollupCategories: BudgetRollupCategoryData[];
 }
 
-
 export class BudgetRollupCalculator {
 
   getBudgetRollupData(data: JointPlanningData, rollupCategoryId: string, includeOverspentCategories: boolean, currentMonth: Month, lastMonth: Month) : BudgetRollupData | null {

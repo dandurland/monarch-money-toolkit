@@ -1,13 +1,18 @@
 import React from 'react';
 import Portal from "../portal";
+import styled, { ThemeProvider } from 'styled-components';
 import { useLoaderData } from 'react-router';
-import { ThemePreference } from 'toolkit/core/utilities/monarchSettings';
 import { Widget } from '../../features/dashboard/widget';
 import {
   $WidgetHeader,
   $WidgetRoot,
 } from 'toolkit/components/styles/widget-styles.sc';
-import { ToolkitTheme } from 'toolkit/core/utilities/theme';
+import { ToolkitTheme } from 'toolkit/core/theme/getUITheme';
+import { makeTheme } from 'toolkit/core/theme/makeTheme';
+
+const $WidgetRowRoot = styled.div<{ $theme?: ToolkitTheme }>`
+  border-top: 5px solid ${props => props.$theme === ToolkitTheme.dark ? '#082043' : '#f4f8f0'};
+`;
 
 export interface DashboardWidgetSettings {
   theme: ToolkitTheme,
@@ -28,21 +33,25 @@ export function DashboardWidget() {
 
   const widgets = widgetInstances
     .filter((w) => w.settings.enabled)
-    .map((w) => w.getComponent(settings.theme));
+    .map((w) => <$WidgetRowRoot key={w.featureName} $theme={settings.theme}>{w.getComponent(settings.theme)}</$WidgetRowRoot>);
+
+  const theme = makeTheme();
 
   return (
     <>
       <Portal mount={mount}>
-        <$WidgetRoot $theme={settings?.theme}>
-          <$WidgetHeader $theme={settings?.theme}>
-            <span>Monarch Money Toolkit</span>
-          </$WidgetHeader>
-          {widgets &&
-            <>
-              {widgets}
-            </>
-          }
-        </$WidgetRoot>
+        <ThemeProvider theme={theme}>
+          <$WidgetRoot $theme={settings?.theme}>
+            <$WidgetHeader $theme={settings?.theme}>
+              <span>Monarch Money Toolkit</span>
+            </$WidgetHeader>
+            {widgets &&
+              <>
+                {widgets}
+              </>
+            }
+          </$WidgetRoot>
+        </ThemeProvider>
       </Portal>
     </>
   );

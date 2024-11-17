@@ -1,12 +1,11 @@
-
-import { getMonarchTheme, ThemePreference } from "./monarchSettings";
+import { getMonarchTheme, ThemePreference } from "../utilities/monarchSettings";
 
 export enum ToolkitTheme {
   light = 'light',
   dark = 'dark'
 }
 
-export function getTheme() : ToolkitTheme {
+export function getUITheme() : ToolkitTheme {
 
   const monarchTheme = getMonarchTheme();
 

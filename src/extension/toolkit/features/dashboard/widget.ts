@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { Feature } from '../feature';
-import { ToolkitTheme } from 'toolkit/core/utilities/theme';
+import { ToolkitTheme } from 'toolkit/core/theme/getUITheme';
 
 export class Widget extends Feature {
 

@@ -18,6 +18,15 @@ const settingsLut = {
       "component": "EffectiveBalanceSettings"
     }
   },
+  "OverBudgetFeature": {
+    "name": "OverBudgetFeature",
+    "default": false,
+    "title": "Over Budget Categories",
+    "description": "Current credit card balance(s) against depoitory acocunt balance(s).",
+    "settings": {
+      "component": "OverBudgetSettings"
+    }
+  },
   "ColorOverspentCategoriesFeature": {
     "name": "ColorOverspentCategoriesFeature",
     "default": true,

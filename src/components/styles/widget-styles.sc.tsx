@@ -1,11 +1,11 @@
 import styled, { keyframes } from 'styled-components';
 import { darken } from 'polished';
 import { ThemePreference } from 'toolkit/core/utilities/monarchSettings';
-import { ToolkitTheme } from 'toolkit/core/utilities/theme';
+import { ToolkitTheme } from 'toolkit/core/theme/getUITheme';
 
-export const $WidgetTitle = styled.div`
+/*export const $WidgetTitle = styled.div`
   margin-bottom: 12px;
-`;
+`;*/
 
 export const $WidgetRoot = styled.div<{ $theme?: ToolkitTheme }> `
   display: flex;
@@ -17,18 +17,40 @@ export const $WidgetRoot = styled.div<{ $theme?: ToolkitTheme }> `
   background-color: ${props => props.$theme === ToolkitTheme.dark ? '#0D2C5C' : '#ffffff'};
 `;
 
-export const $Widget = styled.div<{ $theme?: ToolkitTheme }> `
+export const $Widget = styled.div`
   display: flex;
   flex-flow: column;
   -webkit-box-pack: start;
   place-content: stretch flex-start;
   border-radius: 8px;
-  box-shadow: rgba(0, 40, 100, 0.04) 0px 4px 8px;
-  padding: 16px 24px;
-  background-color: ${props => props.$theme === ToolkitTheme.dark ? '#0D2C5C' : '#ffffff'};
+  backgound-color ${({ theme }) => `${theme.color.white}`};
 `;
 
-export const $WidgetHeader = styled.div<{ $theme?: ToolkitTheme }> `
+export const $WidgetTitle = styled.span`
+  font-size: 12px;
+  font-weight: 600;
+  color: ${({theme}) => `${theme.color.textLight}`};
+  text-transform: uppercase;
+  line-height: 150%;
+  letter-spacing: 1.2px;
+  margin-bottom: 12px;
+`;
+
+export const $WidgetLinkArrow = styled.span`
+  width: 14px;
+  height: 14px;
+  margin-left: 4px;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: 0.1s ease-out;
+
+   ${$WidgetTitle}:hover & {
+    opacity: 1;
+    transform: none;
+  }
+`;
+
+export const $WidgetHeader = styled.div<{ $theme?: ToolkitTheme }>`
   display: flex;
   flex-flow: row;
   -webkit-box-pack: start;
@@ -41,6 +63,11 @@ export const $WidgetHeader = styled.div<{ $theme?: ToolkitTheme }> `
   font-weight: 500;
   line-height: 150%;
 `;
+
+export const $ClickableWidgetHeader = styled.a`
+  padding: ${({ theme }) => `${theme.spacing.default} ${theme.spacing.xlarge}`};
+`;
+
 
 export const $WidgetSettingsButton = styled.button<{ $isDark?: boolean }>`
     background-color: transparent;
@@ -63,7 +90,7 @@ export const $FlexContainerRoot = styled.div`
   gap: 0px;
 `;
 
-const $Total = styled.span`
+export const $Total = styled.span`
   font-style: normal;
   text-align: inherit;
   line-height: 150%;

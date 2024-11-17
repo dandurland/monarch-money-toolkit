@@ -1,4 +1,4 @@
-import { TypedDocumentNode, gql, useQuery } from "@apollo/client";
+import { OperationVariables, TypedDocumentNode, UseSuspenseQueryResult, gql, useBackgroundQuery, useQuery, useSuspenseQuery } from "@apollo/client";
 import { BudgetData, CategoryGroup } from "../monarch-money-api/model";
 import { getMonarchDateString } from "toolkit/extension/utilities/date";
 
@@ -11,7 +11,8 @@ export const GetJointPlanningData: TypedDocumentNode<JointPlanningData> = gql`qu
   budgetData(startMonth: $startDate, endMonth: $endDate) {
     monthlyAmountsByCategory {
       category {
-        id
+        id,
+        name
         __typename
       }
       monthlyAmounts {
@@ -179,6 +180,40 @@ export function useGetJointPlanningData(startDate: Date, endDate: Date) {
 
   return useQuery<JointPlanningData>(GetJointPlanningData, {
     fetchPolicy: "no-cache",
+    variables: {
+      startDate: getMonarchDateString(startDate),
+      endDate: getMonarchDateString(endDate),
+      useLegacyGoals: false,
+      useV2Goals: true
+    }
+  });
+}
+
+export function useSuspenseGetJointPlanningData(startDate: Date, endDate: Date, fetchPolicy?: any) : UseSuspenseQueryResult<JointPlanningData, OperationVariables> {
+
+  if(!fetchPolicy){
+    fetchPolicy = 'cache-first';
+  }
+
+  return useSuspenseQuery<JointPlanningData>(GetJointPlanningData, {
+    fetchPolicy: fetchPolicy,
+    variables: {
+      startDate: getMonarchDateString(startDate),
+      endDate: getMonarchDateString(endDate),
+      useLegacyGoals: false,
+      useV2Goals: true
+    }
+  });
+}
+
+export function useBackgroundGetJointPlanningData(startDate: Date, endDate: Date, fetchPolicy?: any) {
+
+  if(!fetchPolicy){
+    fetchPolicy = 'cache-first';
+  }
+
+  return useBackgroundQuery<JointPlanningData>(GetJointPlanningData, {
+    fetchPolicy: fetchPolicy,
     variables: {
       startDate: getMonarchDateString(startDate),
       endDate: getMonarchDateString(endDate),

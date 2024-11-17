@@ -4,7 +4,7 @@ import { ReadyToAssignComponent } from './component';
 import { Widget } from '../widget';
 import { unmountComponentAtNode } from 'react-dom';
 import { uid } from 'uid';
-import { ToolkitTheme } from 'toolkit/core/utilities/theme';
+import { ToolkitTheme } from 'toolkit/core/theme/getUITheme';
 
 const READY_TO_ASSIGN_CONTAINER_ID = 'mmtk-ready-to-assign';
 

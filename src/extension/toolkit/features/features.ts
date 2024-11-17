@@ -2,6 +2,7 @@ import { Feature } from "./feature";
 import { ColorOverspentCategoriesFeature } from "./budget/color-overspent-categories";
 import { EffectiveBalanceFeature } from "./dashboard/effective-balance";
 import { ReadyToAssignFeature } from "./dashboard/ready-to-assign";
+import { OverBudgetFeature } from "./dashboard/over-budget/feature";
 
 export class Features {
 
@@ -18,6 +19,12 @@ export class Features {
     {
       const feature = new EffectiveBalanceFeature();
       feature.settings = settings['EffectiveBalanceFeature'];
+      this.instances.push(feature);
+    }
+
+    {
+      const feature = new OverBudgetFeature();
+      feature.settings = settings['OverBudgetFeature'];
       this.instances.push(feature);
     }
 

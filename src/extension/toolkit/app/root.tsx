@@ -5,6 +5,7 @@ import { getMonarchAuthToken } from 'toolkit/core/utilities/monarchSettings';
 import { Outlet } from 'react-router-dom';
 
 export default function Root() {
+
   const httpLink = createHttpLink({
     uri: 'https://api.monarchmoney.com/graphql',
   });
@@ -28,11 +29,9 @@ export default function Root() {
 
   return (
     <>
-    
-        <ApolloProvider client={client}>
-          <Outlet />
-        </ApolloProvider>
- 
+      <ApolloProvider client={client}>
+        <Outlet />
+      </ApolloProvider>
     </>
   );
 }

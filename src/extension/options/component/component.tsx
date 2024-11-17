@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { EffectiveBalanceSettings } from 'toolkit/extension/toolkit/features/dashboard/effective-balance/settings';
 import { ReadyToAssignSettings } from 'toolkit/extension/toolkit/features/dashboard/ready-to-assign/settings';
 import { ColorOverspentCategoriesSettings } from 'toolkit/extension/toolkit/features/budget/color-overspent-categories/Settings';
+import { OverBudgetSettings } from 'toolkit/extension/toolkit/features/dashboard/over-budget/settings';
 
 const $Root = styled.div`
   display: grid;
@@ -63,6 +64,9 @@ export function Options({ settings }: { settings: any }) {
         <$SettingsGroup>
           <$Setting>
             <EffectiveBalanceSettings settings={settings?.EffectiveBalanceFeature} />
+          </$Setting>
+          <$Setting>
+            <OverBudgetSettings settings={settings?.OverBudgetFeature} />
           </$Setting>
           <$Setting>
             <ReadyToAssignSettings settings={settings?.ReadyToAssignFeature} />

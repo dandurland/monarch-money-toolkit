@@ -1,7 +1,8 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 
 import {
-  faCog
+  faCog,
+  faArrowRight
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -12,5 +13,6 @@ import {
 library.add(
   faGithubAlt,
   faGithub,
-  faCog
+  faCog,
+  faArrowRight
 );

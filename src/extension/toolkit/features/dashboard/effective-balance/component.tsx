@@ -2,19 +2,25 @@ import ProgressBar from '@ramonak/react-progress-bar';
 import React, { useContext, useEffect, useSyncExternalStore } from 'react';
 import { formatCurrency } from 'toolkit/extension/utilities/currency';
 import {
-  $FlexContainerRoot,
   $ProgressBar,
   $TotalAssets,
   $TotalCharges,
   $Widget,
   $WidgetTitle
 } from 'toolkit/components/styles/widget-styles.sc';
+
+import $FlexContainer from 'toolkit/components/styles/flex-container.sc';
 import { useSuspenseQuery } from '@apollo/client';
 import { GetAccounts } from 'toolkit/core/graphql/getAccounts';
 import { ErrorBoundary } from '@sentry/react';
 import { uid } from 'uid';
 import { useWidgetSettings } from 'toolkit/extension/hooks/useWidgetSettings';
+import styled from 'styled-components';
 
+const $EffectiveBalanceRoot = styled.div`
+    padding: ${({ theme }) => `${theme.spacing.default} ${theme.spacing.xlarge}`};
+  `;
+  
 export function EffectiveBalance() {
 
   const settings = useWidgetSettings('EffectiveBalanceFeature');
@@ -46,30 +52,32 @@ export function EffectiveBalance() {
   return (
     <div>
       <ErrorBoundary fallback={<div>Error</div>}>
-        <$Widget id='mmtk-effective-balance' $theme={settings.theme}>
-          <$WidgetTitle>Effective Balance</$WidgetTitle>
-          <$ProgressBar>
-            <ProgressBar
-              borderRadius='4px'
-              height='8px'
-              bgColor={progressColor}
-              isLabelVisible={false}
-              completed={progress}
-              maxCompleted={1}
-            />
-          </$ProgressBar>
-          <$FlexContainerRoot>
-            <$TotalCharges>
-              <span>{formatCurrency(creditTotal)} </span>
-              total charges
-            </$TotalCharges>
+        <$EffectiveBalanceRoot>
+          <$Widget id='mmtk-effective-balance'>
+            <$WidgetTitle>Effective Balance</$WidgetTitle>
+            <$ProgressBar>
+              <ProgressBar
+                borderRadius='4px'
+                height='8px'
+                bgColor={progressColor}
+                isLabelVisible={false}
+                completed={progress}
+                maxCompleted={1}
+              />
+            </$ProgressBar>
+            <$FlexContainer justifyBetween>
+              <$TotalCharges>
+                <span>{formatCurrency(creditTotal)} </span>
+                total charges
+              </$TotalCharges>
 
-            <$TotalAssets>
-              <span>{formatCurrency(assetsTotal)} </span>
-              total assets
-            </$TotalAssets>
-          </$FlexContainerRoot>
-        </$Widget>
+              <$TotalAssets>
+                <span>{formatCurrency(assetsTotal)} </span>
+                total assets
+              </$TotalAssets>
+            </$FlexContainer>
+          </$Widget>
+        </$EffectiveBalanceRoot>
       </ErrorBoundary>
     </div>
   );

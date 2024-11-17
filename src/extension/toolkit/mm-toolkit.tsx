@@ -12,7 +12,8 @@ import { Router } from "@remix-run/router";
 import Root from './app/root';
 import { DashboardWidget } from './app/dashboard-widget/component';
 import featureStore from './features/feature-store';
-import { getTheme } from 'toolkit/core/utilities/theme';
+import { getUITheme } from 'toolkit/core/theme/getUITheme';
+import ReactDOM from 'react-dom';
 
 export class MMToolkit {
 
@@ -36,7 +37,7 @@ export class MMToolkit {
             path: "dashboard",
             loader: () => {
               return {
-                theme: getTheme(),
+                theme: getUITheme(),
                 widgets: this.features?.featureInstances?.filter((f) => f instanceof Widget && f.settings?.enabled).map((f) => f as Widget) ?? []
               }
             },
@@ -56,12 +57,14 @@ export class MMToolkit {
     const root = createRoot(reactDiv);
     const rootElement = document.getElementById('root');
     rootElement?.append(reactDiv);
-
     root.render(
       <StrictMode>
           <RouterProvider router={this.router} />
       </StrictMode>
     );
+
+    //__REACT_DEVTOOLS_GLOBAL_HOOK__;
+    //const rootFiber =  (document.getElementById("root") as any)?._reactRootContainer._internalRoot.current;
 
     const url = new URL(window.location.href);
     this.navigate(url.pathname);

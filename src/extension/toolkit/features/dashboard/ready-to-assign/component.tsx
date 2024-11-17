@@ -5,8 +5,8 @@ import {
   $Widget,
   $WidgetTitle,
   $TotalCharges,
-  $FlexContainerRoot,
 } from 'toolkit/components/styles/widget-styles.sc';
+import $FlexContainer from 'toolkit/components/styles/flex-container.sc';
 
 import { $FlatButton } from 'toolkit/components/styles/buttons.sc';
 import { useGetJointPlanningData } from 'toolkit/core/graphql/getJointPlanningData';
@@ -83,14 +83,14 @@ export function ReadyToAssignComponent() {
     <div>
       <ErrorBoundary fallback={<div>Error</div>}>
         {!loading ? (
-          <$Widget id='mmtk-ready-to-assign' $theme={settings.theme}>
+          <$Widget id='mmtk-ready-to-assign'>
             <$WidgetTitle>Ready To Assign</$WidgetTitle>
-            <$FlexContainerRoot>
+            <$FlexContainer justifyBetween>
               <$TotalCharges>{formatCurrency(state.rollupAmount)}</$TotalCharges>
               {state.canRollup && (
                 <$FlatButton $color={"#32AAF0"} $ghost={isDark} onClick={() => onRollupClicked()}>Rollup Last Month</$FlatButton>
               )}
-            </$FlexContainerRoot>
+            </$FlexContainer>
             <SideDrawer
               isOpen={isRollupOpen}
               onClose={() => onRollupClosed()}
