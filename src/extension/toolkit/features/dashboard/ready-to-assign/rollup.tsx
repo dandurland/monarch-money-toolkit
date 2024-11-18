@@ -1,7 +1,7 @@
 import { DocumentNode, useApolloClient } from "@apollo/client";
 import React from "react";
 import { useState } from "react";
-import { $FlatButton } from "toolkit/components/styles/buttons.sc";
+import { $FlatButton, $FlatGhostButton } from "toolkit/components/styles/buttons.sc";
 import { BudgetRollupData } from "toolkit/core/calculators/budgetRollupCalculator";
 import { CommonUpdateBudgetItemMutation, UpdateBudgetItemInput } from "toolkit/core/graphql/mutations/commonUpdateBudgetItemMutation";
 import { TimeFrame, WebMoveMoneyMutation, WebMoveMoneyMutationInput } from "toolkit/core/graphql/mutations/webMoveMoneyMutation";
@@ -9,7 +9,6 @@ import { ThemePreference } from "toolkit/core/utilities/monarchSettings";
 import { Month } from "toolkit/extension/utilities/date";
 
 export interface RollupData {
-  theme: ThemePreference,
   budgetData: BudgetRollupData | null;
   rollupCategoryId: string;
   currentMonth: Month;
@@ -18,7 +17,6 @@ export interface RollupData {
 
 export function RollupComponent({ data }: { data: RollupData }) {
 
-  const isDark = data.theme === ThemePreference.dark;
   const [isRollingUp, setIsRollingUp] = useState(false);
 
   const client = useApolloClient();
@@ -50,7 +48,7 @@ export function RollupComponent({ data }: { data: RollupData }) {
   }
 
   return (
-    <$FlatButton $color={"#32AAF0"} $ghost={isDark} onClick={() => onRollupClicked()}>Rollup Last Month</$FlatButton>
+    <$FlatGhostButton onClick={() => onRollupClicked()}>Rollup Last Month</$FlatGhostButton>
   )
 }
 

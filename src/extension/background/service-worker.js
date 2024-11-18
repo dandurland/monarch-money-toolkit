@@ -1,6 +1,6 @@
 
 import * as Sentry from "@sentry/react";
-import { InboundMessageType } from 'toolkit/messages';
+import { InboundMessageType, OutboundMessageType } from 'toolkit/messages';
 import { getBrowser } from "toolkit/core/common/browser";
 import { ExtensionStorage } from "toolkit/core/common/storage";
 import { AuthStatus } from "toolkit/core/common/storage/models";
@@ -27,6 +27,10 @@ export class ServiceWorker {
 
   onMessage = (message, sender, sendResponse) => {
     switch (message.type) {
+      case OutboundMessageType.OpenOptionsPage: {
+        this.browser.runtime.openOptionsPage();
+        break;
+      }
       default:
         console.log('unknown message', message);
     }

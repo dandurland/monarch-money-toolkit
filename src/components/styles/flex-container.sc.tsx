@@ -67,7 +67,7 @@ type Props = {
     'id' | 'onClick' | 'onMouseEnter' | 'onMouseLeave' | 'style'
   >;
 
-const FlexContainer = styled($Flex)<Props>`
+const Flex = styled($Flex)<Props>`
   margin: ${({
     theme,
     margin,
@@ -111,10 +111,10 @@ const FlexContainer = styled($Flex)<Props>`
   gap: ${({ theme, gap }) => (gap ? theme.spacing[gap] : 0)};
 `;
 
-const $FlexContainer: React.ForwardRefRenderFunction<HTMLDivElement, Props> = (
+const FlexContainer: React.ForwardRefRenderFunction<HTMLDivElement, Props> = (
   props: Props,
   ref,
   // @ts-ignore issue with the children prop
-) => <FlexContainer ref={ref as any} {...props} />;
+) => <Flex ref={ref as any} {...props} />;
 
-export default React.forwardRef($FlexContainer);
+export const $FlexContainer = React.forwardRef(FlexContainer);

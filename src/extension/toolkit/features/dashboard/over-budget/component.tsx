@@ -8,7 +8,7 @@ import {
   $WidgetLinkArrow,
   $WidgetTitle
 } from 'toolkit/components/styles/widget-styles.sc';
-import $FlexContainer from 'toolkit/components/styles/flex-container.sc';
+import { $FlexContainer } from 'toolkit/components/styles/flex-container.sc';
 import { ErrorBoundary } from '@sentry/react';
 import { getCurrentMonth } from 'toolkit/extension/utilities/date';
 import { OverBudgetCalculator } from 'toolkit/core/calculators/overBudgetCalculator';

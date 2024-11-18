@@ -1,7 +1,8 @@
 import staticTheme from './staticTheme';
 import { getThemeColors } from './getThemeColors';
+import { ToolkitTheme } from './getUITheme';
 
-export const makeTheme = () => {
+export const makeTheme = (uiTheme : ToolkitTheme) => {
   const color = getThemeColors();
 
   const spacing = {
@@ -13,5 +14,6 @@ export const makeTheme = () => {
     ...staticTheme,
     spacing,
     color,
+    uiTheme,
   } as const;
 };

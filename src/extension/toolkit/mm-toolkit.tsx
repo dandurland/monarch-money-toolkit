@@ -13,7 +13,6 @@ import Root from './app/root';
 import { DashboardWidget } from './app/dashboard-widget/component';
 import featureStore from './features/feature-store';
 import { getUITheme } from 'toolkit/core/theme/getUITheme';
-import ReactDOM from 'react-dom';
 
 export class MMToolkit {
 
@@ -37,7 +36,7 @@ export class MMToolkit {
             path: "dashboard",
             loader: () => {
               return {
-                theme: getUITheme(),
+                uiTheme: getUITheme(),
                 widgets: this.features?.featureInstances?.filter((f) => f instanceof Widget && f.settings?.enabled).map((f) => f as Widget) ?? []
               }
             },
@@ -101,8 +100,10 @@ export class MMToolkit {
   }
 
   private destroyFeature = (featureName: string) => {
+    
     const style = document.head.querySelector(`#mmtk-${featureName}-style`);
     style?.remove();
+
     const feature = this.features?.featureInstances.find((f) => f.constructor.name === featureName);
     if (!feature) {
       console.error(`Feature not found: ${featureName}`);
@@ -174,14 +175,14 @@ export class MMToolkit {
     });
   }
 
-  private initalizeFeatureStyles() {
+  private initalizeFeatureStyles() : void {
 
     this.features?.featureInstances?.filter(x => x.settings?.enabled).forEach((instance) => {
       this.injectFeatureCss(instance);
     });
   }
 
-  private navigate(path: string): void {
+  private navigate(path: string) : void {
     this.router?.navigate(path);
   }
 

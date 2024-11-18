@@ -1,5 +1,6 @@
 export enum OutboundMessageType {
   ToolkitLoaded = 'mmtk-loaded',
+  OpenOptionsPage = 'mmtk-open-options'
 }
 
 export enum InboundMessageType {

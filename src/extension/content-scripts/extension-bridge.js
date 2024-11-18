@@ -16,9 +16,15 @@ function sendToolkitBootstrapMessage(userSettings) {
 function onToolkitMessage(event) {
   if (event.data && event.data.type) {
     switch (event.data.type) {
-      case OutboundMessageType.ToolkitLoaded:
+      case OutboundMessageType.ToolkitLoaded: {
         initalizeToolkit();
         break;
+      }
+      case OutboundMessageType.OpenOptionsPage: {
+        const { runtime } = getBrowser();
+        runtime.sendMessage(event.data);
+        break;
+      }
     }
   }
 }

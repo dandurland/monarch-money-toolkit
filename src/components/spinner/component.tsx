@@ -1,6 +1,6 @@
 import React from "react";
 import { $LoadingSpinner, $WidgetLoading } from 'toolkit/components/styles/widget-styles.sc'
-import $FlexContainer from 'toolkit/components/styles/flex-container.sc';
+import { $FlexContainer } from "../styles/flex-container.sc";
 
 /*const Spinner = () => {
   return (

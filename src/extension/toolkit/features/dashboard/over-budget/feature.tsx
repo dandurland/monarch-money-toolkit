@@ -5,7 +5,6 @@ import { Widget } from '../widget';
 import { unmountComponentAtNode } from 'react-dom';
 import { uid } from 'uid';
 import Spinner from 'toolkit/components/spinner/component';
-import { ToolkitTheme } from 'toolkit/core/theme/getUITheme';
 
 const CONTAINER_ID = 'mmtk-over-budget';
 
@@ -15,10 +14,7 @@ export class OverBudgetFeature extends Widget {
 
   }
 
-  getComponent(theme: ToolkitTheme): ReactNode {
-
-    const settings = this.settings;
-    settings.theme = theme;
+  getComponent(): ReactNode {
     const key = uid();
     return (
       <Fragment key={key}>

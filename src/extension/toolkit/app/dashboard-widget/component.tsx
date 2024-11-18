@@ -3,25 +3,47 @@ import Portal from "../portal";
 import styled, { ThemeProvider } from 'styled-components';
 import { useLoaderData } from 'react-router';
 import { Widget } from '../../features/dashboard/widget';
-import {
-  $WidgetHeader,
-  $WidgetRoot,
-} from 'toolkit/components/styles/widget-styles.sc';
+import { $FlexContainer } from 'toolkit/components/styles/flex-container.sc';
 import { ToolkitTheme } from 'toolkit/core/theme/getUITheme';
 import { makeTheme } from 'toolkit/core/theme/makeTheme';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { OutboundMessageType } from 'toolkit/messages';
 
-const $WidgetRowRoot = styled.div<{ $theme?: ToolkitTheme }>`
-  border-top: 5px solid ${props => props.$theme === ToolkitTheme.dark ? '#082043' : '#f4f8f0'};
+const $WidgetRowRoot = styled.div`
+  border-top: 5px solid ${({ theme }) => theme.color.grayLightBackground};
+`;
+
+const $WidgetRoot = styled($FlexContainer).attrs({ column: true, justifyStart: true })`
+  border-radius: 8px;
+  box-shadow: rgba(0, 40, 100, 0.04) 0px 4px 8px;
+  background-color: ${({ theme }) => theme.color.white};
+`;
+
+const $WidgetHeader = styled($FlexContainer).attrs({ justifyStart: true })`
+  margin: 0px;
+  gap: 0px;
+  padding: 20px 20px 16px 24px;
+  border-bottom: 1px solid ${({ theme }) => theme.color.grayBackground};
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 150%;
+`;
+
+const $OptionsButton = styled.button`
+  background-color: transparent;
+  border: none;
+  color: ${({ theme }) => theme.uiTheme === ToolkitTheme.dark ? theme.color.blueLight : theme.color.blueDark };
+  cursor: pointer;
 `;
 
 export interface DashboardWidgetSettings {
-  theme: ToolkitTheme,
+  uiTheme: ToolkitTheme
   widgets: Widget[]
 };
 
 export function DashboardWidget() {
 
-  const settings = useLoaderData() as DashboardWidgetSettings;
+  const { uiTheme, widgets } = useLoaderData() as DashboardWidgetSettings;
 
   const mount = document.getElementById("mmtk-dashboard-widget-root")
     ?? Object.assign(document.createElement('div'), { id: "mmtk-dashboard-widget-root" });
@@ -29,25 +51,28 @@ export function DashboardWidget() {
   const scrollRoot = document.querySelectorAll('[class*=Dashboard__DroppableColumn]')[1];
   scrollRoot.insertBefore(mount, scrollRoot.children[0]);
 
-  const widgetInstances: Widget[] = settings?.widgets;
-
-  const widgets = widgetInstances
+  const widgetInstances = widgets
     .filter((w) => w.settings.enabled)
-    .map((w) => <$WidgetRowRoot key={w.featureName} $theme={settings.theme}>{w.getComponent(settings.theme)}</$WidgetRowRoot>);
+    .map((w) => <$WidgetRowRoot key={w.featureName}>{w.getComponent()}</$WidgetRowRoot>);
 
-  const theme = makeTheme();
+  const theme = makeTheme(uiTheme);
+
+  const onOpenOptionsClicked = () => {
+    window.postMessage({ type: OutboundMessageType.OpenOptionsPage }, '*');
+  }
 
   return (
     <>
       <Portal mount={mount}>
         <ThemeProvider theme={theme}>
-          <$WidgetRoot $theme={settings?.theme}>
-            <$WidgetHeader $theme={settings?.theme}>
+          <$WidgetRoot>
+            <$WidgetHeader>
               <span>Monarch Money Toolkit</span>
+              <$OptionsButton onClick={() => onOpenOptionsClicked()}><FontAwesomeIcon icon={['fas', 'cog']} /></$OptionsButton>
             </$WidgetHeader>
-            {widgets &&
+            {widgetInstances &&
               <>
-                {widgets}
+                {widgetInstances}
               </>
             }
           </$WidgetRoot>
@@ -56,23 +81,3 @@ export function DashboardWidget() {
     </>
   );
 }
-
-/*export function DashboardWidget() {
-
-  const data = useLoaderData() as DashboardWidgetSettings;
-
-  const mount = document.getElementById("mmtk-dashboard-widget-root")
-    ?? Object.assign(document.createElement('div'), { id: "mmtk-dashboard-widget-root" });
-
-  const scrollRoot = document.querySelectorAll('[class*=Dashboard__DroppableColumn]')[1];
-  scrollRoot.insertBefore(mount, scrollRoot.children[0]);
-
-  return (
-    <>
-      <Portal mount={mount}>
-        <WidgetHost settings={data} />
-      </Portal>
-    </>
-  );
-
-}*/

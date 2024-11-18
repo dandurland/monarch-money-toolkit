@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { formatCurrency } from 'toolkit/extension/utilities/currency';
-import { Month, getCurrentMonth, getLastMonth, getMonarchDateString } from 'toolkit/extension/utilities/date';
+import { getCurrentMonth, getLastMonth } from 'toolkit/extension/utilities/date';
 import {
   $Widget,
   $WidgetTitle,
-  $TotalCharges,
 } from 'toolkit/components/styles/widget-styles.sc';
-import $FlexContainer from 'toolkit/components/styles/flex-container.sc';
+import { $FlexContainer } from 'toolkit/components/styles/flex-container.sc';
 
-import { $FlatButton } from 'toolkit/components/styles/buttons.sc';
+import { $FlatGhostButton } from 'toolkit/components/styles/buttons.sc';
 import { useGetJointPlanningData } from 'toolkit/core/graphql/getJointPlanningData';
 import { ErrorBoundary } from '@sentry/react';
 import { ThemePreference } from 'toolkit/core/utilities/monarchSettings';
@@ -17,17 +16,33 @@ import SideDrawer from 'toolkit/components/side-drawer/component';
 import { BudgetRollupCalculator } from 'toolkit/core/calculators/budgetRollupCalculator';
 import { RollupComponent, RollupData } from './rollup';
 import { useWidgetSettings } from 'toolkit/extension/hooks/useWidgetSettings';
+import styled from 'styled-components';
+
+const $ReadyToAsssignRoot = styled.div`
+  padding: ${({ theme }) => `${theme.spacing.default} ${theme.spacing.xlarge}`};
+`;
+
+const $Total = styled.span`
+  font-style: normal;
+  text-align: inherit;
+  line-height: 150%;
+  text-transform: none;
+  font-weight: 500;
+`;
+
+const $TotalCharges = styled($Total)`
+  font-size: inherit;
+  color: inherit;
+`;
 
 interface State {
   canRollup: boolean,
   rollupAmount: number
-}
+};
 
 export function ReadyToAssignComponent() {
 
   const settings = useWidgetSettings('ReadyToAssignFeature');
-
-  const isDark = settings?.theme === 'dark';
 
   const [state, setState] = useState<State>({
     canRollup: false,
@@ -45,7 +60,6 @@ export function ReadyToAssignComponent() {
   const budgetData = budgetRollupCalculator.getBudgetRollupData(data!, settings?.rollupCategoryId, settings?.includeOverspentCategories, currentMonth, lastMonth);
 
   const rollupData: RollupData = {
-    theme: settings?.theme === 'dark' ? ThemePreference.dark : ThemePreference.light,
     budgetData: budgetData,
     rollupCategoryId: settings?.rollupCategoryId,
     currentMonth: currentMonth,
@@ -80,15 +94,15 @@ export function ReadyToAssignComponent() {
   }
 
   return (
-    <div>
-      <ErrorBoundary fallback={<div>Error</div>}>
-        {!loading ? (
+    <ErrorBoundary fallback={<div>Error</div>}>
+      {!loading ? (
+        <$ReadyToAsssignRoot>
           <$Widget id='mmtk-ready-to-assign'>
             <$WidgetTitle>Ready To Assign</$WidgetTitle>
             <$FlexContainer justifyBetween>
               <$TotalCharges>{formatCurrency(state.rollupAmount)}</$TotalCharges>
               {state.canRollup && (
-                <$FlatButton $color={"#32AAF0"} $ghost={isDark} onClick={() => onRollupClicked()}>Rollup Last Month</$FlatButton>
+                <$FlatGhostButton onClick={() => onRollupClicked()}>Rollup Last Month</$FlatGhostButton>
               )}
             </$FlexContainer>
             <SideDrawer
@@ -101,9 +115,9 @@ export function ReadyToAssignComponent() {
               <RollupComponent data={rollupData} />
             </SideDrawer>
           </$Widget>
-        ) : (<Spinner />)
-        }
-      </ErrorBoundary>
-    </div>
+        </$ReadyToAsssignRoot>
+      ) : (<Spinner />)
+      }
+    </ErrorBoundary>
   );
 }

@@ -1,21 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-import { darken } from 'polished';
-import { ThemePreference } from 'toolkit/core/utilities/monarchSettings';
 import { ToolkitTheme } from 'toolkit/core/theme/getUITheme';
-
-/*export const $WidgetTitle = styled.div`
-  margin-bottom: 12px;
-`;*/
-
-export const $WidgetRoot = styled.div<{ $theme?: ToolkitTheme }> `
-  display: flex;
-  flex-flow: column;
-  -webkit-box-pack: start;
-  place-content: stretch flex-start;
-  border-radius: 8px;
-  box-shadow: rgba(0, 40, 100, 0.04) 0px 4px 8px;
-  background-color: ${props => props.$theme === ToolkitTheme.dark ? '#0D2C5C' : '#ffffff'};
-`;
 
 export const $Widget = styled.div`
   display: flex;
@@ -50,29 +34,14 @@ export const $WidgetLinkArrow = styled.span`
   }
 `;
 
-export const $WidgetHeader = styled.div<{ $theme?: ToolkitTheme }>`
-  display: flex;
-  flex-flow: row;
-  -webkit-box-pack: start;
-  place-content: stretch flex-start;
-  margin: 0px;
-  gap: 0px;
-  padding: 20px 20px 16px 24px;
-  border-bottom: 1px solid ${props => props.$theme === ToolkitTheme.dark ? '#082043' : '#f4f8f0'};
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 150%;
-`;
-
 export const $ClickableWidgetHeader = styled.a`
   padding: ${({ theme }) => `${theme.spacing.default} ${theme.spacing.xlarge}`};
 `;
 
-
-export const $WidgetSettingsButton = styled.button<{ $isDark?: boolean }>`
+export const $WidgetSettingsButton = styled.button`
     background-color: transparent;
     border: transparent;
-    color: ${props => props.$isDark ? '#ffffff' : 'rgb(46,115,235)'};
+    color: ${({ theme }) => theme.uiTheme === ToolkitTheme.light  ? theme.color.blue : theme.color.white };
     height: 16px;
     width: 16px;
     position: relative;
@@ -90,31 +59,14 @@ export const $FlexContainerRoot = styled.div`
   gap: 0px;
 `;
 
-export const $Total = styled.span`
-  font-style: normal;
-  text-align: inherit;
-  line-height: 150%;
-  text-transform: none;
-  font-weight: 500;
-`;
-
-export const $TotalCharges = styled($Total)`
-  font-size: inherit;
-  color: inherit;
-`;
-
-export const $TotalAssets = styled.span`
-  font-style: normal;
-  text-align: inherit;
-  line-height: 150%;
-  text-transform: none;
-  font-weight: 500;
-  font-size: 14px;
-  color: rgb(120, 134, 163);
-`;
-
 export const $ProgressBar = styled.div`
   margin: 12px 0px;
+`;
+
+export const $WidgetLoading = styled($FlexContainerRoot)`
+  place-content: stretch center;
+  -webkit-box-pack: center;
+  margin: 24px;
 `;
 
 const rotate = keyframes`
@@ -124,12 +76,6 @@ const rotate = keyframes`
   100% {
     transform: rotate(360deg);
   }
-`;
-
-export const $WidgetLoading = styled($FlexContainerRoot)`
-  place-content: stretch center;
-  -webkit-box-pack: center;
-  margin: 24px;
 `;
 
 export const $LoadingSpinner = styled.div`
