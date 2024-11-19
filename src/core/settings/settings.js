@@ -2,7 +2,7 @@
 const settingsLut = {
   "ReadyToAssignFeature": {
     "name": "ReadyToAssignFeature",
-    "default": false,
+    "default": { "enabled" :false },
     "title": "Ready To Assign",
     "description": "Rolls up reamining, unspent budgeted and unbudgeted dollars into a rollover category.",
     "settings": {
@@ -11,7 +11,7 @@ const settingsLut = {
   },
   "EffectiveBalanceFeature": {
     "name": "EffectiveBalanceFeature",
-    "default": false,
+    "default": { "enabled" :false },
     "title": "Effective Balance",
     "description": "Current credit card balance(s) against depoitory acocunt balance(s).",
     "settings": {
@@ -20,7 +20,7 @@ const settingsLut = {
   },
   "OverBudgetFeature": {
     "name": "OverBudgetFeature",
-    "default": false,
+    "default": { "enabled" :false },
     "title": "Over Budget Categories",
     "description": "Current credit card balance(s) against depoitory acocunt balance(s).",
     "settings": {
@@ -29,7 +29,7 @@ const settingsLut = {
   },
   "ColorOverspentCategoriesFeature": {
     "name": "ColorOverspentCategoriesFeature",
-    "default": true,
+    "default": { "enabled" :false },
     "title": "Highlight Overspent Categories",
     "description": "Current credit card balance(s) against depoitory acocunt balance(s).",
     "settings": {

@@ -1,6 +1,5 @@
 export enum AuthStatus {
-    Pending = 'pending',
-    NotLoggedIn = 'notLoggedIn',
+    NoToken = 'noToken',
     Success = 'success',
     Failure = 'failure',
   }

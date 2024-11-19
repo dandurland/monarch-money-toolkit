@@ -23,12 +23,10 @@ module.exports = function (env) {
     mode: 'none',
 
     entry: {
-      'background/service-worker': path.resolve(`${CODE_SOURCE_DIR}/extension/background/index.js`),
+      'background/service-worker': path.resolve(`${CODE_SOURCE_DIR}/extension/background/background.ts`),
       'options/options': path.resolve(`${CODE_SOURCE_DIR}/extension/options/index.tsx`),
       'popup/popup': path.resolve(`${CODE_SOURCE_DIR}/extension/popup/index.tsx`),
-      'content-scripts/extension-bridge': path.resolve(
-        `${CODE_SOURCE_DIR}/extension/content-scripts/extension-bridge.js`
-      ),
+      'content-scripts/toolkit-bridge': path.resolve(`${CODE_SOURCE_DIR}/extension/content-scripts/bridge.js`),
       'web-accessibles/mm-toolkit': path.resolve(`${CODE_SOURCE_DIR}/extension/toolkit/index.js`),
     },
 
