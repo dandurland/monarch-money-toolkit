@@ -1,7 +1,6 @@
-import { MutableRefObject } from 'react';
+import type { MutableRefObject } from 'react';
 import { useEffect } from 'react';
-import { debounce } from '@extension/core';
-import { isNil } from '@extension/core';
+import { debounce, isNil } from '@extension/core';
 
 const DEFAULT_OPTIONS = {
   config: { attributes: true, childList: true, subtree: true, characterData: true },

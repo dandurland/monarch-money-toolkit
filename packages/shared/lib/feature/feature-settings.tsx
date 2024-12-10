@@ -13,9 +13,9 @@ export function EnabledSettings<Data extends EnabledSettings>({
 
   return (
     <>
-      <div className="flex flex-row w-full items-center justify-between gap-2 flex-grow">
+      <div className="flex w-full grow flex-row items-center justify-between gap-2">
         <Switch id="extension-enabled" checked={settings.enabled} onCheckedChange={featureStorage.toggleEnabled} />
-        <div className="flex-grow">{children}</div>
+        <div className="grow">{children}</div>
       </div>
     </>
   );

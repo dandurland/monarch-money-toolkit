@@ -1,4 +1,4 @@
-import { Feature } from '@extension/shared';
+import type { Feature } from '@extension/shared';
 import { TransactionRowHeightFeature } from '@extension/transaction-row-height-feature';
 import { OverBudgetFeature } from '@extension/over-budget-widget';
 import { OverBudgetCountFeature } from '@extension/over-budget-count-feature';

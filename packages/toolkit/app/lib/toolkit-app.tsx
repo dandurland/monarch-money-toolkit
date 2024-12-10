@@ -1,6 +1,7 @@
 import { createMemoryRouter, RouterProvider } from 'react-router';
 import routes from './app/routes';
-import { createRoot, Root } from 'react-dom/client';
+import type { Root } from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 
 import { StrictMode } from 'react';
 import '@extension/ui/dist/global.css';

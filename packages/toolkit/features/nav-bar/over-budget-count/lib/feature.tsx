@@ -2,13 +2,14 @@ import $ from 'jquery';
 import '@extension/ui/dist/global.css';
 //import styles from './styles.css?raw';
 
-import { Fragment, ReactElement } from 'react';
+import type { ReactElement } from 'react';
+import { Fragment } from 'react';
 import { Portal, PortalFeature } from '@extension/shared';
 import { unmountComponentAtNode } from 'react-dom';
 import { OverBudgetCountFeatureSettings } from './settings';
 import { featureStorage } from './feature-storage';
 import { objectIs } from '@extension/core';
-import { EnabledSettings } from '@extension/storage';
+import type { EnabledSettings } from '@extension/storage';
 import { OverBudgetCount } from './components';
 
 const CONTAINER_ID = 'mmtk-over-budget-count';

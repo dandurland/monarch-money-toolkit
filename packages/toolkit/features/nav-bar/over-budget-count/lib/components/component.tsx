@@ -5,7 +5,7 @@ import { OverBudgetCalculator } from './over-budget-calculator';
 export function OverBudgetCount() {
   const currentMonth = getCurrentMonth();
   const { data, loading, error } = useGetJointPlanningData(currentMonth.firstDay, currentMonth.lastDay);
-  if (loading) {
+  if (loading || error) {
     return <></>;
   }
   const calculator = new OverBudgetCalculator();
@@ -13,7 +13,7 @@ export function OverBudgetCount() {
 
   return (
     <ErrorBoundary fallback={<div />}>
-      <span className="inline-block ml-auto pl-2 pr-2 font-semibold text-[10px] uppercase bg-information decoration-blue rounded-sm">
+      <span className="ml-auto inline-block rounded-sm bg-information px-2 text-[10px] font-semibold uppercase decoration-blue">
         {count}
       </span>
     </ErrorBoundary>

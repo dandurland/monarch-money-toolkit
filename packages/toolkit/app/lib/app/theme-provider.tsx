@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect } from 'react';
 import { useStorage } from '@extension/shared';
-import { ToolkitTheme, toolkitThemeStorage } from '@extension/storage';
+import type { ToolkitTheme } from '@extension/storage';
+import { toolkitThemeStorage } from '@extension/storage';
 
 type ThemeProviderProps = {
   children: React.ReactNode;

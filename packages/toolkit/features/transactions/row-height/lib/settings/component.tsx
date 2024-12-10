@@ -1,5 +1,4 @@
-import { EnabledSettings } from '@extension/shared';
-import { useStorage } from '@extension/shared';
+import { EnabledSettings, useStorage } from '@extension/shared';
 import {
   Card,
   CardContent,
@@ -10,7 +9,8 @@ import {
   RadioGroup,
   RadioGroupItem,
 } from '@extension/ui';
-import { featureStorage, RowSize } from '../feature-storage';
+import type { RowSize } from '../feature-storage';
+import { featureStorage } from '../feature-storage';
 
 export function TransactionRowHeightSettings() {
   const settings = useStorage(featureStorage);
@@ -23,7 +23,7 @@ export function TransactionRowHeightSettings() {
 
   return (
     <EnabledSettings featureStorage={featureStorage}>
-      <Card className={settings.enabled ? '' : 'opacity-40 pointer-events-none'}>
+      <Card className={settings.enabled ? '' : 'pointer-events-none opacity-40'}>
         <CardHeader>
           <CardTitle>Transaction Row Height</CardTitle>
           <CardDescription>Change transaction row height</CardDescription>

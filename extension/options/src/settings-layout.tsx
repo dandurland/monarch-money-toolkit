@@ -54,7 +54,7 @@ export function SettingsLayout() {
     <>
       <div className="hidden space-y-6 p-10 pb-16 md:block">
         <div className="flex flex-row items-center">
-          <div className="h-full flex flex-col items-center justify-end">
+          <div className="flex h-full flex-col items-center justify-end">
             <button onClick={goGithub}>
               <img src={chrome.runtime.getURL(logo)} className="h-[20vmin]" alt="logo" />
             </button>
@@ -65,7 +65,7 @@ export function SettingsLayout() {
               <Switch id="extension-enabled" checked={enabled} onCheckedChange={toggleExtension} />
             </div>
           </div>
-          <div className="flex-grow space-y-0.5">
+          <div className="grow space-y-0.5">
             <h2 className="text-2xl font-bold tracking-tight">Settings</h2>
             <p className="text-muted-foreground">Manage Monarch Money Toolkit settings.</p>
           </div>

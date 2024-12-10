@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
 import { ComponentFeature } from './component-feature';
 
 export abstract class PortalFeature extends ComponentFeature {

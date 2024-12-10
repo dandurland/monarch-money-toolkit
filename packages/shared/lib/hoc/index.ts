@@ -1,5 +1,4 @@
 import { withSuspense } from './withSuspense';
-import { withErrorBoundary } from './withErrorBoundary';
-import { ErrorBoundary } from './withErrorBoundary';
+import { withErrorBoundary, ErrorBoundary } from './withErrorBoundary';
 
 export { withSuspense, withErrorBoundary, ErrorBoundary };

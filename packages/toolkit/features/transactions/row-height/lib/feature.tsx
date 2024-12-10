@@ -2,10 +2,12 @@ import $ from 'jquery';
 import large from './large.css?raw';
 import compact from './compact.css?raw';
 import { Feature } from '@extension/shared';
-import { ReactElement, Fragment } from 'react';
+import type { ReactElement } from 'react';
+import { Fragment } from 'react';
 import { TransactionRowHeightSettings } from './settings';
 import { objectIs } from '@extension/core';
-import { Settings, featureStorage } from './feature-storage';
+import type { Settings } from './feature-storage';
+import { featureStorage } from './feature-storage';
 
 type Options = 'compact' | 'default' | 'large';
 

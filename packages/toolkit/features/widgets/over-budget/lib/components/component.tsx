@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import { Suspense, useRef } from 'react';
-import { useMutationObserver } from '@extension/shared';
-import { formatCurrency, getCurrentMonth } from '@extension/shared';
+import { useMutationObserver, formatCurrency, getCurrentMonth } from '@extension/shared';
 import { useSuspenseGetJointPlanningData } from '@extension/monarch';
 import { OverBudgetCalculator } from './over-budget-calculator';
 import { Spinner } from '@extension/ui';
@@ -11,8 +10,7 @@ import { ArrowRight } from 'lucide-react';
 
 const CategoryAmount = ({ amount }: { amount: number }) => {
   return (
-    <div
-      className={`w-1/5 text-ellipsis whitespace-nowrap overflow-hidden text-center ${amount < 0 ? 'text-red-500' : ''}`}>
+    <div className={`w-1/5 truncate text-center ${amount < 0 ? 'text-red-500' : ''}`}>
       {formatCurrency(amount ?? 0)}
     </div>
   );
@@ -20,9 +18,9 @@ const CategoryAmount = ({ amount }: { amount: number }) => {
 
 const OverBudgetRow = ({ item }: { item: any }) => {
   return (
-    <div className="flex flex-row justify-between items-center overflow-x-hidden border-t-[1px] border-t-background w-full">
-      <div className="flex flex-row justify-between items-center w-full py-[14px] px-[24px]">
-        <div className="w-2/5 text-ellipsis whitespace-nowrap overflow-hidden text-left">{item.name}</div>
+    <div className="flex w-full flex-row items-center justify-between overflow-x-hidden border-t border-t-background">
+      <div className="flex w-full flex-row items-center justify-between px-[24px] py-[14px]">
+        <div className="w-2/5 truncate text-left">{item.name}</div>
         <CategoryAmount amount={item.plannedCashFlowAmount ?? 0} />
         <CategoryAmount amount={item.actualAmount} />
 
@@ -35,10 +33,10 @@ const OverBudgetRow = ({ item }: { item: any }) => {
 const OverBudgetHeader = () => {
   return (
     <div className="flex flex-row flex-nowrap justify-between">
-      <div className="flex flex-row justify-end items-center w-full py-[14px] px-[24px]">
-        <div className="w-1/5 text-ellipsis whitespace-nowrap overflow-hidden text-center font-medium">Budget</div>
-        <div className="w-1/5 text-ellipsis whitespace-nowrap overflow-hidden text-center font-medium">Actual</div>
-        <div className="w-1/5 text-ellipsis whitespace-nowrap overflow-hidden text-center font-medium">Remaining</div>
+      <div className="flex w-full flex-row items-center justify-end px-[24px] py-[14px]">
+        <div className="w-1/5 truncate text-center font-medium">Budget</div>
+        <div className="w-1/5 truncate text-center font-medium">Actual</div>
+        <div className="w-1/5 truncate text-center font-medium">Remaining</div>
       </div>
     </div>
   );
@@ -72,17 +70,17 @@ export function OverBudgetWidget() {
   return (
     <ErrorBoundary fallback={<div>Error</div>}>
       <div id="mmtk-over-budget" className="flex flex-col place-content-stretch rounded-lg">
-        <a href="/budget" className="group pt-5 pr-5 pb-4 pl-6 text-gray-400">
-          <div className="flex flex-row items-center text-xs font-semibold uppercase tracking-[1.2px] bottom-3 group-hover:text-lightBlue">
+        <a href="/budget" className="group pb-4 pl-6 pr-5 pt-5 text-gray-400">
+          <div className="bottom-3 flex flex-row items-center text-xs font-semibold uppercase tracking-[1.2px] group-hover:text-lightBlue">
             Over Budget Categories
-            <span className="group-hover:opacity-100 group-hover:transform-none w-4 h-4 ml-1 opacity-0 -translate-x-3 ease-out duration-100">
-              <ArrowRight className="text-current size-4 stroke-2" />
+            <span className="ml-1 size-4 -translate-x-3 opacity-0 duration-100 ease-out group-hover:transform-none group-hover:opacity-100">
+              <ArrowRight className="size-4 stroke-2 text-current" />
             </span>
           </div>
         </a>
         <Suspense
           fallback={
-            <div className="flex flex-row justify-center m-6">
+            <div className="m-6 flex flex-row justify-center">
               <Spinner />
             </div>
           }>

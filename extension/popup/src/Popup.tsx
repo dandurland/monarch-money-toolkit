@@ -1,7 +1,6 @@
 import { useStorage, withErrorBoundary, withSuspense } from '@extension/shared';
 import { toolkitEnabledStorage } from '@extension/storage';
-import { Switch } from '@extension/ui';
-import { Button } from '@extension/ui';
+import { Switch, Button } from '@extension/ui';
 
 const Popup = () => {
   const { enabled } = useStorage(toolkitEnabledStorage);
@@ -9,13 +8,13 @@ const Popup = () => {
   const goGithub = () => chrome.tabs.create({ url: 'https://github.com/dandurland/monarch-money-toolkit' });
   const goSettings = () => chrome.runtime.openOptionsPage();
 
-  async function toggleExtension(e: any) {
+  async function toggleExtension() {
     await toolkitEnabledStorage.toggleEnabled();
   }
 
   return (
-    <div className="absolute bottom-0 top-0 left-0 right-0 text-center h-full p-4">
-      <div className="h-full flex flex-col items-center justify-end">
+    <div className="absolute inset-0 h-full p-4 text-center">
+      <div className="flex h-full flex-col items-center justify-end">
         <button onClick={goGithub}>
           <img src={chrome.runtime.getURL(logo)} className="h-[50vmin]" alt="logo" />
         </button>

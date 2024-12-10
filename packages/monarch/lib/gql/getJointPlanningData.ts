@@ -1,14 +1,7 @@
-import {
-  OperationVariables,
-  TypedDocumentNode,
-  UseSuspenseQueryResult,
-  gql,
-  useBackgroundQuery,
-  useQuery,
-  useSuspenseQuery,
-} from '@apollo/client';
+import type { OperationVariables, TypedDocumentNode, UseSuspenseQueryResult } from '@apollo/client';
+import { gql, useBackgroundQuery, useQuery, useSuspenseQuery } from '@apollo/client';
 import { makeMonarchDate } from '../make-monarch-date';
-import { BudgetData, CategoryGroup } from './models';
+import type { BudgetData, CategoryGroup } from './models';
 
 export interface JointPlanningData {
   budgetData: BudgetData;

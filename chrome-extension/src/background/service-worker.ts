@@ -1,9 +1,12 @@
 import 'webextension-polyfill';
 import { isNil, isNotNil } from '@extension/core';
-import { InboundMessageType, NavigationMessage, OutboundMessageType } from '@extension/shared';
-import { makePersistRoot, PersistRoot } from '@extension/monarch';
+import type { NavigationMessage } from '@extension/shared';
+import { InboundMessageType, OutboundMessageType } from '@extension/shared';
+import type { PersistRoot } from '@extension/monarch';
+import { makePersistRoot } from '@extension/monarch';
 import { AuthProvider } from './auth-provider';
-import { AuthStatus, ToolkitTheme, toolkitThemeStorage } from '@extension/storage';
+import type { ToolkitTheme } from '@extension/storage';
+import { AuthStatus, toolkitThemeStorage } from '@extension/storage';
 import scope from './init-sentry';
 
 const HOST_NAME = 'app.monarchmoney.com';

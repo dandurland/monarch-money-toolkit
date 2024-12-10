@@ -1,11 +1,6 @@
 import { toolkitEnabledStorage } from '@extension/storage';
-import {
-  BootstrapMessage,
-  InboundMessage,
-  InboundMessageType,
-  OutboundMessage,
-  OutboundMessageType,
-} from '@extension/shared';
+import type { BootstrapMessage, InboundMessage, OutboundMessage } from '@extension/shared';
+import { InboundMessageType, OutboundMessageType } from '@extension/shared';
 import { ToolkitApp } from '@extension/toolkit-app';
 import { features } from '@extension/features';
 import '@extension/ui/dist/global.css';
@@ -90,7 +85,7 @@ function destructor() {
   });
 }
 
-var destructionEvent = 'destruct-mmtk-' + chrome.runtime.id;
+const destructionEvent = 'destruct-mmtk-' + chrome.runtime.id;
 document.dispatchEvent(new CustomEvent(destructionEvent));
 document.addEventListener(destructionEvent, destructor);
 

@@ -1,4 +1,5 @@
-import { CategoryGroupType, JointPlanningData } from '@extension/monarch';
+import type { JointPlanningData } from '@extension/monarch';
+import { CategoryGroupType } from '@extension/monarch';
 
 export interface OverBudgetCategory {
   id: string;

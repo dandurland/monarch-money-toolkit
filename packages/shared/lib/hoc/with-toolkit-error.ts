@@ -1,6 +1,7 @@
-import { OutboundMessageType, ToolkitErrorMesssage } from '../messages';
-import { Feature } from '../feature';
-import { ErrorInfo } from 'react';
+import type { ToolkitErrorMesssage } from '../messages';
+import { OutboundMessageType } from '../messages';
+import type { Feature } from '../feature';
+import type { ErrorInfo } from 'react';
 
 export async function withFeatureError(wrappedFunction: Function, feature: Feature) {
   if (typeof wrappedFunction !== 'function') {
