@@ -1,0 +1,45 @@
+{
+  "name": "@extension/options",
+  "version": "0.3.3",
+  "description": "chrome extension - options",
+  "private": true,
+  "sideEffects": true,
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "clean:node_modules": "pnpx rimraf node_modules",
+    "clean:turbo": "rimraf .turbo",
+    "clean": "pnpm clean:turbo && pnpm clean:node_modules",
+    "build": "vite build",
+    "dev": "cross-env __DEV__=true vite build --mode development",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "pnpm lint --fix",
+    "prettier": "prettier . --write --ignore-path ../../.prettierignore",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.11.10",
+    "@extension/shared": "workspace:*",
+    "@extension/storage": "workspace:*",
+    "@extension/ui": "workspace:*",
+    "react-router": "^7.0.1",
+    "react-router-dom": "^7.0.2"
+  },
+  "devDependencies": {
+    "@extension/features": "workspace:*",
+    "@extension/transaction-row-height-feature": "workspace:*",
+    "@extension/monarch": "workspace:*",
+    "@extension/tailwindcss-config": "workspace:*",
+    "@extension/tsconfig": "workspace:*",
+    "@extension/vite-config": "workspace:*",
+    "cross-env": "^7.0.3",
+    "postcss-load-config": "^6.0.1"
+  },
+  "postcss": {
+    "plugins": {
+      "tailwindcss": {},
+      "autoprefixer": {}
+    }
+  }
+}

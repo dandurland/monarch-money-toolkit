@@ -1,28 +1,27 @@
-# workspace files
+# dependencies
+**/node_modules
+
+# testing
+**/coverage
+
+# build
+**/dist
+**/build
+**/dist-zip
+
+# env
+**/.env.*
+**/.env
+
+# etc
 .DS_Store
-.project
 .idea
-codealike.json
-.wakatime-project
+**/.turbo
 
-# build/generated files
-node_modules/
-coverage/
+# compiled
+chrome-extension/public/manifest.json
+**/tailwind-output.css
 
-# extension deploy stuff
-CHANGELOG.md
-certificates/
-save-commands.json
-
-# python files
-.python-version
-*.pyc
-
-# we use yarn -- ignore package-lock in case someone npm installed
-package-lock.json
-yarn-error.log
-
-# build directory
-dist/
-outDir/
-/chrome-profile
+# vite timestamp (because of bug from lib, remove it after fix will have been realased)
+**/vite.config.mts.timestamp-*
+chrome-profile

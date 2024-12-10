@@ -7,10 +7,27 @@
     {
       "type": "chrome",
       "request": "launch",
-      "name": "Launch Chrome against Monarch Money",
+      "name": "Launch Chrome",
       "url": "https://app.monarchmoney.com/",
-      "webRoot": "${workspaceFolder}",
+      "runtimeArgs": ["--load-extension=${workspaceFolder}/dist"],
+      "sourceMaps": true,
+      "webRoot": "${workspaceFolder}/src",
       "userDataDir": "${workspaceFolder}/chrome-profile"
+    },
+    {
+      "name": "run selected spec",
+      "type": "node",
+      "request": "launch",
+      "args": ["wdio.browser.conf.ts", "--spec", "${file}"],
+      "cwd": "${workspaceFolder}/tests/e2e/config",
+      "autoAttachChildProcesses": true,
+      "program": "${workspaceRoot}/tests/e2e/node_modules/@wdio/cli/bin/wdio.js",
+      "console": "integratedTerminal",
+      "skipFiles": [
+        "${workspaceFolder}/node_modules/**/*.js",
+        "${workspaceFolder}/lib/**/*.js",
+        "<node_internals>/**/*.js"
+      ]
     }
   ]
 }

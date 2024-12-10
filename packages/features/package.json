@@ -1,0 +1,31 @@
+{
+  "name": "@extension/features",
+  "version": "0.1.0",
+  "description": "provides common feature support",
+  "private": true,
+  "sideEffects": false,
+  "files": [
+    "dist/**"
+  ],
+  "types": "index.ts",
+  "main": "./dist/index.js",
+  "scripts": {
+    "clean:bundle": "rimraf dist",
+    "clean:node_modules": "pnpx rimraf node_modules",
+    "clean:turbo": "rimraf .turbo",
+    "clean": "pnpm clean:bundle && pnpm clean:node_modules && pnpm clean:turbo",
+    "ready": "node build.mjs",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "pnpm lint --fix",
+    "prettier": "prettier . --write --ignore-path ../../.prettierignore",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@extension/shared": "workspace:*",
+    "@extension/transaction-row-height-feature": "workspace:*",
+    "@extension/over-budget-widget": "workspace:*",
+    "@extension/over-budget-count-feature": "workspace:*",
+    "@extension/tsconfig": "workspace:*"
+  },
+  "dependencies": {}
+}

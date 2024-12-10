@@ -1,0 +1,12 @@
+packages:
+  - "chrome-extension"
+  - "pages/*"
+  - "packages/*"
+  - "tests/*"
+  - "extension/*"
+  - "packages/toolkit/*"
+  - "packages/toolkit/features/*"
+  - "packages/toolkit/features/widgets/*"
+  - "packages/toolkit/features/transactions/*"
+  - "packages/toolkit/features/dashboard/*"
+  - "packages/toolkit/features/nav-bar/*"

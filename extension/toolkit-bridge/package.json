@@ -1,0 +1,46 @@
+{
+  "name": "@extension/toolkit-bridge",
+  "version": "0.1.0",
+  "description": "content script bridge",
+  "private": true,
+  "sideEffects": true,
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "clean:node_modules": "pnpx rimraf node_modules",
+    "clean:turbo": "rimraf .turbo",
+    "clean": "pnpm clean:turbo && pnpm clean:node_modules",
+    "build": "vite build",
+    "dev": "cross-env __DEV__=true vite build --mode development",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "pnpm lint --fix",
+    "prettier": "prettier . --write --ignore-path ../../.prettierignore",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@sentry/browser": "^8.42.0",
+    "@sentry/react": "^8.42.0"
+  },
+  "devDependencies": {
+    "@extension/features": "workspace:*",
+    "@extension/hmr": "workspace:*",
+    "@extension/over-budget-count-feature": "workspace:*",
+    "@extension/over-budget-widget": "workspace:*",
+    "@extension/shared": "workspace:*",
+    "@extension/storage": "workspace:*",
+    "@extension/tailwindcss-config": "workspace:*",
+    "@extension/toolkit-app": "workspace:*",
+    "@extension/tsconfig": "workspace:*",
+    "@extension/ui": "workspace:*",
+    "@extension/vite-config": "workspace:*",
+    "cross-env": "^7.0.3",
+    "postcss-load-config": "^6.0.1"
+  },
+  "postcss": {
+    "plugins": {
+      "tailwindcss": {},
+      "autoprefixer": {}
+    }
+  }
+}

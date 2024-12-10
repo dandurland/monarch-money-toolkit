@@ -1,0 +1,23 @@
+{
+  "projectName": "Monarch Money Toolkit",
+  "projectOwner": "dandurland",
+  "files": [
+    "README.md"
+  ],
+  "skipCi": true,
+  "imageSize": 50,
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributorsPerLine": 7,
+  "contributors": [
+    {
+      "login": "JunyWuuuu91",
+      "name": "JunyWuuuu91",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33750626?v=4",
+      "profile": "https://github.com/JunyWuuuu91",
+      "contributions": [
+        "code"
+      ]
+    }
+  ]
+}

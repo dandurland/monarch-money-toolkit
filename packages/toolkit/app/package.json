@@ -1,0 +1,58 @@
+{
+  "name": "@extension/toolkit-app",
+  "version": "0.1.0",
+  "description": "react toolkit app",
+  "private": true,
+  "sideEffects": false,
+  "type": "module",
+  "files": [
+    "dist/**",
+    "dist/toolkit.css"
+  ],
+  "types": "index.ts",
+  "main": "./dist/index.js",
+  "scripts": {
+    "clean:bundle": "rimraf dist",
+    "clean:node_modules": "pnpx rimraf node_modules",
+    "clean:turbo": "rimraf .turbo",
+    "clean": "pnpm clean:bundle && pnpm clean:node_modules && pnpm clean:turbo",
+    "ready": "node build.mjs",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "pnpm lint --fix",
+    "prettier": "prettier . --write",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@extension/tailwindcss-config": "workspace:*",
+    "@extension/ui": "workspace:*",
+    "@extension/over-budget-widget": "workspace:*",
+    "@extension/over-budget-count-feature": "workspace:*",
+    "@extension/transaction-row-height-feature": "workspace:*",
+    "@extension/shared": "workspace:*",
+    "@extension/storage": "workspace:*",
+    "@extension/monarch": "workspace:*",
+    "@extension/tsconfig": "workspace:*",
+    "@extension/vite-config": "workspace:*",
+    "deepmerge": "^4.3.1",
+    "tsc-alias": "^1.8.10",
+    "postcss-load-config": "^6.0.1",
+    "cross-env": "^7.0.3"
+  },
+  "dependencies": {
+    "@extension/features": "workspace:*",
+    "@apollo/client": "^3.11.10",
+    "clsx": "^2.1.1",
+    "react-router": "^7.0.1",
+    "styled-components": "^6.1.13",
+    "tailwind-merge": "^2.4.0",
+    "@sentry/react": "^8.42.0",
+    "jquery": "^3.7.1",
+    "lucide-react": "^0.468.0"
+  },
+  "postcss": {
+    "plugins": {
+      "tailwindcss": {},
+      "autoprefixer": {}
+    }
+  }
+}

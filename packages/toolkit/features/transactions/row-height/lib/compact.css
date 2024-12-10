@@ -1,0 +1,10 @@
+
+[class*='TransactionLinkButton__Button'] {
+  font-size: 14px;
+}
+
+[class*='TransactionOverview__Root'] {
+  font-size: 14px; 
+  height: 40px;
+}
+

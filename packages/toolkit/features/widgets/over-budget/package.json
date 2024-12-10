@@ -1,0 +1,49 @@
+{
+  "name": "@extension/over-budget-widget",
+  "version": "0.1.0",
+  "description": "over budget dashboard widget",
+  "private": true,
+  "sideEffects": false,
+  "type": "module",
+  "files": [
+    "dist/**",
+    "dist/global.css"
+  ],
+  "types": "index.ts",
+  "main": "./dist/index.js",
+  "scripts": {
+    "clean:bundle": "rimraf dist",
+    "clean:node_modules": "pnpx rimraf node_modules",
+    "clean:turbo": "rimraf .turbo",
+    "clean": "pnpm clean:bundle && pnpm clean:node_modules && pnpm clean:turbo",
+    "ready": "node build.mjs",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "pnpm lint --fix",
+    "prettier": "prettier . --write",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@extension/core": "workspace:*",
+    "@extension/storage": "workspace:*",
+    "@extension/monarch": "workspace:*",
+    "@extension/shared": "workspace:*",
+    "@extension/tailwindcss-config": "workspace:*",
+    "@extension/tsconfig": "workspace:*",
+    "@extension/ui": "workspace:*",
+    "@extension/vite-config": "workspace:*",
+    "@types/jquery": "^3.5.29",
+    "deepmerge": "^4.3.1",
+    "tsc-alias": "^1.8.10"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.11.10",
+    "@sentry/react": "^8.42.0",
+    "clsx": "^2.1.1",
+    "jquery": "^3.7.1",
+    "react-router": "^7.0.1",
+    "react-virtuoso": "^4.12.3",
+    "styled-components": "^6.1.13",
+    "tailwind-merge": "^2.4.0",
+    "lucide-react": "^0.468.0"
+  }
+}
