@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useEffect, useState } from 'react';
 
 const useMountTransition = (isMounted: boolean, unmountDelay: number) => {

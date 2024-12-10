@@ -2,7 +2,7 @@ import $ from 'jquery';
 import { Suspense, useRef } from 'react';
 import { useMutationObserver, formatCurrency, getCurrentMonth } from '@extension/shared';
 import { useSuspenseGetJointPlanningData } from '@extension/monarch';
-import { OverBudgetCalculator } from './over-budget-calculator';
+import { OverBudgetCalculator, OverBudgetCategory } from './over-budget-calculator';
 import { Spinner } from '@extension/ui';
 import { ErrorBoundary } from '@sentry/react';
 import { Virtuoso } from 'react-virtuoso';
@@ -16,7 +16,7 @@ const CategoryAmount = ({ amount }: { amount: number }) => {
   );
 };
 
-const OverBudgetRow = ({ item }: { item: any }) => {
+const OverBudgetRow = ({ item }: { item: OverBudgetCategory }) => {
   return (
     <div className="flex w-full flex-row items-center justify-between overflow-x-hidden border-t border-t-background">
       <div className="flex w-full flex-row items-center justify-between px-[24px] py-[14px]">

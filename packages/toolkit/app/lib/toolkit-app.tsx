@@ -8,6 +8,7 @@ import '@extension/ui/dist/global.css';
 
 export class ToolkitApp {
   private root: Root | null = null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private router?: any;
 
   mount() {

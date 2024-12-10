@@ -23,6 +23,7 @@ export interface CategoryGroup {
   type: CategoryGroupType;
   name: string;
   groupLevelBudgetingEnabled: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   rolloverPeriod?: any;
   categories?: Category[];
 }

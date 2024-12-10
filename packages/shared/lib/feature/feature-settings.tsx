@@ -7,6 +7,7 @@ export function EnabledSettings<Data extends EnabledSettings>({
   children,
 }: {
   featureStorage: EnabledStorage<Data>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   children: any;
 }) {
   const settings = useStorage(featureStorage);

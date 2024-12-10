@@ -15,6 +15,7 @@ import { createPortal } from 'react-dom';
   return createPortal(children, el);
 }*/
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function Portal({ mount, children }: { mount: any; children: any }) {
   const containerRef = useRef(mount);
   /*const el = useRef(document.createElement('div'));

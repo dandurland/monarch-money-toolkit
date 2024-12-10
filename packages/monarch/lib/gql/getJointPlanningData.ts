@@ -1,4 +1,9 @@
-import type { OperationVariables, TypedDocumentNode, UseSuspenseQueryResult } from '@apollo/client';
+import type {
+  OperationVariables,
+  SuspenseQueryHookFetchPolicy,
+  TypedDocumentNode,
+  UseSuspenseQueryResult,
+} from '@apollo/client';
 import { gql, useBackgroundQuery, useQuery, useSuspenseQuery } from '@apollo/client';
 import { makeMonarchDate } from '../make-monarch-date';
 import type { BudgetData, CategoryGroup } from './models';
@@ -194,7 +199,7 @@ export function useGetJointPlanningData(startDate: Date, endDate: Date) {
 export function useSuspenseGetJointPlanningData(
   startDate: Date,
   endDate: Date,
-  fetchPolicy?: any,
+  fetchPolicy?: SuspenseQueryHookFetchPolicy,
 ): UseSuspenseQueryResult<JointPlanningData, OperationVariables> {
   if (!fetchPolicy) {
     fetchPolicy = 'cache-first';
@@ -211,7 +216,11 @@ export function useSuspenseGetJointPlanningData(
   });
 }
 
-export function useBackgroundGetJointPlanningData(startDate: Date, endDate: Date, fetchPolicy?: any) {
+export function useBackgroundGetJointPlanningData(
+  startDate: Date,
+  endDate: Date,
+  fetchPolicy?: SuspenseQueryHookFetchPolicy,
+) {
   if (!fetchPolicy) {
     fetchPolicy = 'cache-first';
   }
