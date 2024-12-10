@@ -1,6 +1,6 @@
 {
   "name": "@extension/transaction-row-height-feature",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "transaction row height feature",
   "private": true,
   "sideEffects": false,

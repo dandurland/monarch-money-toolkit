@@ -1,6 +1,6 @@
 {
   "name": "@extension/over-budget-widget",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "over budget dashboard widget",
   "private": true,
   "sideEffects": false,
