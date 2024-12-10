@@ -20,9 +20,8 @@
 ## Table of Contents
 
 - [Intro](#intro)
-- [Features](#features)
-    - [Current Features](current-features)
-    - [Planned Features](planned-features)
+- [Current Features](#current-features)
+- [Planned Features](#planned-features)
 - [Getting started](#getting-started)
     - [Chrome](#getting-started-chrome)
     - [Firefox](#getting-started-firefox)
@@ -31,8 +30,6 @@
 
 Monarch Money Toolkit extends the web version of [Monarch Money](https://monarchmoney.com) with features, styles and tweeks not found in the current offering.
 With inspiration stemming from the [You Need A Budget Toolkit](https://www.toolkitforynab.com/) and scaffolding based on the [Chrome Extension Boilerplate](https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite?tab=readme-ov-file).
-
-## Features
 
 ## Current Features
 - Dashboard integration for widgets and features
