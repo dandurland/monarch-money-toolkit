@@ -21,6 +21,7 @@ function convertToFirefoxCompatibleManifest(manifest: Manifest) {
   manifestCopy.options_ui = {
     page: manifest.options_page,
     browser_style: false,
+    open_in_tab: true,
   };
   manifestCopy.content_security_policy = {
     extension_pages: "script-src 'self'; object-src 'self'",
