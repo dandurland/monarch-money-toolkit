@@ -46,7 +46,7 @@ export function SettingsLayout() {
   const logo = 'popup/logo.svg';
   const goGithub = () => chrome.tabs.create({ url: 'https://github.com/dandurland/monarch-money-toolkit' });
 
-  async function toggleExtension(e: any) {
+  async function toggleExtension() {
     await toolkitEnabledStorage.toggleEnabled();
   }
 

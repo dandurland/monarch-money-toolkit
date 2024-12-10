@@ -55,7 +55,8 @@ export class ServiceWorker {
     }
   };
 
-  private onMessage = (message: any, sender: any, sendResponse: any) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private onMessage = (message: any) => {
     console.log(message);
     switch (message?.type) {
       case OutboundMessageType.OpenOptionsPage: {
@@ -71,6 +72,7 @@ export class ServiceWorker {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private handleException = (context: any) => {
     scope.captureException(new Error(context.serializedError), {
       captureContext: {

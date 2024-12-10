@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { createPortal } from 'react-dom';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
