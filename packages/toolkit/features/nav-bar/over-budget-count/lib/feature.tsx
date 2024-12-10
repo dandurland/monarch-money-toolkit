@@ -5,14 +5,11 @@ import '@extension/ui/dist/global.css';
 import type { ReactElement } from 'react';
 import { Fragment } from 'react';
 import { Portal, PortalFeature } from '@extension/shared';
-import { unmountComponentAtNode } from 'react-dom';
 import { OverBudgetCountFeatureSettings } from './settings';
 import { featureStorage } from './feature-storage';
 import { objectIs } from '@extension/core';
 import type { EnabledSettings } from '@extension/storage';
 import { OverBudgetCount } from './components';
-
-const CONTAINER_ID = 'mmtk-over-budget-count';
 
 export class OverBudgetCountFeature extends PortalFeature {
   private id: string = `mmtk-over-budget-count`;
@@ -68,11 +65,11 @@ export class OverBudgetCountFeature extends PortalFeature {
   }
 
   destroy(): void {
-    const existing = document.getElementById(CONTAINER_ID);
+    /*const existing = document.getElementById(CONTAINER_ID);
     if (existing) {
       unmountComponentAtNode(existing);
       existing.remove();
-    }
+    }*/
   }
 
   private onSettingsChanged(settings: EnabledSettings | null) {

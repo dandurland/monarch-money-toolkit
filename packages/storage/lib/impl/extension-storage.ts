@@ -18,7 +18,7 @@ type ExtensionSettings = {
   monarchSettings: MonarchSettings;
 };
 
-type SettingsStorage = BaseStorage<ExtensionSettings> & {};
+type SettingsStorage = BaseStorage<ExtensionSettings>;
 
 const extensionStorage = createStorage<ExtensionSettings>(
   'extension',

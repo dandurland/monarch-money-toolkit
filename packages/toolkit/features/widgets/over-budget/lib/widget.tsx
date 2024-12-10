@@ -3,13 +3,10 @@ import type { ReactElement } from 'react';
 import { Fragment } from 'react';
 import { OverBudgetWidget } from './components';
 import { WidgetFeature } from '@extension/shared';
-import { unmountComponentAtNode } from 'react-dom';
 import { OverBudgetFeatureSettings } from './settings';
 import { featureStorage } from './feature-storage';
 import type { EnabledSettings } from '@extension/storage';
 import { objectIs } from '@extension/core';
-
-const CONTAINER_ID = 'mmtk-over-budget';
 
 export class OverBudgetFeature extends WidgetFeature {
   constructor() {
@@ -55,11 +52,11 @@ export class OverBudgetFeature extends WidgetFeature {
   }
 
   destroy(): void {
-    const existing = document.getElementById(CONTAINER_ID);
+    /*const existing = document.getElementById(CONTAINER_ID);
     if (existing) {
       unmountComponentAtNode(existing);
       existing.remove();
-    }
+    }*/
   }
 
   private onSettingsChanged(settings: EnabledSettings | null) {

@@ -4,7 +4,7 @@ import type { BaseStorage } from '../base/types';
 
 export type ToolkitTheme = 'light' | 'dark' | 'system';
 
-type ThemeStorage = BaseStorage<ToolkitTheme> & {};
+type ThemeStorage = BaseStorage<ToolkitTheme>;
 
 const storage = createStorage<ToolkitTheme>('toolkit-theme', 'system', {
   storageEnum: StorageEnum.Local,

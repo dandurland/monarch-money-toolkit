@@ -3,7 +3,8 @@ import { OutboundMessageType } from '../messages';
 import type { Feature } from '../feature';
 import type { ErrorInfo } from 'react';
 
-export async function withFeatureError(wrappedFunction: Function, feature: Feature) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function withFeatureError(wrappedFunction: any /* Function */, feature: Feature) {
   if (typeof wrappedFunction !== 'function') {
     throw new Error('The first argument to withToolkitError must be a Function');
   }
