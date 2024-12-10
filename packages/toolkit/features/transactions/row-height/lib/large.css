@@ -1,10 +1,22 @@
 
+:root {
+  --font-size: 18px;
+}
+
 [class*='TransactionLinkButton__Button'] {
-  font-size: 16px;
+  font-size: var(--font-size);
 }
 
 [class*='TransactionOverview__Root'] {
-  font-size: 16px; 
+  font-size: var(--font-size);
   height: 68px;
+}
+
+[class*='TransactionCategorySelect__Root'] button {
+  font-size: var(--font-size);
+}
+
+[class*='TransactionMerchantSelect__Root'] button {
+  font-size: var(--font-size);
 }
 
