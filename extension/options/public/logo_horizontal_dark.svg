@@ -27,7 +27,7 @@
      inkscape:window-x="1722"
      inkscape:window-y="707"
      inkscape:window-maximized="0"
-     inkscape:current-layer="Layer_1" />
+     inkscape:current-layer="g32-4" />
   <defs
      id="defs1">
     <style
@@ -196,11 +196,9 @@
   </g>
   <g
      id="g35-1"
-     transform="translate(-29.802663,2.7516344)"
-     style="fill:#ffffff">
+     transform="translate(-29.802663,2.7516344)">
     <g
-       id="g31-7"
-       style="fill:#ffffff">
+       id="g31-7">
       <circle
          class="cls-2"
          cx="501.67001"
@@ -209,8 +207,7 @@
          id="circle26-1"
          style="fill:#ffffff;stroke-width:0px" />
       <g
-         id="g30-1"
-         style="fill:#ffffff">
+         id="g30-1">
         <circle
            class="cls-7"
            cx="501.67999"
@@ -219,8 +216,7 @@
            id="circle27-5"
            style="fill:#ffffff;stroke-width:0px" />
         <g
-           id="g29-2"
-           style="fill:#ffffff">
+           id="g29-2">
           <path
              class="cls-7"
              d="m 501.68,144.64 c -7.63,0 -13.6,-2.44 -13.6,-5.56 0,-3.12 5.97,-5.56 13.6,-5.56 7.63,0 13.6,2.44 13.6,5.56 0,3.12 -5.97,5.56 -13.6,5.56 z m 0,-9.93 c -7.32,0 -12.42,2.31 -12.42,4.38 0,2.07 5.1,4.38 12.42,4.38 7.32,0 12.42,-2.31 12.42,-4.38 0,-2.07 -5.1,-4.38 -12.42,-4.38 z"
@@ -240,8 +236,7 @@
       </g>
     </g>
     <g
-       id="g32-4"
-       style="fill:#ffffff">
+       id="g32-4">
       <circle
          class="cls-2"
          cx="604.06"
@@ -256,8 +251,7 @@
          style="fill:#ffffff;stroke-width:0px" />
     </g>
     <g
-       id="g34-2"
-       style="fill:#ffffff">
+       id="g34-2">
       <circle
          class="cls-2"
          cx="552.85999"
@@ -266,8 +260,7 @@
          id="circle32-2"
          style="fill:#ffffff;stroke-width:0px" />
       <g
-         id="g33-1"
-         style="fill:#ffffff">
+         id="g33-1">
         <path
            class="cls-1"
            d="m 565.63,131.28 -12.07,21.59 c -0.25,0.45 -0.89,0.45 -1.14,0 l -12.31,-21.59 c -0.28,-0.48 0.14,-1.07 0.69,-0.97 l 12.09,2.16 c 0.08,0.01 0.16,0.01 0.23,0 l 11.83,-2.16 c 0.55,-0.1 0.96,0.48 0.69,0.97 z"
