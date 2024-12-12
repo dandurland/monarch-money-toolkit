@@ -11,6 +11,7 @@ export enum CategoryGroupType {
 export interface Category {
   readonly id: string;
   name: string;
+  icon: string;
   isSystemCategory?: boolean;
   systemCategory?: string;
   isDisabled?: boolean;

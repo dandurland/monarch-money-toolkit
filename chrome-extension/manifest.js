@@ -19,7 +19,7 @@ const manifest = deepmerge(
     version: packageJson.version,
     description: '__MSG_extensionDescription__',
     host_permissions: ['*://*.monarchmoney.com/*'],
-    permissions: ['storage', 'scripting', 'tabs', 'notifications'],
+    permissions: ['storage', 'scripting', 'tabs', 'notifications', 'webRequest'],
     options_page: 'options/index.html',
     background: {
       service_worker: 'background.iife.js',

@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      chrome-extension:
+        specifier: ^0.0.1
+        version: 0.0.1
       eslint-plugin-tailwindcss:
         specifier: ^3.17.4
         version: 3.17.4(tailwindcss@3.4.14(ts-node@10.9.2(@swc/core@1.9.3)(@types/node@20.16.10)(typescript@5.5.4)))
@@ -111,6 +114,9 @@ importers:
       '@extension/storage':
         specifier: workspace:*
         version: link:../packages/storage
+      '@isaacs/ttlcache':
+        specifier: ^1.4.1
+        version: 1.4.1
       '@sentry/browser':
         specifier: ^8.42.0
         version: 8.42.0
@@ -391,15 +397,9 @@ importers:
       '@extension/features':
         specifier: workspace:*
         version: link:../../features
-      '@sentry/react':
-        specifier: ^8.42.0
-        version: 8.42.0(react@18.3.1)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
-      jquery:
-        specifier: ^3.7.1
-        version: 3.7.1
       lucide-react:
         specifier: ^0.468.0
         version: 0.468.0(react@18.3.1)
@@ -461,9 +461,6 @@ importers:
       '@apollo/client':
         specifier: ^3.11.10
         version: 3.11.10(@types/react@18.3.5)(graphql@16.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@sentry/react':
-        specifier: ^8.42.0
-        version: 8.42.0(react@18.3.1)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -556,15 +553,9 @@ importers:
       '@apollo/client':
         specifier: ^3.11.10
         version: 3.11.10(@types/react@18.3.5)(graphql@16.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@sentry/react':
-        specifier: ^8.42.0
-        version: 8.42.0(react@18.3.1)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
-      jquery:
-        specifier: ^3.7.1
-        version: 3.7.1
       lucide-react:
         specifier: ^0.468.0
         version: 0.468.0(react@18.3.1)
@@ -605,9 +596,6 @@ importers:
       '@extension/vite-config':
         specifier: workspace:*
         version: link:../../../../vite-config
-      '@types/jquery':
-        specifier: ^3.5.29
-        version: 3.5.32
       deepmerge:
         specifier: ^4.3.1
         version: 4.3.1
@@ -1154,6 +1142,10 @@ packages:
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
+    engines: {node: '>=12'}
+
+  '@isaacs/ttlcache@1.4.1':
+    resolution: {integrity: sha512-RQgQ4uQ+pLbqXfOmieB91ejmLwvSgv9nLx6sT6sD83s7umBypgg+OIBOBbEUiJXrfpnp9j0mRhYYdzp9uqq3lA==}
     engines: {node: '>=12'}
 
   '@jest/expect-utils@29.7.0':
@@ -2321,6 +2313,9 @@ packages:
   chokidar@4.0.1:
     resolution: {integrity: sha512-n8enUVCED/KVRQlab1hr3MVpcVMvxtZjmEa956u+4YijlmQED223XMSYj2tLuKvr4jcCTzNNMpQDUer72MMmzA==}
     engines: {node: '>= 14.16.0'}
+
+  chrome-extension@0.0.1:
+    resolution: {integrity: sha512-yFIgBYn7faKRI+TE08vYk+zIOnYkPINY12TRPAWPXwJaXjtN5mz1T2gtaFWttEJDs5zmRfgrVp6f1hBJNKRxGw==}
 
   chrome-trace-event@1.0.4:
     resolution: {integrity: sha512-rNjApaLzuwaOTjCiT8lSDdGN1APCiqkChLMJxJPWLunPAt5fy8xgU9/jNOchV84wfIxrA0lRQB7oCT8jrn/wrQ==}
@@ -5305,6 +5300,8 @@ snapshots:
       wrap-ansi: 8.1.0
       wrap-ansi-cjs: wrap-ansi@7.0.0
 
+  '@isaacs/ttlcache@1.4.1': {}
+
   '@jest/expect-utils@29.7.0':
     dependencies:
       jest-get-type: 29.6.3
@@ -6584,6 +6581,8 @@ snapshots:
   chokidar@4.0.1:
     dependencies:
       readdirp: 4.0.2
+
+  chrome-extension@0.0.1: {}
 
   chrome-trace-event@1.0.4: {}
 

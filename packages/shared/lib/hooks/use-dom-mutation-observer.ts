@@ -7,7 +7,7 @@ const DEFAULT_OPTIONS = {
   debounceTime: 0,
 };
 
-export function useMutationObserver(
+export function useDOMMutationObserver(
   ref: MutableRefObject<HTMLElement | HTMLElement[] | null>,
   callback: MutationCallback,
   options = DEFAULT_OPTIONS,

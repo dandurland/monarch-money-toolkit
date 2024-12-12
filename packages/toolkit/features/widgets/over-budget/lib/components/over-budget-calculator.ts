@@ -3,6 +3,7 @@ import { CategoryGroupType } from '@extension/monarch';
 
 export interface OverBudgetCategory {
   id: string;
+  icon: string;
   name: string;
   plannedCashFlowAmount?: number;
   actualAmount: number;
@@ -30,6 +31,7 @@ export class OverBudgetCalculator {
       .map(x => {
         return {
           id: x.category.id,
+          icon: x.category.icon,
           name: x.category.name,
           plannedCashFlowAmount: round
             ? Math.round(x.monthlyAmounts[0].plannedCashFlowAmount)

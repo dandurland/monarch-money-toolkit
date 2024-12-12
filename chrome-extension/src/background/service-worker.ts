@@ -1,6 +1,6 @@
 import 'webextension-polyfill';
 import { isNil, isNotNil } from '@extension/core';
-import type { NavigationMessage } from '@extension/shared';
+import type { GraphQLRequest, MutationMessage, NavigationMessage } from '@extension/shared';
 import { InboundMessageType, OutboundMessageType } from '@extension/shared';
 import type { PersistRoot } from '@extension/monarch';
 import { makePersistRoot } from '@extension/monarch';
@@ -8,8 +8,36 @@ import { AuthProvider } from './auth-provider';
 import type { ToolkitTheme } from '@extension/storage';
 import { AuthStatus, toolkitThemeStorage } from '@extension/storage';
 import scope from './init-sentry';
+import TTLCache from '@isaacs/ttlcache';
 
 const HOST_NAME = 'app.monarchmoney.com';
+
+function getMutationMessage(request?: GraphQLRequest): MutationMessage | undefined {
+  switch (request?.operationName) {
+    case 'Web_UpdateTransactionOverview': {
+      return {
+        type: InboundMessageType.Mutation,
+        request: {
+          type: 'update-transaction-overview',
+          variables: {
+            categoryId: request.variables.input.category,
+            transactionId: request.variables.input.id,
+          },
+        },
+      };
+    }
+    default:
+      return undefined;
+  }
+}
+
+async function getCurrentTab(): Promise<chrome.tabs.Tab> {
+  const queryOptions = { active: true, lastFocusedWindow: true };
+  const [tab] = await chrome.tabs.query(queryOptions);
+  return tab;
+}
+
+const requestCache = new TTLCache<string, MutationMessage>({ max: 10, ttl: 5000 });
 
 export class ServiceWorker {
   private authProvider = new AuthProvider();
@@ -18,6 +46,14 @@ export class ServiceWorker {
     chrome.runtime.onMessage.addListener(this.onMessage);
     chrome.tabs.onUpdated.addListener(this.onTabUpdated);
     chrome.runtime.onInstalled.addListener(this.onInstalled);
+
+    chrome.webRequest.onBeforeRequest.addListener(this.onBeforeRequest, { urls: ['*://*.monarchmoney.com/graphql'] }, [
+      'requestBody',
+    ]);
+
+    chrome.webRequest.onCompleted.addListener(this.onCompletedRequest, { urls: ['*://*.monarchmoney.com/graphql'] }, [
+      'responseHeaders',
+    ]);
   }
 
   private onInstalled = async () => {
@@ -55,6 +91,50 @@ export class ServiceWorker {
     }
   };
 
+  private onBeforeRequest(details: chrome.webRequest.WebRequestBodyDetails) {
+    if (details.method !== 'POST' || isNil(details.requestBody?.raw)) {
+      return;
+    }
+
+    const bytes = details.requestBody?.raw![0]?.bytes;
+    if (isNil(bytes) || bytes?.byteLength === 0) {
+      return;
+    }
+
+    try {
+      const json = new TextDecoder('utf-8').decode(bytes);
+      const request = JSON.parse(json) as GraphQLRequest;
+
+      const message = getMutationMessage(request);
+      if (isNil(message)) {
+        return;
+      }
+
+      requestCache.set(details.requestId, message!);
+    } catch (error) {
+      console.log(`Error parsing request body: ${error}`);
+    }
+  }
+
+  private onCompletedRequest(details: chrome.webRequest.WebResponseCacheDetails) {
+    if (!requestCache.has(details.requestId)) {
+      return;
+    }
+
+    const message = requestCache.get(details.requestId);
+    requestCache.delete(details?.requestId);
+
+    if (isNil(message) || details.statusCode !== 200) {
+      return;
+    }
+
+    getCurrentTab().then(tab => {
+      if (tab?.id) {
+        chrome.tabs.sendMessage(tab.id, message);
+      }
+    });
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private onMessage = (message: any) => {
     console.log(message);
@@ -70,22 +150,6 @@ export class ServiceWorker {
       default:
         console.log('unknown message', message);
     }
-  };
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private handleException = (context: any) => {
-    scope.captureException(new Error(context.serializedError), {
-      captureContext: {
-        tags: {
-          featureName: context.featureName,
-        },
-        extra: {
-          featureSetting: context.featureSetting,
-          functionName: context.functionName,
-          routeName: context.routeName,
-        },
-      },
-    });
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -166,4 +230,20 @@ export class ServiceWorker {
 
     return makePersistRoot(result[0].result);
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private handleException = (context: any) => {
+    scope.captureException(new Error(context.serializedError), {
+      captureContext: {
+        tags: {
+          featureName: context.featureName,
+        },
+        extra: {
+          featureSetting: context.featureSetting,
+          functionName: context.functionName,
+          routeName: context.routeName,
+        },
+      },
+    });
+  };
 }

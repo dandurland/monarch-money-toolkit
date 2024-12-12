@@ -37,7 +37,6 @@
   },
   "dependencies": {
     "@apollo/client": "^3.11.10",
-    "@sentry/react": "^8.42.0",
     "clsx": "^2.1.1",
     "jquery": "^3.7.1",
     "tailwind-merge": "^2.4.0"

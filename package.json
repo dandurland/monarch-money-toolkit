@@ -31,6 +31,7 @@
     "update-version": "bash update_version.sh"
   },
   "dependencies": {
+    "chrome-extension": "^0.0.1",
     "eslint-plugin-tailwindcss": "^3.17.4",
     "react": "18.3.1",
     "react-dom": "18.3.1"

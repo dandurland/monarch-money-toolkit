@@ -1,11 +1,9 @@
-import $ from 'jquery';
-import { Suspense, useRef } from 'react';
-import { useMutationObserver, formatCurrency, getCurrentMonth } from '@extension/shared';
+import { Suspense, useEffect, useMemo } from 'react';
+import { ErrorBoundary, formatCurrency, getCurrentMonth, useTransactionMutationEvent } from '@extension/shared';
 import { useSuspenseGetJointPlanningData } from '@extension/monarch';
 import type { OverBudgetCategory } from './over-budget-calculator';
 import { OverBudgetCalculator } from './over-budget-calculator';
 import { Spinner } from '@extension/ui';
-import { ErrorBoundary } from '@sentry/react';
 import { Virtuoso } from 'react-virtuoso';
 import { ArrowRight } from 'lucide-react';
 
@@ -21,10 +19,12 @@ const OverBudgetRow = ({ item }: { item: OverBudgetCategory }) => {
   return (
     <div className="flex w-full flex-row items-center justify-between overflow-x-hidden border-t border-t-background">
       <div className="flex w-full flex-row items-center justify-between px-[24px] py-[14px]">
-        <div className="w-2/5 truncate text-left">{item.name}</div>
+        <div className="w-2/5 truncate text-left">
+          {item.icon}
+          {item.name}
+        </div>
         <CategoryAmount amount={item.plannedCashFlowAmount ?? 0} />
         <CategoryAmount amount={item.actualAmount} />
-
         <CategoryAmount amount={item.remainingAmount} />
       </div>
     </div>
@@ -45,16 +45,25 @@ const OverBudgetHeader = () => {
 
 const OverBudget = () => {
   const currentMonth = getCurrentMonth();
-  const { data, refetch } = useSuspenseGetJointPlanningData(currentMonth.firstDay, currentMonth.lastDay);
-  const calculator = new OverBudgetCalculator();
-  const overBudgetCategories = calculator.getOverBudgetData(data, true);
-  const categories = overBudgetCategories?.catagories ?? [];
-
-  const ref = useRef($('[class^="TransactionCategorySelect__Root"] [class^="Text"]').toArray());
-  useMutationObserver(ref, refetch, {
-    config: { attributes: false, childList: true, subtree: true, characterData: true },
-    debounceTime: 0,
+  const response = useTransactionMutationEvent(request => {
+    return request.variables.categoryId !== undefined;
   });
+
+  const { data, refetch } = useSuspenseGetJointPlanningData(
+    currentMonth.firstDay,
+    currentMonth.lastDay,
+    'cache-and-network',
+  );
+
+  useEffect(() => {
+    refetch();
+  }, [response]);
+
+  const categories = useMemo(() => {
+    const calculator = new OverBudgetCalculator();
+    const overBudgetCategories = calculator.getOverBudgetData(data, true);
+    return overBudgetCategories?.catagories ?? [];
+  }, [data]);
 
   return (
     <div className="flex flex-col justify-start">

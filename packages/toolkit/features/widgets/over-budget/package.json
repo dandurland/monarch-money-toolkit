@@ -31,15 +31,12 @@
     "@extension/tsconfig": "workspace:*",
     "@extension/ui": "workspace:*",
     "@extension/vite-config": "workspace:*",
-    "@types/jquery": "^3.5.29",
     "deepmerge": "^4.3.1",
     "tsc-alias": "^1.8.10"
   },
   "dependencies": {
     "@apollo/client": "^3.11.10",
-    "@sentry/react": "^8.42.0",
     "clsx": "^2.1.1",
-    "jquery": "^3.7.1",
     "react-router": "^7.0.1",
     "react-virtuoso": "^4.12.3",
     "styled-components": "^6.1.13",

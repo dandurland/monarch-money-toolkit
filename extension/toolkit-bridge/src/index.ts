@@ -55,11 +55,14 @@ function unmountApp() {
 }
 
 function onServiceWorkerMessage(message: InboundMessage): void {
-  console.log(message);
   switch (message.type) {
     case InboundMessageType.Navigation: {
       app.navigate(message.pathname);
       //window.postMessage(message, '*');
+      break;
+    }
+    case InboundMessageType.Mutation: {
+      window.postMessage(message, '*');
       break;
     }
   }

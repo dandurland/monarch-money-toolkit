@@ -2,7 +2,7 @@ import type { JointPlanningData } from '@extension/monarch';
 import { CategoryGroupType } from '@extension/monarch';
 
 export class OverBudgetCalculator {
-  getOverBudgetCount(data: JointPlanningData, round: boolean): number {
+  getOverBudgetCount(data: JointPlanningData | undefined, round: boolean): number {
     if (!data) {
       return 0;
     }

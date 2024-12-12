@@ -9,7 +9,7 @@ const buildOptions = {
   bundle: false,
   target: 'es6',
   outdir: './dist',
-  sourcemap: true,
+  sourcemap: true
 };
 
 await esbuild.build(buildOptions);

@@ -1,8 +1,8 @@
 import { Portal } from './portal';
 import type { OpenOptionsPageMesssage } from '@extension/shared';
-import { OutboundMessageType } from '@extension/shared';
-import { OverBudgetFeature } from '@extension/over-budget-widget';
+import { OutboundMessageType, WidgetFeature } from '@extension/shared';
 import { Settings } from 'lucide-react';
+import { features } from '@extension/features';
 
 export function Dashboard() {
   const widgetMount =
@@ -22,7 +22,7 @@ export function Dashboard() {
     chrome.runtime.sendMessage(message);
   };
 
-  const overBudgetFeature = new OverBudgetFeature();
+  const widgets = features.featureInstances.filter(f => f instanceof WidgetFeature);
 
   return (
     <Portal mount={widgetMount}>
@@ -33,7 +33,7 @@ export function Dashboard() {
             <Settings className="text-lightBlue" />
           </button>
         </div>
-        <div>{overBudgetFeature.getComponent()}</div>
+        <div>{widgets && <>{widgets.map(p => p.getComponent())}</>}</div>
       </div>
     </Portal>
   );

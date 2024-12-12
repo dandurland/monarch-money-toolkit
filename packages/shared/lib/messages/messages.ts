@@ -2,6 +2,7 @@ export enum InboundMessageType {
   Bootstrap = 'mmtk-bootstrap',
   SettingChanged = 'mmtk-setting-changed',
   Navigation = 'mmtk-navigation',
+  Mutation = 'mmtk-mutation',
 }
 
 export interface BootstrapMessage {
@@ -28,7 +29,26 @@ export interface NavigationMessage {
 
 export type NavigationMessageEvent = MessageEvent<NavigationMessage>;
 
-export type InboundMessage = BootstrapMessage | SettingChangedMessage | NavigationMessage;
+export interface GraphQLRequest {
+  operationName: string;
+  query?: string;
+  variables: Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
+}
+
+export type TransactionMutation = 'update-transaction-overview';
+export type MutationType = TransactionMutation;
+
+export interface MutationRequest {
+  type: MutationType;
+  variables: Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
+}
+
+export interface MutationMessage {
+  type: InboundMessageType.Mutation;
+  request?: MutationRequest;
+}
+
+export type InboundMessage = BootstrapMessage | SettingChangedMessage | NavigationMessage | MutationMessage;
 export type InboundMessageEvent = BootstrapMessageEvent | SettingChangedMessageEvent | NavigationMessageEvent;
 
 export enum OutboundMessageType {

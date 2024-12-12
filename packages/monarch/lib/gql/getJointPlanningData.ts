@@ -8,6 +8,8 @@ import { gql, useBackgroundQuery, useQuery, useSuspenseQuery } from '@apollo/cli
 import { makeMonarchDate } from '../make-monarch-date';
 import type { BudgetData, CategoryGroup } from './models';
 
+const DEFAULT_FETCH_POLICY = 'cache-and-network';
+
 export interface JointPlanningData {
   budgetData: BudgetData;
   categoryGroups: CategoryGroup[];
@@ -19,6 +21,7 @@ export const GetJointPlanningData: TypedDocumentNode<JointPlanningData> = gql`
       monthlyAmountsByCategory {
         category {
           id
+          icon
           name
           __typename
         }
@@ -184,9 +187,13 @@ export const GetJointPlanningData: TypedDocumentNode<JointPlanningData> = gql`
   }
 `;
 
-export function useGetJointPlanningData(startDate: Date, endDate: Date) {
+export function useGetJointPlanningData(startDate: Date, endDate: Date, fetchPolicy?: SuspenseQueryHookFetchPolicy) {
+  if (!fetchPolicy) {
+    fetchPolicy = DEFAULT_FETCH_POLICY;
+  }
+
   return useQuery<JointPlanningData>(GetJointPlanningData, {
-    fetchPolicy: 'no-cache',
+    fetchPolicy: fetchPolicy,
     variables: {
       startDate: makeMonarchDate(startDate),
       endDate: makeMonarchDate(endDate),
@@ -202,7 +209,7 @@ export function useSuspenseGetJointPlanningData(
   fetchPolicy?: SuspenseQueryHookFetchPolicy,
 ): UseSuspenseQueryResult<JointPlanningData, OperationVariables> {
   if (!fetchPolicy) {
-    fetchPolicy = 'cache-first';
+    fetchPolicy = DEFAULT_FETCH_POLICY;
   }
 
   return useSuspenseQuery<JointPlanningData>(GetJointPlanningData, {
@@ -222,7 +229,7 @@ export function useBackgroundGetJointPlanningData(
   fetchPolicy?: SuspenseQueryHookFetchPolicy,
 ) {
   if (!fetchPolicy) {
-    fetchPolicy = 'cache-first';
+    fetchPolicy = DEFAULT_FETCH_POLICY;
   }
 
   return useBackgroundQuery<JointPlanningData>(GetJointPlanningData, {

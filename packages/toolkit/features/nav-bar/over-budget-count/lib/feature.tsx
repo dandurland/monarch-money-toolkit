@@ -33,6 +33,14 @@ export class OverBudgetCountFeature extends PortalFeature {
     });
   }
 
+  get registerForMutationNotification() {
+    return true;
+  }
+
+  mutationNotification() {
+    console.log('mutation notification');
+  }
+
   getComponent(): ReactElement {
     const key = 'over-budget-count';
     return (
