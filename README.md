@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/90923945-c9ae-4260-b32a-b5cffc747f00" />
-    <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/7d5ec70f-38ea-4896-9a54-a342611a12fa" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/48e2345c-ad35-45e1-9e53-4e72dc0fbea7" />
+    <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/1f86e75a-84f6-478b-b292-44a263221e2c" />
     <img alt="Logo" src="https://github.com/user-attachments/assets/4128549d-9977-4ecf-8c8c-703b08debd4e" />
 </picture>
 
@@ -33,15 +33,16 @@ With inspiration stemming from the [You Need A Budget Toolkit](https://www.toolk
 
 ## Current Features
 - Dashboard integration for widgets and features
-    - Over budget category count add to the left side navigation
-    - Over budget categoty widget that displays the over budget categories on the dashboard
-  ![dashboard](https://github.com/user-attachments/assets/d6ce4298-d252-4f91-a946-e2bc1a1081b7)
+    - Over budget category count added to the left side navigation
+    - Over budget category widget that displays the over budget categories on the dashboard
+  ![dashboard_dark](https://github.com/user-attachments/assets/ab5fc690-9492-48f4-a377-9050852c47da)
+  ![dashboard](https://github.com/user-attachments/assets/34583531-352c-43e9-a41c-c4a931af0576)
 
 - Customizable transaction row height
     - Compact
-![transactions-compact](https://github.com/user-attachments/assets/54b138c0-3944-4001-8002-ad319f609d66)
+    - ![transactions-compact](https://github.com/user-attachments/assets/43fd0c19-4059-4a57-8cbb-7a899427dd56)
     - Large
-![transactions-large](https://github.com/user-attachments/assets/6a412d97-af03-4704-848c-c6d529ccb202)
+    - ![transactions-large](https://github.com/user-attachments/assets/c4772bf0-1c4e-443e-b043-96639f181ac4)
 
 ## Planned Features
 - Monthly rollup of unspent dollars into target category
