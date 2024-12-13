@@ -30,7 +30,6 @@ function onToolkitMessage(event: MessageEvent<OutboundMessage>) {
         break;
       }
       case OutboundMessageType.OpenOptionsPage: {
-        //chrome.runtime.openOptionsPage();
         chrome.runtime.sendMessage(OutboundMessageType.OpenOptionsPage);
         break;
       }
@@ -58,7 +57,6 @@ function onServiceWorkerMessage(message: InboundMessage): void {
   switch (message.type) {
     case InboundMessageType.Navigation: {
       app.navigate(message.pathname);
-      //window.postMessage(message, '*');
       break;
     }
     case InboundMessageType.Mutation: {

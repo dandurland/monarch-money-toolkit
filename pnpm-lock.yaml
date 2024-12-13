@@ -367,6 +367,10 @@ importers:
         version: link:../tsconfig
 
   packages/shared:
+    dependencies:
+      jquery:
+        specifier: ^3.7.1
+        version: 3.7.1
     devDependencies:
       '@extension/core':
         specifier: workspace:*
@@ -380,6 +384,9 @@ importers:
       '@extension/ui':
         specifier: workspace:*
         version: link:../ui
+      '@types/jquery':
+        specifier: ^3.5.29
+        version: 3.5.32
 
   packages/storage:
     devDependencies:
@@ -400,6 +407,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      jquery:
+        specifier: ^3.7.1
+        version: 3.7.1
       lucide-react:
         specifier: ^0.468.0
         version: 0.468.0(react@18.3.1)
@@ -443,6 +453,9 @@ importers:
       '@extension/vite-config':
         specifier: workspace:*
         version: link:../../vite-config
+      '@types/jquery':
+        specifier: ^3.5.29
+        version: 3.5.32
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3

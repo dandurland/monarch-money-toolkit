@@ -1,7 +1,9 @@
-import { createContext, useContext, useEffect } from 'react';
-import { useStorage } from '@extension/shared';
-import type { ToolkitTheme } from '@extension/storage';
-import { toolkitThemeStorage } from '@extension/storage';
+import $ from 'jquery';
+import { createContext, useContext, useEffect, useRef, useState } from 'react';
+import { useFilteringDOMMutationObserver } from '@extension/shared';
+import { makePersistRoot } from '@extension/monarch';
+
+type ToolkitTheme = 'light' | 'dark' | 'system';
 
 type ThemeProviderProps = {
   children: React.ReactNode;
@@ -9,27 +11,43 @@ type ThemeProviderProps = {
 
 type ThemeProviderState = {
   theme: ToolkitTheme;
-  setTheme: (theme: ToolkitTheme) => void;
 };
 
 const initialState: ThemeProviderState = {
   theme: 'system',
-  setTheme: () => null,
 };
 
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
+function getMonarchTheme() {
+  const persistRoot = makePersistRoot(localStorage['persist:root']);
+  const theme = persistRoot?.persistentUi?.themePreference as ToolkitTheme;
+  return theme;
+}
+
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
-  const theme = useStorage(toolkitThemeStorage);
+  const [theme, setTheme] = useState<ToolkitTheme>(getMonarchTheme());
+
+  const styleMonitor = useRef($("div[class^='SideBar__Root']")[0]);
+  useFilteringDOMMutationObserver(
+    styleMonitor,
+    (/*data: ChangeData, index: number*/) => {
+      setTheme(theme === 'dark' ? 'light' : 'dark');
+    },
+    {
+      properties: ['background-color'],
+      watchChildren: false,
+      debounceTime: 0,
+    },
+  );
 
   useEffect(() => {
-    const root = window.document.documentElement; //document.getElementById('mmtk-app-root');
+    const root = window.document.documentElement;
 
     root!.classList.remove('light', 'dark');
 
     if (theme === 'system') {
       const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-
       root!.classList.add(systemTheme);
       return;
     }
@@ -39,9 +57,6 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
 
   const value = {
     theme,
-    setTheme: async (theme: ToolkitTheme) => {
-      await toolkitThemeStorage.set(theme);
-    },
   };
 
   return (

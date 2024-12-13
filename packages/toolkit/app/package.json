@@ -36,7 +36,8 @@
     "deepmerge": "^4.3.1",
     "tsc-alias": "^1.8.10",
     "postcss-load-config": "^6.0.1",
-    "cross-env": "^7.0.3"
+    "cross-env": "^7.0.3",
+    "@types/jquery": "^3.5.29"
   },
   "dependencies": {
     "@extension/features": "workspace:*",
@@ -45,7 +46,8 @@
     "react-router": "^7.0.1",
     "styled-components": "^6.1.13",
     "tailwind-merge": "^2.4.0",
-    "lucide-react": "^0.468.0"
+    "lucide-react": "^0.468.0",
+    "jquery": "^3.7.1"
   },
   "postcss": {
     "plugins": {

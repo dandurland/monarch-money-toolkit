@@ -15,7 +15,7 @@ export interface OverBudgetData {
 }
 
 export class OverBudgetCalculator {
-  getOverBudgetData(data: JointPlanningData, round: boolean): OverBudgetData | null {
+  getOverBudgetData(data: JointPlanningData, sortAsc: boolean, round: boolean): OverBudgetData | null {
     if (!data) {
       return null;
     }
@@ -42,7 +42,9 @@ export class OverBudgetCalculator {
             : x.monthlyAmounts[0].remainingAmount,
         };
       })
-      .sort((x, y) => x.remainingAmount - y.remainingAmount);
+      .sort((x, y) => {
+        return sortAsc ? y.remainingAmount - x.remainingAmount : x.remainingAmount - y.remainingAmount;
+      });
 
     return { catagories };
   }

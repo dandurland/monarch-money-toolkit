@@ -10,7 +10,7 @@ import { Outlet } from 'react-router-dom';
 const sidebarNavItems = [
   {
     title: 'Dashboard',
-    href: '/options/dashboard',
+    href: '/',
   },
   {
     title: 'Navigation Bar',
@@ -43,7 +43,7 @@ export function SettingsLayout() {
   });
 
   const { enabled } = useStorage(toolkitEnabledStorage);
-  const logo = 'popup/logo.svg';
+  const logo = 'options/logo_horizontal.svg';
   const goGithub = () => chrome.tabs.create({ url: 'https://github.com/dandurland/monarch-money-toolkit' });
 
   async function toggleExtension() {
@@ -54,21 +54,18 @@ export function SettingsLayout() {
     <>
       <div className="hidden space-y-6 p-10 pb-16 md:block">
         <div className="flex flex-row items-center">
-          <div className="flex h-full flex-col items-center justify-end">
+          <div className="flex h-full flex-row items-center justify-end">
             <button onClick={goGithub}>
               <img src={chrome.runtime.getURL(logo)} className="h-[20vmin]" alt="logo" />
             </button>
             <div className="flex flex-row items-center">
+              <Switch id="extension-enabled" checked={enabled} onCheckedChange={toggleExtension} />
               <label
                 className="p-2 text-sm font-semibold"
                 htmlFor="extension-enabled">{`${enabled ? 'Disable' : 'Enable'} Toolkit`}</label>
-              <Switch id="extension-enabled" checked={enabled} onCheckedChange={toggleExtension} />
             </div>
           </div>
-          <div className="grow space-y-0.5">
-            <h2 className="text-2xl font-bold tracking-tight">Settings</h2>
-            <p className="text-muted-foreground">Manage Monarch Money Toolkit settings.</p>
-          </div>
+          <div className="grow space-y-0.5"></div>
         </div>
 
         <Separator className="my-6" />

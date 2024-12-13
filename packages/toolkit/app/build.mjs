@@ -3,7 +3,6 @@ import { replaceTscAliasPaths } from 'tsc-alias';
 import { resolve } from 'node:path';
 import esbuild from 'esbuild';
 
-
 import { open, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 const INPUT_CSS_FILE = join('lib', 'toolkit.css');
@@ -12,7 +11,8 @@ import { Buffer } from 'node:buffer';
 import postcss from 'postcss';
 import tailwindcss from 'tailwindcss';
 
-const tailwindConfig = { // or import from tailwind.config.js
+const tailwindConfig = {
+  // or import from tailwind.config.js
   content: ['./lib/**/*.{js,ts,jsx,tsx}'],
   //prefix: 'mmtk-',
   theme: {

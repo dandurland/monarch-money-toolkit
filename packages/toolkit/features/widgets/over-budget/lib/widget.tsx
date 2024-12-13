@@ -2,7 +2,7 @@ import '@extension/ui/dist/global.css';
 import type { ReactElement } from 'react';
 import { Fragment } from 'react';
 import { OverBudgetWidget } from './components';
-import { WidgetFeature } from '@extension/shared';
+import { ErrorBoundary, WidgetFeature } from '@extension/shared';
 import { OverBudgetFeatureSettings } from './settings';
 import { featureStorage } from './feature-storage';
 import type { EnabledSettings } from '@extension/storage';
@@ -32,7 +32,9 @@ export class OverBudgetFeature extends WidgetFeature {
     const key = 'over-budget-widget';
     return (
       <Fragment key={key}>
-        <OverBudgetWidget />
+        <ErrorBoundary fallback={<div>Error in Over Budget widget</div>}>
+          <OverBudgetWidget />
+        </ErrorBoundary>
       </Fragment>
     );
   }
@@ -46,13 +48,15 @@ export class OverBudgetFeature extends WidgetFeature {
     const key = 'over-budget-widget-settings';
     return (
       <Fragment key={key}>
-        <OverBudgetFeatureSettings />
+        <ErrorBoundary fallback={<div>Error in Over Budget feature settings</div>}>
+          <OverBudgetFeatureSettings />
+        </ErrorBoundary>
       </Fragment>
     );
   }
 
   destroy(): void {
-    /*const existing = document.getElementById(CONTAINER_ID);
+    /*const existing = document.getElementById('mmtk-over-budget');
     if (existing) {
       unmountComponentAtNode(existing);
       existing.remove();

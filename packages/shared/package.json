@@ -24,6 +24,10 @@
     "@extension/core": "workspace:*",
     "@extension/ui": "workspace:*",
     "@extension/storage": "workspace:*",
-    "@extension/tsconfig": "workspace:*"
+    "@extension/tsconfig": "workspace:*",
+    "@types/jquery": "^3.5.29"
+  },
+  "dependencies": {
+    "jquery": "^3.7.1"
   }
 }

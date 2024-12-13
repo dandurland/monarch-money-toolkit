@@ -1,11 +1,3 @@
-.mmtk-nav-badge {
-  display: inline-block;
-  margin-left: auto;
-  padding: 0px 8px;
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  border-radius: 4px;
-  background-color: rgb(235, 9, 9);
-  color: rgb(255, 255, 255);
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

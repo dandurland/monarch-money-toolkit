@@ -5,8 +5,7 @@ import { InboundMessageType, OutboundMessageType } from '@extension/shared';
 import type { PersistRoot } from '@extension/monarch';
 import { makePersistRoot } from '@extension/monarch';
 import { AuthProvider } from './auth-provider';
-import type { ToolkitTheme } from '@extension/storage';
-import { AuthStatus, toolkitThemeStorage } from '@extension/storage';
+import { AuthStatus } from '@extension/storage';
 import scope from './init-sentry';
 import TTLCache from '@isaacs/ttlcache';
 
@@ -170,25 +169,20 @@ export class ServiceWorker {
     }
 
     if (isChangeInfo) {
-      if (url.search === '') {
-        //notify toolkit of in-app root navigation
-        const message: NavigationMessage = {
-          type: InboundMessageType.Navigation,
-          pathname: url.pathname,
-        };
+      const message: NavigationMessage = {
+        type: InboundMessageType.Navigation,
+        pathname: url.pathname,
+        searchPath: url.search,
+      };
 
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const persistRoot = await this.getPersistRootFromCurrentTab(tabId);
-
-        await this.setTheme(persistRoot);
-
-        const result = await this.authProvider.updateAuthInfo(persistRoot.user.token);
-        if (result !== AuthStatus.Success) {
-          console.log('Error getting AuthStatus');
-        }
-
-        chrome.tabs.sendMessage(tabId, message);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const persistRoot = await this.getPersistRootFromCurrentTab(tabId);
+      const result = await this.authProvider.updateAuthInfo(persistRoot.user.token);
+      if (result !== AuthStatus.Success) {
+        console.log('Error getting AuthStatus');
       }
+
+      chrome.tabs.sendMessage(tabId, message);
 
       return;
     }
@@ -199,9 +193,6 @@ export class ServiceWorker {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const persistRoot = await this.getPersistRootFromCurrentTab(tabId);
-
-    await this.setTheme(persistRoot);
-
     const result = await this.authProvider.updateAuthInfo(persistRoot.user.token);
     if (result !== AuthStatus.Success) {
       console.log('Error getting AuthStatus');
@@ -215,11 +206,6 @@ export class ServiceWorker {
 
     chrome.tabs.sendMessage(tabId, message);
   };
-
-  private async setTheme(persistRoot: PersistRoot) {
-    const theme = persistRoot.persistentUi?.themePreference as ToolkitTheme;
-    await toolkitThemeStorage.set(theme ?? 'system');
-  }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private async getPersistRootFromCurrentTab(tabId: any): Promise<PersistRoot> {

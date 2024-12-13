@@ -19,5 +19,5 @@ export default withPageConfig({
       fileName: 'index',
     },
     outDir: resolve(rootDir, '..', '..', 'dist', 'toolkit-bridge'),
-  }
+  },
 });

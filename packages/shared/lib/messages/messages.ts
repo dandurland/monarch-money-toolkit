@@ -25,6 +25,7 @@ export type SettingChangedMessageEvent = MessageEvent<SettingChangedMessage>;
 export interface NavigationMessage {
   type: InboundMessageType.Navigation;
   pathname: string;
+  searchPath?: string;
 }
 
 export type NavigationMessageEvent = MessageEvent<NavigationMessage>;

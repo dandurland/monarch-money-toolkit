@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactElement } from 'react';
 
 export type FeatureTarget = 'nav-bar' | 'dashboard-widgets' | 'dashboard' | 'transactions';
 
@@ -9,7 +9,7 @@ export abstract class Feature {
   ) {}
 
   abstract initialize(): Promise<void>;
-  abstract getSettingsComponent(): ReactNode;
+  abstract getSettingsComponent(): ReactElement;
   abstract getSettingsJson(): Promise<string>;
   destroy(): void {}
 }

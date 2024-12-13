@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import large from './large.css?raw';
 import compact from './compact.css?raw';
-import { Feature } from '@extension/shared';
+import { ErrorBoundary, Feature } from '@extension/shared';
 import type { ReactElement } from 'react';
 import { Fragment } from 'react';
 import { TransactionRowHeightSettings } from './settings';
@@ -46,7 +46,9 @@ export class TransactionRowHeightFeature extends Feature {
     const key = 'over-budget-widget-settings'; //uid();
     return (
       <Fragment key={key}>
-        <TransactionRowHeightSettings />
+        <ErrorBoundary fallback={<div>Error in Transaction Row Height feature settings</div>}>
+          <TransactionRowHeightSettings />
+        </ErrorBoundary>
       </Fragment>
     );
   }

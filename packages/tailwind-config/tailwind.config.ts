@@ -7,15 +7,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        lightBlue: 'hsl(202 86% 57%)',
+        lightGray: 'hsl(30 2% 46%)',
+        lightBlue: 'hsl(191 100% 39%)',
         blue: 'hsl(216 75.2% 20.6%)',
         darkBlue: 'hsl(216 79.0% 15.0%)',
         widget: 'hsl(var(--widget))',
         'widget-foreground': 'hsl(var(--widget-foreground))',
         'widget-busy': 'hsl(var(--widget-busy))',
-        information: {
-          DEFAULT: 'hsl(var(--information))',
-          foreground: 'hsl(var(--information-foreground))',
+        'widget-foreground-secondary': 'hsl(var(--widget-foreground-secondary))',
+        warning: {
+          DEFAULT: 'hsl(var(--warning))',
+          foreground: 'hsl(var(--warning-foreground))',
         },
       },
     },

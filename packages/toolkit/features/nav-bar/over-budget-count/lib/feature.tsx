@@ -4,7 +4,7 @@ import '@extension/ui/dist/global.css';
 
 import type { ReactElement } from 'react';
 import { Fragment } from 'react';
-import { Portal, PortalFeature } from '@extension/shared';
+import { ErrorBoundary, Portal, PortalFeature } from '@extension/shared';
 import { OverBudgetCountFeatureSettings } from './settings';
 import { featureStorage } from './feature-storage';
 import { objectIs } from '@extension/core';
@@ -45,7 +45,9 @@ export class OverBudgetCountFeature extends PortalFeature {
     const key = 'over-budget-count';
     return (
       <Fragment key={key}>
-        <OverBudgetCount />
+        <ErrorBoundary fallback={<></>}>
+          <OverBudgetCount />
+        </ErrorBoundary>
       </Fragment>
     );
   }
@@ -67,7 +69,9 @@ export class OverBudgetCountFeature extends PortalFeature {
     const key = 'over-budget-count-settings';
     return (
       <Fragment key={key}>
-        <OverBudgetCountFeatureSettings />
+        <ErrorBoundary fallback={<div>Error in Over Budget Count feature settings</div>}>
+          <OverBudgetCountFeatureSettings />
+        </ErrorBoundary>
       </Fragment>
     );
   }

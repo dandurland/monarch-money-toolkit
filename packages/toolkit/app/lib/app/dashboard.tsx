@@ -29,11 +29,11 @@ export function Dashboard() {
       <div className="shadow-[rgba(0, 40, 100, 0.04)] flex flex-col justify-start rounded-lg bg-widget shadow-md">
         <div className="m-0 flex flex-row items-center justify-start gap-0 border-b pb-4 pl-6 pr-5 pt-5 text-2xl font-medium text-widget-foreground">
           <span>Monarch Money Toolkit</span>
-          <button className="cursor-pointer border-0 bg-transparent pl-1 text-lightBlue" onClick={goSettings}>
-            <Settings className="text-lightBlue" />
+          <button className="cursor-pointer border-0 bg-transparent pl-1 text-lightGray" onClick={goSettings}>
+            <Settings className="text-lightGray" />
           </button>
         </div>
-        <div>{widgets && <>{widgets.map(p => p.getComponent())}</>}</div>
+        {widgets && <>{widgets.map(p => p.getComponent())}</>}
       </div>
     </Portal>
   );

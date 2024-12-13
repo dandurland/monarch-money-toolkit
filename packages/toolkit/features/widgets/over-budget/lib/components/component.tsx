@@ -1,11 +1,19 @@
-import { Suspense, useEffect, useMemo } from 'react';
-import { ErrorBoundary, formatCurrency, getCurrentMonth, useTransactionMutationEvent } from '@extension/shared';
+import { Suspense, useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  ErrorBoundary,
+  formatCurrency,
+  getCurrentMonth,
+  useStorage,
+  useTransactionMutationEvent,
+} from '@extension/shared';
 import { useSuspenseGetJointPlanningData } from '@extension/monarch';
 import type { OverBudgetCategory } from './over-budget-calculator';
 import { OverBudgetCalculator } from './over-budget-calculator';
 import { Spinner } from '@extension/ui';
 import { Virtuoso } from 'react-virtuoso';
-import { ArrowRight } from 'lucide-react';
+import { ArrowDownNarrowWide, ArrowUpNarrowWide } from 'lucide-react';
+import { featureStorage } from '../feature-storage';
+import { getEnglishMonthName } from '@extension/core';
 
 const CategoryAmount = ({ amount }: { amount: number }) => {
   return (
@@ -15,13 +23,21 @@ const CategoryAmount = ({ amount }: { amount: number }) => {
   );
 };
 
+const AllClearRow = () => {
+  return (
+    <div className="flex w-full flex-row items-center justify-center overflow-x-hidden border-t border-t-background px-[24px] py-[14px]">
+      No over budget categories
+    </div>
+  );
+};
+
 const OverBudgetRow = ({ item }: { item: OverBudgetCategory }) => {
   return (
     <div className="flex w-full flex-row items-center justify-between overflow-x-hidden border-t border-t-background">
       <div className="flex w-full flex-row items-center justify-between px-[24px] py-[14px]">
         <div className="w-2/5 truncate text-left">
-          {item.icon}
-          {item.name}
+          <span className="mr-1">{item.icon}</span>
+          <span>{item.name}</span>
         </div>
         <CategoryAmount amount={item.plannedCashFlowAmount ?? 0} />
         <CategoryAmount amount={item.actualAmount} />
@@ -31,13 +47,32 @@ const OverBudgetRow = ({ item }: { item: OverBudgetCategory }) => {
   );
 };
 
-const OverBudgetHeader = () => {
+const OverBudgetHeader = ({ canSort, onSort }: { canSort: boolean; onSort: (sortAsc: boolean) => void }) => {
+  const [sortAsc, setSortAsc] = useState(false);
+
+  const toggleSort = () => {
+    setSortAsc(!sortAsc);
+    onSort(!sortAsc);
+  };
+
   return (
     <div className="flex flex-row flex-nowrap justify-between">
       <div className="flex w-full flex-row items-center justify-end px-[24px] py-[14px]">
         <div className="w-1/5 truncate text-center font-medium">Budget</div>
         <div className="w-1/5 truncate text-center font-medium">Actual</div>
-        <div className="w-1/5 truncate text-center font-medium">Remaining</div>
+        <div className={`w-1/5 truncate text-center font-medium ${canSort ? 'flex flex-row justify-end' : ''}`}>
+          {canSort ? (
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+            <div className="flex cursor-pointer flex-row items-center" onClick={toggleSort} onKeyDown={toggleSort}>
+              <span>Remaining</span>
+              <span>
+                {sortAsc ? <ArrowUpNarrowWide className="size-4" /> : <ArrowDownNarrowWide className="size-4" />}
+              </span>
+            </div>
+          ) : (
+            <span>Remaining</span>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -59,44 +94,64 @@ const OverBudget = () => {
     refetch();
   }, [response]);
 
+  const [sortAsc, setSortAsc] = useState(false);
+
   const categories = useMemo(() => {
     const calculator = new OverBudgetCalculator();
-    const overBudgetCategories = calculator.getOverBudgetData(data, true);
+    const overBudgetCategories = calculator.getOverBudgetData(data, sortAsc, true);
     return overBudgetCategories?.catagories ?? [];
-  }, [data]);
+  }, [data, sortAsc]);
+
+  const sortCallback = useCallback((sortAsc: boolean) => setSortAsc(sortAsc), []);
 
   return (
     <div className="flex flex-col justify-start">
-      <OverBudgetHeader />
-      <Virtuoso
-        style={{ height: Math.min(categories.length * 56, 240) }}
-        data={categories}
-        itemContent={(_, item) => <OverBudgetRow item={item} />}></Virtuoso>
+      <OverBudgetHeader canSort={categories?.length > 1} onSort={sortCallback} />
+      {categories.length === 0 ? (
+        <AllClearRow />
+      ) : (
+        <Virtuoso
+          style={{ height: Math.min(categories.length * 56, 240) }}
+          data={categories}
+          itemContent={(_, item) =>
+            categories?.length === 0 ? <AllClearRow /> : <OverBudgetRow item={item} />
+          }></Virtuoso>
+      )}
     </div>
   );
 };
 
 export function OverBudgetWidget() {
+  const { enabled } = useStorage(featureStorage);
+  const month = useMemo(() => {
+    const date = new Date();
+    return `${getEnglishMonthName(date.getMonth())} ${date.getFullYear()}`;
+  }, []);
+
   return (
-    <ErrorBoundary fallback={<div>Error</div>}>
-      <div id="mmtk-over-budget" className="flex flex-col place-content-stretch rounded-lg">
-        <a href="/budget" className="group pb-4 pl-6 pr-5 pt-5 text-gray-400">
-          <div className="bottom-3 flex flex-row items-center text-xs font-semibold uppercase tracking-[1.2px] group-hover:text-lightBlue">
-            Over Budget Categories
-            <span className="ml-1 size-4 -translate-x-3 opacity-0 duration-100 ease-out group-hover:transform-none group-hover:opacity-100">
-              <ArrowRight className="size-4 stroke-2 text-current" />
-            </span>
+    <>
+      {enabled ? (
+        <ErrorBoundary fallback={<div>Error</div>}>
+          <div id="mmtk-over-budget" className="flex flex-col place-content-stretch rounded-lg text-widget-foreground">
+            <a href="/budget" className="group pb-4 pl-6 pr-5 pt-5 text-inherit">
+              <div className="bottom-3 flex flex-row items-center gap-2 text-lg font-semibold group-hover:text-lightBlue">
+                <span>Over Budget Categories</span>
+                <span className="text-base text-widget-foreground-secondary">{month}</span>
+              </div>
+            </a>
+            <Suspense
+              fallback={
+                <div className="m-6 flex flex-row justify-center">
+                  <Spinner />
+                </div>
+              }>
+              <OverBudget />
+            </Suspense>
           </div>
-        </a>
-        <Suspense
-          fallback={
-            <div className="m-6 flex flex-row justify-center">
-              <Spinner />
-            </div>
-          }>
-          <OverBudget />
-        </Suspense>
-      </div>
-    </ErrorBoundary>
+        </ErrorBoundary>
+      ) : (
+        <></>
+      )}
+    </>
   );
 }

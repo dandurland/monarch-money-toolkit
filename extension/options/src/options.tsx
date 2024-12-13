@@ -10,7 +10,6 @@ const router = createMemoryRouter(
   createRoutesFromElements(
     <Route path="/" element={<SettingsLayout />}>
       <Route index element={<DashboardSettings />} />
-      <Route path="/options/dashboard" element={<DashboardSettings />} />
       <Route path="/options/nav-bar" element={<NavBarSettings />} />
       <Route path="/options/transactions" element={<TransactionSettings />} />
       <Route path="*" element={<DashboardSettings />} />
