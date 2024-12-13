@@ -1,6 +1,6 @@
 {
   "name": "@extension/core",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "core code",
   "private": true,
   "sideEffects": false,

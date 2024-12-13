@@ -1,6 +1,6 @@
 {
   "name": "@extension/toolkit-bridge",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "content script bridge",
   "private": true,
   "sideEffects": true,
