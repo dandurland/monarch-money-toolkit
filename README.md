@@ -21,19 +21,24 @@
 
 - [Intro](#intro)
 - [Current Features](#current-features)
-- [Planned Features](#planned-features)
-- [Getting started](#getting-started)
-    - [Chrome](#getting-started-chrome)
-    - [Firefox](#getting-started-firefox)
+- [Feature Roadmap](#feature-roadmap)
+- [Installing on Chrome](#installing-on-chrome)
+- [Installing on Firefox](#installing-on-firefox)
 
-- ## Intro
+ ## Intro
 
 Monarch Money Toolkit extends the web version of [Monarch Money](https://monarchmoney.com) with features, styles and tweeks not found in the current offering.
 With inspiration stemming from the [You Need A Budget Toolkit](https://www.toolkitforynab.com/) and scaffolding based on the [Chrome Extension Boilerplate](https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite?tab=readme-ov-file).
 
+> [!WARNING]
+> This is an ALPHA release to gather feedback. This version contains no features that alter your Monarch Money data nor does it persist any sensitive data.
+> Once enough feedback has been sourced I plan to relase this to the [Chrome Store](https://chromewebstore.google.com/category/extensions) and [Mozilla Add-On Store](https://addons.mozilla.org/en-US/firefox).
+> Please submit any feature requests or issues [here](https://github.com/dandurland/monarch-money-toolkit/issues)
+
 ## Current Features
+- Support for latest Monarch Money Light and Dark themes
 - Dashboard integration for widgets and features
-    - Over budget category count added to the left side navigation
+    - Over budget category badge and count added to the left side Budget navigation
     - Over budget category widget that displays the over budget categories on the dashboard
   ![dashboard_dark](https://github.com/user-attachments/assets/ab5fc690-9492-48f4-a377-9050852c47da)
   ![dashboard](https://github.com/user-attachments/assets/34583531-352c-43e9-a41c-c4a931af0576)
@@ -44,6 +49,26 @@ With inspiration stemming from the [You Need A Budget Toolkit](https://www.toolk
     - Large
     - ![transactions-large](https://github.com/user-attachments/assets/c4772bf0-1c4e-443e-b043-96639f181ac4)
 
-## Planned Features
-- Monthly rollup of unspent dollars into target category
+## Feature Roadmap
+- Effective balance displaying your credit usage verses your depository accounts. Both credit and deository accounts are configurable.
+- Monthly rollup of budgeted but unspent dollars into target category(s)
 - Amazon order integration
+
+## Getting Started Chrome
+
+## Installing on Chrome
+
+1. Download the latest release zip (`chrome-monarch-amazon-sync.zip`) from the [releases page](https://github.com/dandurland/monarch-money-toolkit/releases/latest)
+2. Unzip the file
+3. Open Chrome and navigate to `chrome://extensions`
+4. Enable developer mode
+5. Click "Load unpacked" and select the unzipped folder
+
+## Installing on Firefox
+
+1. Download the latest release zip (`firefox-monarch-amazon-sync.zip`) from the [releases page](https://github.com/dandurland/monarch-money-toolkit/releases/latest)
+2. Unzip the file
+3. Open Firefox and navigate to `about:debugging#/runtime/this-firefox`
+4. Click "Load Temporary Add-on..." and select the manifest.json file in the unzipped folder
+> [!NOTE]
+> Firefox does not persist temporary extensions between instances. Unfortunatly you will have to load the extension each time you launch Firefox until it is release to the Add-On Store.
