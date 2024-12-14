@@ -31,8 +31,10 @@ Monarch Money Toolkit extends the web version of [Monarch Money](https://monarch
 With inspiration stemming from the [You Need A Budget Toolkit](https://www.toolkitforynab.com/) and scaffolding based on the [Chrome Extension Boilerplate](https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite?tab=readme-ov-file).
 
 > [!WARNING]
-> This is an ALPHA release to gather feedback. This version contains no features that alter your Monarch Money data nor does it persist any sensitive data.
-> Once enough feedback has been sourced I plan to relase this to the [Chrome Store](https://chromewebstore.google.com/category/extensions) and [Mozilla Add-On Store](https://addons.mozilla.org/en-US/firefox).
+> This is an <b>ALPHA</b> release. This version contains no features that alter your Monarch Money data but, like any 3rd party extension, it could cause Monarch Money UI issues. If you encounter any issues please open a [ticket](https://github.com/dandurland/monarch-money-toolkit/issues) with the details.
+> I plan to relase this to the [Chrome Store](https://chromewebstore.google.com/category/extensions) and [Mozilla Add-On Store](https://addons.mozilla.org/en-US/firefox) once it has been in the wild for a bit and other features have been aded.
+>
+> 
 > Please submit any feature requests or issues [here](https://github.com/dandurland/monarch-money-toolkit/issues)
 
 ## Current Features
@@ -52,6 +54,7 @@ With inspiration stemming from the [You Need A Budget Toolkit](https://www.toolk
 ## Feature Roadmap
 - Effective balance displaying your credit usage verses your depository accounts. Both credit and deository accounts are configurable.
 - Monthly rollup of budgeted but unspent dollars into target category(s)
+- Release to Chrome and Mozilla stores
 - Amazon order integration
 
 ## Getting Started Chrome
@@ -60,15 +63,15 @@ With inspiration stemming from the [You Need A Budget Toolkit](https://www.toolk
 
 1. Download the latest release zip (`chrome-monarch-amazon-sync.zip`) from the [releases page](https://github.com/dandurland/monarch-money-toolkit/releases/latest)
 2. Unzip the file
-3. Open Chrome and navigate to `chrome://extensions`
-4. Enable developer mode
-5. Click "Load unpacked" and select the unzipped folder
+3. Open Chrome and type or paste `chrome://extensions` in the navigation bar
+4. Enable developer mode by clicking the toggle switch next to <B>Developer mode</B>
+5. Click "Load unpacked" and select the folder where you unzipped the extension
 
 ## Installing on Firefox
 
 1. Download the latest release zip (`firefox-monarch-amazon-sync.zip`) from the [releases page](https://github.com/dandurland/monarch-money-toolkit/releases/latest)
 2. Unzip the file
-3. Open Firefox and navigate to `about:debugging#/runtime/this-firefox`
+3. Open Firefox and type or paste `about:debugging#/runtime/this-firefox` in the navigation bar
 4. Click "Load Temporary Add-on..." and select the manifest.json file in the unzipped folder
 > [!NOTE]
 > Firefox does not persist temporary extensions between instances. Unfortunatly you will have to load the extension each time you launch Firefox until it is release to the Add-On Store.
