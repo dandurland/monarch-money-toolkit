@@ -10,3 +10,4 @@ packages:
   - "packages/toolkit/features/transactions/*"
   - "packages/toolkit/features/dashboard/*"
   - "packages/toolkit/features/nav-bar/*"
+  - "packages/toolkit/features/budget/*"

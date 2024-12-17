@@ -4,18 +4,18 @@ import compact from './compact.css?raw';
 import { ErrorBoundary, Feature } from '@extension/shared';
 import type { ReactElement } from 'react';
 import { Fragment } from 'react';
-import { TransactionRowHeightSettings } from './settings';
+import { BudgetRowHeightSettings } from './settings';
 import { objectIs } from '@extension/core';
 import type { Settings } from './feature-storage';
 import { featureStorage } from './feature-storage';
 
 type Options = 'compact' | 'default' | 'large';
 
-export class TransactionRowHeightFeature extends Feature {
-  private id: string = `mmtk-transaction-row-height-feature-style`;
+export class BudgetRowHeightFeature extends Feature {
+  private id: string = `mmtk-budget-row-height-feature-style`;
 
   constructor() {
-    super('transactions', 'TransactionRowHeightFeature');
+    super('budget', 'BudgetRowHeightFeature');
   }
 
   async initialize(): Promise<void> {
@@ -43,11 +43,11 @@ export class TransactionRowHeightFeature extends Feature {
   }
 
   getSettingsComponent(): ReactElement {
-    const key = 'transaction-row-height-settings'; //uid();
+    const key = 'budget-row-height-settings'; //uid();
     return (
       <Fragment key={key}>
-        <ErrorBoundary fallback={<div>Error in Transaction Row Height feature settings</div>}>
-          <TransactionRowHeightSettings />
+        <ErrorBoundary fallback={<div>Error in Budget Row Height feature settings</div>}>
+          <BudgetRowHeightSettings />
         </ErrorBoundary>
       </Fragment>
     );

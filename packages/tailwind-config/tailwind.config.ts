@@ -1,6 +1,4 @@
 import type { Config } from 'tailwindcss/types/config';
-import lightThemeColors from './light-theme-colors';
-import darkThemeColors from './dark-theme-colors';
 
 export default {
   //prefix: 'mmtk-',

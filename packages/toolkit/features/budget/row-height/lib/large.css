@@ -1,0 +1,12 @@
+:root {
+  --font-size: 18px;
+  --height: 68px;
+}
+
+[class*=PlanCell] {
+  font-size: var(--font-size);
+}
+
+[class*=PlanGrid__PlanGridRow] {
+  height: var(--height);
+}
