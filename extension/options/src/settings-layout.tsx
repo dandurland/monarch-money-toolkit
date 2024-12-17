@@ -13,6 +13,10 @@ const sidebarNavItems = [
     href: '/',
   },
   {
+    title: 'Budget',
+    href: '/options/budget',
+  },
+  {
     title: 'Navigation Bar',
     href: '/options/nav-bar',
   },

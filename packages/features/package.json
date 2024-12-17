@@ -21,11 +21,12 @@
     "type-check": "tsc --noEmit"
   },
   "devDependencies": {
+    "@extension/tsconfig": "workspace:*",
     "@extension/shared": "workspace:*",
     "@extension/transaction-row-height-feature": "workspace:*",
     "@extension/over-budget-widget": "workspace:*",
     "@extension/over-budget-count-feature": "workspace:*",
-    "@extension/tsconfig": "workspace:*"
+    "@extension/budget-row-height-feature": "workspace:*"
   },
   "dependencies": {}
 }

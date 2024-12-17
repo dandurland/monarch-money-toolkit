@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
 
-export type FeatureTarget = 'nav-bar' | 'dashboard-widgets' | 'dashboard' | 'transactions';
+export type FeatureTarget = 'nav-bar' | 'dashboard-widgets' | 'dashboard' | 'transactions' | 'budget';
 
 export abstract class Feature {
   constructor(

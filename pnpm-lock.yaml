@@ -301,6 +301,9 @@ importers:
 
   packages/features:
     devDependencies:
+      '@extension/budget-row-height-feature':
+        specifier: workspace:*
+        version: link:../toolkit/features/budget/row-height
       '@extension/over-budget-count-feature':
         specifier: workspace:*
         version: link:../toolkit/features/nav-bar/over-budget-count
@@ -465,6 +468,49 @@ importers:
       postcss-load-config:
         specifier: ^6.0.1
         version: 6.0.1(jiti@1.21.6)(postcss@8.4.47)(tsx@4.19.1)(yaml@2.5.1)
+      tsc-alias:
+        specifier: ^1.8.10
+        version: 1.8.10
+
+  packages/toolkit/features/budget/row-height:
+    dependencies:
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      jquery:
+        specifier: ^3.7.1
+        version: 3.7.1
+      tailwind-merge:
+        specifier: ^2.4.0
+        version: 2.5.2
+    devDependencies:
+      '@extension/core':
+        specifier: workspace:*
+        version: link:../../../../core
+      '@extension/shared':
+        specifier: workspace:*
+        version: link:../../../../shared
+      '@extension/storage':
+        specifier: workspace:*
+        version: link:../../../../storage
+      '@extension/tailwindcss-config':
+        specifier: workspace:*
+        version: link:../../../../tailwind-config
+      '@extension/tsconfig':
+        specifier: workspace:*
+        version: link:../../../../tsconfig
+      '@extension/ui':
+        specifier: workspace:*
+        version: link:../../../../ui
+      '@extension/vite-config':
+        specifier: workspace:*
+        version: link:../../../../vite-config
+      '@types/jquery':
+        specifier: ^3.5.29
+        version: 3.5.32
+      deepmerge:
+        specifier: ^4.3.1
+        version: 4.3.1
       tsc-alias:
         specifier: ^1.8.10
         version: 1.8.10
