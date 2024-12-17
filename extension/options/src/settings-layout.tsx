@@ -63,7 +63,7 @@ export function SettingsLayout() {
               <img src={chrome.runtime.getURL(logo)} className="h-[20vmin]" alt="logo" />
             </button>
             <div className="flex flex-row items-center">
-              <label className="text-sm font-semibold pr-2" htmlFor="extension-enabled">
+              <label className="pr-2 text-sm font-semibold" htmlFor="extension-enabled">
                 {`${enabled ? 'Disable' : 'Enable'} Toolkit`}
               </label>
               <Switch id="extension-enabled" checked={enabled} onCheckedChange={toggleExtension} />
