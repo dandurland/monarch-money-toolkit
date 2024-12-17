@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { createContext, useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { createContext, useContext, useLayoutEffect, useRef, useState } from 'react';
 import { useFilteringDOMMutationObserver } from '@extension/shared';
 import { makePersistRoot } from '@extension/monarch';
 
