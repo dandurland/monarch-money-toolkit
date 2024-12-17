@@ -1,11 +1,11 @@
 {
-  "name": "chrome-extension-boilerplate-react-vite",
+  "name": "monarch-money-toolkit",
   "version": "0.1.2",
-  "description": "chrome extension boilerplate",
+  "description": "feature and ui customizations for the web version of monarch money",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite.git"
+    "url": "https://github.com/dandurland/monarch-money-toolkit.git"
   },
   "type": "module",
   "scripts": {
