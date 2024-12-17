@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { createContext, useContext, useEffect, useRef, useState } from 'react';
+import { createContext, useContext, useLayoutEffect, useRef, useState } from 'react';
 import { useFilteringDOMMutationObserver } from '@extension/shared';
 import { makePersistRoot } from '@extension/monarch';
 
@@ -41,7 +41,7 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
     },
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const root = window.document.documentElement;
 
     root!.classList.remove('light', 'dark');
