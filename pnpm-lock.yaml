@@ -106,14 +106,14 @@ importers:
         specifier: 5.4.9
         version: 5.4.9(@types/node@20.16.10)(sass@1.79.4)(terser@5.34.1)
 
-  chrome-extension:
+  extension/background:
     dependencies:
       '@extension/shared':
         specifier: workspace:*
-        version: link:../packages/shared
+        version: link:../../packages/shared
       '@extension/storage':
         specifier: workspace:*
-        version: link:../packages/storage
+        version: link:../../packages/storage
       '@isaacs/ttlcache':
         specifier: ^1.4.1
         version: 1.4.1
@@ -126,22 +126,22 @@ importers:
     devDependencies:
       '@extension/core':
         specifier: workspace:*
-        version: link:../packages/core
+        version: link:../../packages/core
       '@extension/dev-utils':
         specifier: workspace:*
-        version: link:../packages/dev-utils
+        version: link:../../packages/dev-utils
       '@extension/hmr':
         specifier: workspace:*
-        version: link:../packages/hmr
+        version: link:../../packages/hmr
       '@extension/monarch':
         specifier: workspace:*
-        version: link:../packages/monarch
+        version: link:../../packages/monarch
       '@extension/tsconfig':
         specifier: workspace:*
-        version: link:../packages/tsconfig
+        version: link:../../packages/tsconfig
       '@extension/vite-config':
         specifier: workspace:*
-        version: link:../packages/vite-config
+        version: link:../../packages/vite-config
       '@laynezh/vite-plugin-lib-assets':
         specifier: ^0.5.23
         version: 0.5.24(vite@5.4.9(@types/node@22.7.4)(sass@1.79.4)(terser@5.34.1))
@@ -193,7 +193,7 @@ importers:
         version: link:../../packages/tailwind-config
       '@extension/transaction-row-height-feature':
         specifier: workspace:*
-        version: link:../../packages/toolkit/features/transactions/row-height
+        version: link:../toolkit/features/transactions/row-height
       '@extension/tsconfig':
         specifier: workspace:*
         version: link:../../packages/tsconfig
@@ -252,10 +252,10 @@ importers:
         version: link:../../packages/hmr
       '@extension/over-budget-count-feature':
         specifier: workspace:*
-        version: link:../../packages/toolkit/features/nav-bar/over-budget-count
+        version: link:../toolkit/features/nav-bar/over-budget-count
       '@extension/over-budget-widget':
         specifier: workspace:*
-        version: link:../../packages/toolkit/features/widgets/over-budget
+        version: link:../toolkit/features/widgets/over-budget
       '@extension/shared':
         specifier: workspace:*
         version: link:../../packages/shared
@@ -267,7 +267,7 @@ importers:
         version: link:../../packages/tailwind-config
       '@extension/toolkit-app':
         specifier: workspace:*
-        version: link:../../packages/toolkit/app
+        version: link:../toolkit/app
       '@extension/tsconfig':
         specifier: workspace:*
         version: link:../../packages/tsconfig
@@ -283,6 +283,269 @@ importers:
       postcss-load-config:
         specifier: ^6.0.1
         version: 6.0.1(jiti@1.21.6)(postcss@8.4.47)(tsx@4.19.1)(yaml@2.5.1)
+
+  extension/toolkit/app:
+    dependencies:
+      '@apollo/client':
+        specifier: ^3.11.10
+        version: 3.11.10(@types/react@18.3.5)(graphql@16.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@extension/features':
+        specifier: workspace:*
+        version: link:../../../packages/features
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      jquery:
+        specifier: ^3.7.1
+        version: 3.7.1
+      lucide-react:
+        specifier: ^0.468.0
+        version: 0.468.0(react@18.3.1)
+      react-router:
+        specifier: ^7.0.1
+        version: 7.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      styled-components:
+        specifier: ^6.1.13
+        version: 6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      tailwind-merge:
+        specifier: ^2.4.0
+        version: 2.5.2
+    devDependencies:
+      '@extension/monarch':
+        specifier: workspace:*
+        version: link:../../../packages/monarch
+      '@extension/over-budget-count-feature':
+        specifier: workspace:*
+        version: link:../features/nav-bar/over-budget-count
+      '@extension/over-budget-widget':
+        specifier: workspace:*
+        version: link:../features/widgets/over-budget
+      '@extension/shared':
+        specifier: workspace:*
+        version: link:../../../packages/shared
+      '@extension/storage':
+        specifier: workspace:*
+        version: link:../../../packages/storage
+      '@extension/tailwindcss-config':
+        specifier: workspace:*
+        version: link:../../../packages/tailwind-config
+      '@extension/transaction-row-height-feature':
+        specifier: workspace:*
+        version: link:../features/transactions/row-height
+      '@extension/tsconfig':
+        specifier: workspace:*
+        version: link:../../../packages/tsconfig
+      '@extension/ui':
+        specifier: workspace:*
+        version: link:../../../packages/ui
+      '@extension/vite-config':
+        specifier: workspace:*
+        version: link:../../../packages/vite-config
+      '@types/jquery':
+        specifier: ^3.5.29
+        version: 3.5.32
+      cross-env:
+        specifier: ^7.0.3
+        version: 7.0.3
+      deepmerge:
+        specifier: ^4.3.1
+        version: 4.3.1
+      postcss-load-config:
+        specifier: ^6.0.1
+        version: 6.0.1(jiti@1.21.6)(postcss@8.4.47)(tsx@4.19.1)(yaml@2.5.1)
+      tsc-alias:
+        specifier: ^1.8.10
+        version: 1.8.10
+
+  extension/toolkit/features/budget/row-height:
+    dependencies:
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      jquery:
+        specifier: ^3.7.1
+        version: 3.7.1
+      tailwind-merge:
+        specifier: ^2.4.0
+        version: 2.5.2
+    devDependencies:
+      '@extension/core':
+        specifier: workspace:*
+        version: link:../../../../../packages/core
+      '@extension/shared':
+        specifier: workspace:*
+        version: link:../../../../../packages/shared
+      '@extension/storage':
+        specifier: workspace:*
+        version: link:../../../../../packages/storage
+      '@extension/tailwindcss-config':
+        specifier: workspace:*
+        version: link:../../../../../packages/tailwind-config
+      '@extension/tsconfig':
+        specifier: workspace:*
+        version: link:../../../../../packages/tsconfig
+      '@extension/ui':
+        specifier: workspace:*
+        version: link:../../../../../packages/ui
+      '@extension/vite-config':
+        specifier: workspace:*
+        version: link:../../../../../packages/vite-config
+      '@types/jquery':
+        specifier: ^3.5.29
+        version: 3.5.32
+      deepmerge:
+        specifier: ^4.3.1
+        version: 4.3.1
+      tsc-alias:
+        specifier: ^1.8.10
+        version: 1.8.10
+
+  extension/toolkit/features/nav-bar/over-budget-count:
+    dependencies:
+      '@apollo/client':
+        specifier: ^3.11.10
+        version: 3.11.10(@types/react@18.3.5)(graphql@16.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      jquery:
+        specifier: ^3.7.1
+        version: 3.7.1
+      tailwind-merge:
+        specifier: ^2.4.0
+        version: 2.5.2
+    devDependencies:
+      '@extension/core':
+        specifier: workspace:*
+        version: link:../../../../../packages/core
+      '@extension/monarch':
+        specifier: workspace:*
+        version: link:../../../../../packages/monarch
+      '@extension/shared':
+        specifier: workspace:*
+        version: link:../../../../../packages/shared
+      '@extension/storage':
+        specifier: workspace:*
+        version: link:../../../../../packages/storage
+      '@extension/tailwindcss-config':
+        specifier: workspace:*
+        version: link:../../../../../packages/tailwind-config
+      '@extension/tsconfig':
+        specifier: workspace:*
+        version: link:../../../../../packages/tsconfig
+      '@extension/ui':
+        specifier: workspace:*
+        version: link:../../../../../packages/ui
+      '@extension/vite-config':
+        specifier: workspace:*
+        version: link:../../../../../packages/vite-config
+      '@types/jquery':
+        specifier: ^3.5.29
+        version: 3.5.32
+      deepmerge:
+        specifier: ^4.3.1
+        version: 4.3.1
+      tsc-alias:
+        specifier: ^1.8.10
+        version: 1.8.10
+
+  extension/toolkit/features/transactions/row-height:
+    dependencies:
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      jquery:
+        specifier: ^3.7.1
+        version: 3.7.1
+      tailwind-merge:
+        specifier: ^2.4.0
+        version: 2.5.2
+    devDependencies:
+      '@extension/core':
+        specifier: workspace:*
+        version: link:../../../../../packages/core
+      '@extension/shared':
+        specifier: workspace:*
+        version: link:../../../../../packages/shared
+      '@extension/storage':
+        specifier: workspace:*
+        version: link:../../../../../packages/storage
+      '@extension/tailwindcss-config':
+        specifier: workspace:*
+        version: link:../../../../../packages/tailwind-config
+      '@extension/tsconfig':
+        specifier: workspace:*
+        version: link:../../../../../packages/tsconfig
+      '@extension/ui':
+        specifier: workspace:*
+        version: link:../../../../../packages/ui
+      '@extension/vite-config':
+        specifier: workspace:*
+        version: link:../../../../../packages/vite-config
+      '@types/jquery':
+        specifier: ^3.5.29
+        version: 3.5.32
+      deepmerge:
+        specifier: ^4.3.1
+        version: 4.3.1
+      tsc-alias:
+        specifier: ^1.8.10
+        version: 1.8.10
+
+  extension/toolkit/features/widgets/over-budget:
+    dependencies:
+      '@apollo/client':
+        specifier: ^3.11.10
+        version: 3.11.10(@types/react@18.3.5)(graphql@16.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      lucide-react:
+        specifier: ^0.468.0
+        version: 0.468.0(react@18.3.1)
+      react-router:
+        specifier: ^7.0.1
+        version: 7.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-virtuoso:
+        specifier: ^4.12.3
+        version: 4.12.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      styled-components:
+        specifier: ^6.1.13
+        version: 6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      tailwind-merge:
+        specifier: ^2.4.0
+        version: 2.5.2
+    devDependencies:
+      '@extension/core':
+        specifier: workspace:*
+        version: link:../../../../../packages/core
+      '@extension/monarch':
+        specifier: workspace:*
+        version: link:../../../../../packages/monarch
+      '@extension/shared':
+        specifier: workspace:*
+        version: link:../../../../../packages/shared
+      '@extension/storage':
+        specifier: workspace:*
+        version: link:../../../../../packages/storage
+      '@extension/tailwindcss-config':
+        specifier: workspace:*
+        version: link:../../../../../packages/tailwind-config
+      '@extension/tsconfig':
+        specifier: workspace:*
+        version: link:../../../../../packages/tsconfig
+      '@extension/ui':
+        specifier: workspace:*
+        version: link:../../../../../packages/ui
+      '@extension/vite-config':
+        specifier: workspace:*
+        version: link:../../../../../packages/vite-config
+      deepmerge:
+        specifier: ^4.3.1
+        version: 4.3.1
+      tsc-alias:
+        specifier: ^1.8.10
+        version: 1.8.10
 
   packages/core:
     devDependencies:
@@ -303,19 +566,19 @@ importers:
     devDependencies:
       '@extension/budget-row-height-feature':
         specifier: workspace:*
-        version: link:../toolkit/features/budget/row-height
+        version: link:../../extension/toolkit/features/budget/row-height
       '@extension/over-budget-count-feature':
         specifier: workspace:*
-        version: link:../toolkit/features/nav-bar/over-budget-count
+        version: link:../../extension/toolkit/features/nav-bar/over-budget-count
       '@extension/over-budget-widget':
         specifier: workspace:*
-        version: link:../toolkit/features/widgets/over-budget
+        version: link:../../extension/toolkit/features/widgets/over-budget
       '@extension/shared':
         specifier: workspace:*
         version: link:../shared
       '@extension/transaction-row-height-feature':
         specifier: workspace:*
-        version: link:../toolkit/features/transactions/row-height
+        version: link:../../extension/toolkit/features/transactions/row-height
       '@extension/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
@@ -398,269 +661,6 @@ importers:
         version: link:../tsconfig
 
   packages/tailwind-config: {}
-
-  packages/toolkit/app:
-    dependencies:
-      '@apollo/client':
-        specifier: ^3.11.10
-        version: 3.11.10(@types/react@18.3.5)(graphql@16.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@extension/features':
-        specifier: workspace:*
-        version: link:../../features
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
-      jquery:
-        specifier: ^3.7.1
-        version: 3.7.1
-      lucide-react:
-        specifier: ^0.468.0
-        version: 0.468.0(react@18.3.1)
-      react-router:
-        specifier: ^7.0.1
-        version: 7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      styled-components:
-        specifier: ^6.1.13
-        version: 6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      tailwind-merge:
-        specifier: ^2.4.0
-        version: 2.5.2
-    devDependencies:
-      '@extension/monarch':
-        specifier: workspace:*
-        version: link:../../monarch
-      '@extension/over-budget-count-feature':
-        specifier: workspace:*
-        version: link:../features/nav-bar/over-budget-count
-      '@extension/over-budget-widget':
-        specifier: workspace:*
-        version: link:../features/widgets/over-budget
-      '@extension/shared':
-        specifier: workspace:*
-        version: link:../../shared
-      '@extension/storage':
-        specifier: workspace:*
-        version: link:../../storage
-      '@extension/tailwindcss-config':
-        specifier: workspace:*
-        version: link:../../tailwind-config
-      '@extension/transaction-row-height-feature':
-        specifier: workspace:*
-        version: link:../features/transactions/row-height
-      '@extension/tsconfig':
-        specifier: workspace:*
-        version: link:../../tsconfig
-      '@extension/ui':
-        specifier: workspace:*
-        version: link:../../ui
-      '@extension/vite-config':
-        specifier: workspace:*
-        version: link:../../vite-config
-      '@types/jquery':
-        specifier: ^3.5.29
-        version: 3.5.32
-      cross-env:
-        specifier: ^7.0.3
-        version: 7.0.3
-      deepmerge:
-        specifier: ^4.3.1
-        version: 4.3.1
-      postcss-load-config:
-        specifier: ^6.0.1
-        version: 6.0.1(jiti@1.21.6)(postcss@8.4.47)(tsx@4.19.1)(yaml@2.5.1)
-      tsc-alias:
-        specifier: ^1.8.10
-        version: 1.8.10
-
-  packages/toolkit/features/budget/row-height:
-    dependencies:
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
-      jquery:
-        specifier: ^3.7.1
-        version: 3.7.1
-      tailwind-merge:
-        specifier: ^2.4.0
-        version: 2.5.2
-    devDependencies:
-      '@extension/core':
-        specifier: workspace:*
-        version: link:../../../../core
-      '@extension/shared':
-        specifier: workspace:*
-        version: link:../../../../shared
-      '@extension/storage':
-        specifier: workspace:*
-        version: link:../../../../storage
-      '@extension/tailwindcss-config':
-        specifier: workspace:*
-        version: link:../../../../tailwind-config
-      '@extension/tsconfig':
-        specifier: workspace:*
-        version: link:../../../../tsconfig
-      '@extension/ui':
-        specifier: workspace:*
-        version: link:../../../../ui
-      '@extension/vite-config':
-        specifier: workspace:*
-        version: link:../../../../vite-config
-      '@types/jquery':
-        specifier: ^3.5.29
-        version: 3.5.32
-      deepmerge:
-        specifier: ^4.3.1
-        version: 4.3.1
-      tsc-alias:
-        specifier: ^1.8.10
-        version: 1.8.10
-
-  packages/toolkit/features/nav-bar/over-budget-count:
-    dependencies:
-      '@apollo/client':
-        specifier: ^3.11.10
-        version: 3.11.10(@types/react@18.3.5)(graphql@16.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
-      jquery:
-        specifier: ^3.7.1
-        version: 3.7.1
-      tailwind-merge:
-        specifier: ^2.4.0
-        version: 2.5.2
-    devDependencies:
-      '@extension/core':
-        specifier: workspace:*
-        version: link:../../../../core
-      '@extension/monarch':
-        specifier: workspace:*
-        version: link:../../../../monarch
-      '@extension/shared':
-        specifier: workspace:*
-        version: link:../../../../shared
-      '@extension/storage':
-        specifier: workspace:*
-        version: link:../../../../storage
-      '@extension/tailwindcss-config':
-        specifier: workspace:*
-        version: link:../../../../tailwind-config
-      '@extension/tsconfig':
-        specifier: workspace:*
-        version: link:../../../../tsconfig
-      '@extension/ui':
-        specifier: workspace:*
-        version: link:../../../../ui
-      '@extension/vite-config':
-        specifier: workspace:*
-        version: link:../../../../vite-config
-      '@types/jquery':
-        specifier: ^3.5.29
-        version: 3.5.32
-      deepmerge:
-        specifier: ^4.3.1
-        version: 4.3.1
-      tsc-alias:
-        specifier: ^1.8.10
-        version: 1.8.10
-
-  packages/toolkit/features/transactions/row-height:
-    dependencies:
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
-      jquery:
-        specifier: ^3.7.1
-        version: 3.7.1
-      tailwind-merge:
-        specifier: ^2.4.0
-        version: 2.5.2
-    devDependencies:
-      '@extension/core':
-        specifier: workspace:*
-        version: link:../../../../core
-      '@extension/shared':
-        specifier: workspace:*
-        version: link:../../../../shared
-      '@extension/storage':
-        specifier: workspace:*
-        version: link:../../../../storage
-      '@extension/tailwindcss-config':
-        specifier: workspace:*
-        version: link:../../../../tailwind-config
-      '@extension/tsconfig':
-        specifier: workspace:*
-        version: link:../../../../tsconfig
-      '@extension/ui':
-        specifier: workspace:*
-        version: link:../../../../ui
-      '@extension/vite-config':
-        specifier: workspace:*
-        version: link:../../../../vite-config
-      '@types/jquery':
-        specifier: ^3.5.29
-        version: 3.5.32
-      deepmerge:
-        specifier: ^4.3.1
-        version: 4.3.1
-      tsc-alias:
-        specifier: ^1.8.10
-        version: 1.8.10
-
-  packages/toolkit/features/widgets/over-budget:
-    dependencies:
-      '@apollo/client':
-        specifier: ^3.11.10
-        version: 3.11.10(@types/react@18.3.5)(graphql@16.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
-      lucide-react:
-        specifier: ^0.468.0
-        version: 0.468.0(react@18.3.1)
-      react-router:
-        specifier: ^7.0.1
-        version: 7.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-virtuoso:
-        specifier: ^4.12.3
-        version: 4.12.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      styled-components:
-        specifier: ^6.1.13
-        version: 6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      tailwind-merge:
-        specifier: ^2.4.0
-        version: 2.5.2
-    devDependencies:
-      '@extension/core':
-        specifier: workspace:*
-        version: link:../../../../core
-      '@extension/monarch':
-        specifier: workspace:*
-        version: link:../../../../monarch
-      '@extension/shared':
-        specifier: workspace:*
-        version: link:../../../../shared
-      '@extension/storage':
-        specifier: workspace:*
-        version: link:../../../../storage
-      '@extension/tailwindcss-config':
-        specifier: workspace:*
-        version: link:../../../../tailwind-config
-      '@extension/tsconfig':
-        specifier: workspace:*
-        version: link:../../../../tsconfig
-      '@extension/ui':
-        specifier: workspace:*
-        version: link:../../../../ui
-      '@extension/vite-config':
-        specifier: workspace:*
-        version: link:../../../../vite-config
-      deepmerge:
-        specifier: ^4.3.1
-        version: 4.3.1
-      tsc-alias:
-        specifier: ^1.8.10
-        version: 1.8.10
 
   packages/tsconfig: {}
 

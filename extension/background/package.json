@@ -1,7 +1,7 @@
 {
-  "name": "chrome-extension",
+  "name": "background",
   "version": "0.1.2",
-  "description": "chrome extension - core settings",
+  "description": "background service worker",
   "type": "module",
   "scripts": {
     "clean:node_modules": "pnpx rimraf node_modules",

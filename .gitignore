@@ -19,7 +19,7 @@
 **/.turbo
 
 # compiled
-chrome-extension/public/manifest.json
+extension/background/public/manifest.json
 **/tailwind-output.css
 
 # vite timestamp (because of bug from lib, remove it after fix will have been realased)

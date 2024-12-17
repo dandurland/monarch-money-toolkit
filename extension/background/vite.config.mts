@@ -7,7 +7,7 @@ import { isDev, isProduction, watchOption } from '@extension/vite-config';
 
 const rootDir = resolve(__dirname);
 const srcDir = resolve(rootDir, 'src');
-const distDir = resolve(rootDir, '..', 'dist');
+const distDir = resolve(rootDir, '..', '..', 'dist');
 const outDir = resolve(distDir);
 
 export default defineConfig({
