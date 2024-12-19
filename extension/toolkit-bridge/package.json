@@ -27,6 +27,7 @@
     "@extension/hmr": "workspace:*",
     "@extension/over-budget-count-feature": "workspace:*",
     "@extension/over-budget-widget": "workspace:*",
+    "@extension/effective-balance-widget": "workspace:*",
     "@extension/shared": "workspace:*",
     "@extension/storage": "workspace:*",
     "@extension/tailwindcss-config": "workspace:*",

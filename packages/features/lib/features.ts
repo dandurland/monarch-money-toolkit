@@ -3,6 +3,7 @@ import { TransactionRowHeightFeature } from '@extension/transaction-row-height-f
 import { OverBudgetFeature } from '@extension/over-budget-widget';
 import { OverBudgetCountFeature } from '@extension/over-budget-count-feature';
 import { BudgetRowHeightFeature } from '@extension/budget-row-height-feature';
+import { EffectiveBalanceFeature } from '@extension/effective-balance-widget';
 
 export class Features {
   private instances: Feature[] = [];
@@ -25,6 +26,11 @@ export class Features {
 
     {
       const feature = new BudgetRowHeightFeature();
+      this.instances.push(feature);
+    }
+
+    {
+      const feature = new EffectiveBalanceFeature();
       this.instances.push(feature);
     }
   }

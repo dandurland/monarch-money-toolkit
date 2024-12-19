@@ -28,7 +28,6 @@
   },
   "devDependencies": {
     "@extension/features": "workspace:*",
-    "@extension/transaction-row-height-feature": "workspace:*",
     "@extension/monarch": "workspace:*",
     "@extension/tailwindcss-config": "workspace:*",
     "@extension/tsconfig": "workspace:*",

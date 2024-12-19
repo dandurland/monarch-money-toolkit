@@ -5,3 +5,4 @@ export * from './label';
 export * from './separator';
 export * from './radio-group';
 export * from './card';
+export * from './progress';

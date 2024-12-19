@@ -111,7 +111,7 @@ const OverBudget = () => {
         <AllClearRow />
       ) : (
         <Virtuoso
-          style={{ height: Math.min(categories.length * 56, 240) }}
+          style={{ height: Math.min(categories.length * 56, 220) }}
           data={categories}
           itemContent={(_, item) =>
             categories?.length === 0 ? <AllClearRow /> : <OverBudgetRow item={item} />
@@ -131,7 +131,7 @@ export function OverBudgetWidget() {
   return (
     <>
       {enabled ? (
-        <ErrorBoundary fallback={<div>Error</div>}>
+        <ErrorBoundary fallback={<div>Error retrieving over budget data</div>}>
           <div id="mmtk-over-budget" className="flex flex-col place-content-stretch rounded-lg text-widget-foreground">
             <a href="/budget" className="group pb-4 pl-6 pr-5 pt-5 text-inherit">
               <div className="bottom-3 flex flex-row items-center gap-2 text-lg font-semibold group-hover:text-lightBlue">

@@ -28,6 +28,7 @@
     "@extension/over-budget-widget": "workspace:*",
     "@extension/over-budget-count-feature": "workspace:*",
     "@extension/transaction-row-height-feature": "workspace:*",
+    "@extension/effective-balance-widget": "workspace:*",
     "@extension/shared": "workspace:*",
     "@extension/storage": "workspace:*",
     "@extension/monarch": "workspace:*",
