@@ -30,7 +30,10 @@
     "styled-components": "^6.1.13",
     "tailwind-merge": "^2.4.0",
     "lucide-react": "^0.468.0",
-    "@extension/ui": "workspace:*"
+    "@extension/ui": "workspace:*",
+    "react-hook-form": "^7.54.1",
+    "@hookform/resolvers": "^3.9.1",
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@extension/core": "workspace:*",

@@ -1,6 +1,6 @@
 import '@extension/ui/dist/global.css';
 import type { ReactElement } from 'react';
-import { Fragment } from 'react';
+import { Fragment, Suspense } from 'react';
 import { EffectiveBalanceWidget } from './components';
 import { ErrorBoundary, WidgetFeature } from '@extension/shared';
 import { EffectiveBalanceFeatureSettings } from './settings';
@@ -49,7 +49,9 @@ export class EffectiveBalanceFeature extends WidgetFeature {
     return (
       <Fragment key={key}>
         <ErrorBoundary fallback={<div>Error in Over Budget feature settings</div>}>
-          <EffectiveBalanceFeatureSettings />
+          <Suspense fallback={<div>Loading...</div>}>
+            <EffectiveBalanceFeatureSettings />
+          </Suspense>
         </ErrorBoundary>
       </Fragment>
     );

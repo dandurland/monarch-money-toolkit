@@ -1,7 +1,6 @@
 import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { getMonarchAuthToken } from '@extension/monarch';
-import { toolkitEnabledStorage } from '@extension/storage';
+import { extensionSettingsStorage, toolkitEnabledStorage } from '@extension/storage';
 import { useStorage } from '@extension/shared';
 import { Separator, Switch } from '@extension/ui';
 import { SidebarNav } from '@src/components/sidebar-nav';
@@ -31,12 +30,13 @@ export function SettingsLayout() {
     uri: 'https://api.monarchmoney.com/graphql',
   });
 
-  const token = getMonarchAuthToken();
+  const settings = useStorage(extensionSettingsStorage);
+
   const authLink = setContext(async (_, { headers }) => {
     return {
       headers: {
         ...headers,
-        authorization: `Token ${token}`,
+        authorization: `Token ${settings.monarchSettings.token}`,
       },
     };
   });

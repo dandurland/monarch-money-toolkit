@@ -5,12 +5,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        textGreen: 'hsl(var(--textGreen))',
-        grayFocus: 'hsl(var(--grayFocus))',
+        textGreen: 'hsl(var(--text-green))',
+        green: 'hsl(var(--green))',
+        grayFocus: 'hsl(var(--gray-focus))',
         lightGray: 'hsl(30 2% 46%)',
         lightBlue: 'hsl(191 100% 39%)',
         lightGreen: 'hsl(131 50% 63%)',
-        yellow: 'hsl(47 100% 50%)',
+        yellow: 'hsl(var(--yellow))',
         blue: 'hsl(216 75.2% 20.6%)',
         darkBlue: 'hsl(216 79.0% 15.0%)',
         widget: 'hsl(var(--widget))',

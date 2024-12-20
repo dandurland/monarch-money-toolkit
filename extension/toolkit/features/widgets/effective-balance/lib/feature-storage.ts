@@ -1,3 +1,12 @@
-import { createEnabledStorage } from '@extension/storage';
+import { createEnabledStorage, EnabledSettings } from '@extension/storage';
 
-export const featureStorage = createEnabledStorage('effective-balance-widget');
+export type Settings = EnabledSettings & {
+  depositoryAccountIds: string[];
+  creditAccountIds: string[];
+};
+
+export const featureStorage = createEnabledStorage<Settings>('effective-balance-widget', {
+  enabled: false,
+  depositoryAccountIds: [],
+  creditAccountIds: [],
+});

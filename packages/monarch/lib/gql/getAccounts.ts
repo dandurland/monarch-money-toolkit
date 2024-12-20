@@ -1,19 +1,12 @@
-import {
-  SuspenseQueryHookFetchPolicy,
-  TypedDocumentNode,
-  UseBackgroundQueryResult,
-  UseSuspenseQueryResult,
-  gql,
-  useBackgroundQuery,
-  useQuery,
-  useSuspenseQuery,
-} from '@apollo/client';
-import { Account } from './models';
+import type { SuspenseQueryHookFetchPolicy, TypedDocumentNode, UseSuspenseQueryResult } from '@apollo/client';
+import { gql, useBackgroundQuery, useQuery, useSuspenseQuery } from '@apollo/client';
+import type { Account } from './models';
 
 const DEFAULT_FETCH_POLICY = 'cache-and-network';
 
 export interface AccountsData {
   accounts: Account[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   householdPreferences: any;
 }
 
