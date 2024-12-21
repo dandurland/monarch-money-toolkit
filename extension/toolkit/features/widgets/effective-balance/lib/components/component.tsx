@@ -22,12 +22,14 @@ interface State extends EffectiveBalanceData {
 }
 
 const EffectiveBalance = () => {
+  const { depositoryAccountIds, creditAccountIds } = useStorage(featureStorage);
+
   const { data, refetch } = useSuspenseGetAccounts();
   const [state, setState] = useState<State>({ creditTotal: 0, depositoryTotal: 0 });
 
   useMemo(() => {
     const calculator = new EffectiveBalanceCalculator();
-    const balance = calculator.getEffectiveBalance(data, []) ?? {
+    const balance = calculator.getEffectiveBalance(data, depositoryAccountIds.concat(creditAccountIds)) ?? {
       creditTotal: 0,
       depositoryTotal: 0,
     };
@@ -45,7 +47,7 @@ const EffectiveBalance = () => {
       depositoryColor: remaining < 25 ? 'text-warning' : remaining < 50 ? 'text-yellow' : 'text-textGreen',
       progress: progress,
     });
-  }, [data]);
+  }, [data, depositoryAccountIds, creditAccountIds]);
 
   return (
     <div className="flex flex-col place-content-start gap-2 pb-4 pl-6 pr-5 pt-5">

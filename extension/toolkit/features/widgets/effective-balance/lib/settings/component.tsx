@@ -1,5 +1,6 @@
-import { EnabledSettings, useStorage } from '@extension/shared';
+import { EnabledSettings, ErrorBoundary, useStorage } from '@extension/shared';
 import {
+  Button,
   Card,
   CardContent,
   CardDescription,
@@ -13,6 +14,8 @@ import {
   FormMessage,
   MultipleSelector,
   Option,
+  Toaster,
+  useToast,
 } from '@extension/ui';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -20,7 +23,7 @@ import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
 import { featureStorage } from '../feature-storage';
-import { useMemo, useState } from 'react';
+import { Suspense, useMemo, useState } from 'react';
 import { useSuspenseGetAccounts } from '@extension/monarch';
 import { isNil } from '@extension/core';
 
@@ -31,25 +34,33 @@ const optionSchema = z.object({
 });
 
 const FormSchema = z.object({
-  depositoryAccounts: z.array(optionSchema).min(1),
-  creditAccounts: z.array(optionSchema).min(1),
+  depositoryAccounts: z.array(optionSchema).min(1, {
+    message: 'At least one depository account must be selected',
+  }),
+  creditAccounts: z.array(optionSchema).min(1, {
+    message: 'At least one credit account must be selected',
+  }),
 });
 
-export function EffectiveBalanceFeatureSettings() {
+type FormValues = z.infer<typeof FormSchema>;
+
+function Settings() {
+  const { toast } = useToast();
   const settings = useStorage(featureStorage);
+
   if (isNil(settings.depositoryAccountIds)) settings.depositoryAccountIds = [];
   if (isNil(settings.creditAccountIds)) settings.creditAccountIds = [];
 
-  const form = useForm<z.infer<typeof FormSchema>>({
+  const form = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
+    mode: 'onChange',
   });
 
-  const [selectedDepositoryAccounts, setSelectedDepositoryAccounts] = useState<Option[]>([]);
-  const [selectedCreditAccounts, setSelectedCreditAccounts] = useState<Option[]>([]);
+  const [enabled, setEnabled] = useState(settings.enabled);
   const [depositoryAccounts, setDepositoryAccounts] = useState<Option[]>([]);
   const [creditAccounts, setCreditAccounts] = useState<Option[]>([]);
 
-  const { data, refetch } = useSuspenseGetAccounts();
+  const { data } = useSuspenseGetAccounts();
 
   const selectedDepository: Option[] = [];
   const selectedCredit: Option[] = [];
@@ -57,7 +68,8 @@ export function EffectiveBalanceFeatureSettings() {
   useMemo(() => {
     const da: Option[] = [];
     const ca: Option[] = [];
-    for (const account of data.accounts) {
+
+    data.accounts.forEach(account => {
       const item: Option = { value: account.id, label: account.displayName };
 
       switch (account.type.name) {
@@ -76,35 +88,37 @@ export function EffectiveBalanceFeatureSettings() {
           break;
         }
       }
-    }
+    });
 
     setDepositoryAccounts(da);
     setCreditAccounts(ca);
-    setSelectedDepositoryAccounts(selectedDepository);
-    setSelectedCreditAccounts(selectedCredit);
+    form.setValue('depositoryAccounts', selectedDepository);
+    form.setValue('creditAccounts', selectedCredit);
   }, [data]);
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    /*setLoading(true);
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    setEnabled(false);
 
-    setTimeout(() => {
-      setLoading(false);
-      toast({
-        title: 'Your submitted data',
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-          </pre>
-        ),
-      });
-    }, 500);*/
-    console.log('submit');
+    const timer = setTimeout(async () => {
+      try {
+        await featureStorage.patch({
+          depositoryAccountIds: data.depositoryAccounts.map((account: Option) => account.value),
+          creditAccountIds: data.creditAccounts.map((account: Option) => account.value),
+        });
+
+        toast({ description: 'Settings Saved!' });
+        form.reset({}, { keepValues: true });
+      } finally {
+        setEnabled(true);
+      }
+    }, 200);
+
+    clearTimeout(timer);
   }
 
-  //commandProps={{ className: "w-2/3" }}
   return (
     <EnabledSettings featureStorage={featureStorage}>
-      <Card className={settings.enabled ? '' : 'pointer-events-none opacity-40'}>
+      <Card className={enabled ? '' : 'pointer-events-none opacity-40'}>
         <CardHeader>
           <CardTitle>Effective Balance</CardTitle>
           <CardDescription>
@@ -123,13 +137,9 @@ export function EffectiveBalanceFeatureSettings() {
                     <FormControl>
                       <MultipleSelector
                         {...field}
+                        onChange={field.onChange}
                         defaultOptions={depositoryAccounts}
                         placeholder="Select depository account(s)"
-                        emptyIndicator={
-                          <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
-                            no results found.
-                          </p>
-                        }
                       />
                     </FormControl>
                     <FormMessage />
@@ -145,41 +155,33 @@ export function EffectiveBalanceFeatureSettings() {
                     <FormControl>
                       <MultipleSelector
                         {...field}
+                        onChange={field.onChange}
                         defaultOptions={creditAccounts}
                         placeholder="Select credit account(s)"
-                        emptyIndicator={
-                          <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
-                            no results found.
-                          </p>
-                        }
                       />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <button type="submit">Submit</button>
+              {form.formState.isValid && form.formState.isDirty && <Button type="submit">Save</Button>}
+              <Toaster />
             </form>
           </Form>
-          <div className="flex flex-col items-center">
-            <span className="flex flex-col items-center justify-center gap-2 w-3/4">
-              <MultipleSelector
-                value={selectedDepositoryAccounts}
-                onChange={setSelectedDepositoryAccounts}
-                defaultOptions={depositoryAccounts}
-                placeholder="Select depository accounts"
-                disabled={!settings.enabled}></MultipleSelector>
-
-              <MultipleSelector
-                value={selectedCreditAccounts}
-                onChange={setSelectedCreditAccounts}
-                defaultOptions={creditAccounts}
-                placeholder="Select credit accounts"
-                disabled={!settings.enabled}></MultipleSelector>
-            </span>
-          </div>
         </CardContent>
       </Card>
     </EnabledSettings>
+  );
+}
+
+export function EffectiveBalanceFeatureSettings() {
+  return (
+    <>
+      <ErrorBoundary fallback={<div>Error in Over Budget feature settings</div>}>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Settings />
+        </Suspense>
+      </ErrorBoundary>
+    </>
   );
 }

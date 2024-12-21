@@ -48,11 +48,7 @@ export class EffectiveBalanceFeature extends WidgetFeature {
     const key = 'effective-balance-widget-settings';
     return (
       <Fragment key={key}>
-        <ErrorBoundary fallback={<div>Error in Over Budget feature settings</div>}>
-          <Suspense fallback={<div>Loading...</div>}>
-            <EffectiveBalanceFeatureSettings />
-          </Suspense>
-        </ErrorBoundary>
+        <EffectiveBalanceFeatureSettings />
       </Fragment>
     );
   }
