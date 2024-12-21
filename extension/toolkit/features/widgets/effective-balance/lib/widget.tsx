@@ -23,8 +23,8 @@ export class EffectiveBalanceFeature extends WidgetFeature {
         return;
       }
 
-      settings = value ?? { enabled: false };
-      this.onSettingsChanged(settings);
+      //settings = value ?? { enabled: false };
+      //this.onSettingsChanged(settings);
     });
   }
 
