@@ -36,7 +36,7 @@ const manifest = deepmerge(
       {
         matches: ['*://*.monarchmoney.com/*'],
         js: ['toolkit-bridge/index.iife.js'],
-        css: ['toolkit-bridge/style.css'],
+        css: ['toolkit-bridge/index.css'],
       },
     ],
     web_accessible_resources: [
