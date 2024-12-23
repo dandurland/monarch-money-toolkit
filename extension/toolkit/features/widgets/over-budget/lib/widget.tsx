@@ -5,12 +5,12 @@ import { OverBudgetWidget } from './components';
 import { ErrorBoundary, WidgetFeature } from '@extension/shared';
 import { OverBudgetFeatureSettings } from './settings';
 import { featureStorage } from './feature-storage';
-import type { EnabledSettings } from '@extension/storage';
+import type { EnabledSettings, EnabledStorage } from '@extension/storage';
 import { objectIs } from '@extension/core';
 
 export class OverBudgetFeature extends WidgetFeature {
   constructor() {
-    super('OverBudgetFeature');
+    super('Over Budget Categories', 'Show over budget in the dashboard');
   }
 
   async initialize(): Promise<void> {
@@ -44,15 +44,12 @@ export class OverBudgetFeature extends WidgetFeature {
     return JSON.stringify(settings);
   }
 
-  getSettingsComponent(): ReactElement {
-    const key = 'over-budget-widget-settings';
-    return (
-      <Fragment key={key}>
-        <ErrorBoundary fallback={<div>Error in Over Budget feature settings</div>}>
-          <OverBudgetFeatureSettings />
-        </ErrorBoundary>
-      </Fragment>
-    );
+  getEnabledStorage<Storage extends EnabledStorage<EnabledSettings>>(): Storage {
+    return featureStorage as unknown as Storage;
+  }
+
+  getSettingsComponent(): ReactElement | null {
+    return null;
   }
 
   destroy(): void {

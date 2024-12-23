@@ -33,7 +33,8 @@
     "@extension/ui": "workspace:*",
     "react-hook-form": "^7.54.1",
     "@hookform/resolvers": "^3.9.1",
-    "zod": "^3.24.1"
+    "zod": "^3.24.1",
+    "@tanstack/react-router": "^1.91.3"
   },
   "devDependencies": {
     "@extension/core": "workspace:*",

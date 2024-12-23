@@ -4,24 +4,25 @@ import { extensionSettingsStorage, toolkitEnabledStorage } from '@extension/stor
 import { useStorage } from '@extension/shared';
 import { Separator, Switch } from '@extension/ui';
 import { SidebarNav } from '@src/components/sidebar-nav';
-import { Outlet } from 'react-router-dom';
+import { Outlet } from '@tanstack/react-router';
+import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 
 const sidebarNavItems = [
   {
     title: 'Dashboard',
-    href: '/',
+    href: '/dashboard',
   },
   {
     title: 'Budget',
-    href: '/options/budget',
+    href: '/budget',
   },
   {
     title: 'Navigation Bar',
-    href: '/options/nav-bar',
+    href: '/nav-bar',
   },
   {
     title: 'Transactions',
-    href: '/options/transactions',
+    href: '/transactions',
   },
 ];
 
@@ -80,6 +81,7 @@ export function SettingsLayout() {
           <div className="flex-1 ">
             <ApolloProvider client={client}>
               <Outlet />
+              <TanStackRouterDevtools />
             </ApolloProvider>
           </div>
         </div>

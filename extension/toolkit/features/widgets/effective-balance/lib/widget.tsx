@@ -1,16 +1,16 @@
 import '@extension/ui/dist/global.css';
 import type { ReactElement } from 'react';
-import { Fragment, Suspense } from 'react';
+import { Fragment } from 'react';
 import { EffectiveBalanceWidget } from './components';
 import { ErrorBoundary, WidgetFeature } from '@extension/shared';
 import { EffectiveBalanceFeatureSettings } from './settings';
 import { featureStorage } from './feature-storage';
-import type { EnabledSettings } from '@extension/storage';
+import type { EnabledSettings, EnabledStorage } from '@extension/storage';
 import { objectIs } from '@extension/core';
 
 export class EffectiveBalanceFeature extends WidgetFeature {
   constructor() {
-    super('OverBudgetFeature');
+    super('Effective Balance', 'Show effective balance in the dashboard');
   }
 
   async initialize(): Promise<void> {
@@ -44,13 +44,17 @@ export class EffectiveBalanceFeature extends WidgetFeature {
     return JSON.stringify(settings);
   }
 
-  getSettingsComponent(): ReactElement {
+  getSettingsComponent(enabled: boolean): ReactElement {
     const key = 'effective-balance-widget-settings';
     return (
       <Fragment key={key}>
-        <EffectiveBalanceFeatureSettings />
+        <EffectiveBalanceFeatureSettings enabled={enabled} />
       </Fragment>
     );
+  }
+
+  getEnabledStorage<Storage extends EnabledStorage<EnabledSettings>>(): Storage {
+    return featureStorage as unknown as Storage;
   }
 
   destroy(): void {}
