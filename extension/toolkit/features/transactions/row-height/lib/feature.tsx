@@ -1,21 +1,27 @@
 import $ from 'jquery';
 import large from './large.css?raw';
 import compact from './compact.css?raw';
-import { ErrorBoundary, Feature } from '@extension/shared';
+import { Feature } from '@extension/shared';
 import type { ReactElement } from 'react';
 import { Fragment } from 'react';
 import { TransactionRowHeightSettings } from './settings';
 import { objectIs } from '@extension/core';
 import type { Settings } from './feature-storage';
 import { featureStorage } from './feature-storage';
+import type { EnabledStorage, EnabledSettings } from '@extension/storage';
 
 type Options = 'compact' | 'default' | 'large';
 
-export class TransactionRowHeightFeature extends Feature {
+export class TransactionRowHeightFeature extends Feature<EnabledStorage<EnabledSettings>> {
   private id: string = `mmtk-transaction-row-height-feature-style`;
 
   constructor() {
-    super('transactions', 'TransactionRowHeightFeature');
+    super(
+      'transactions',
+      'Transaction Row Height',
+      'Change transaction row height',
+      featureStorage as unknown as EnabledStorage<EnabledSettings>,
+    );
   }
 
   async initialize(): Promise<void> {
@@ -42,13 +48,11 @@ export class TransactionRowHeightFeature extends Feature {
     return JSON.stringify(settings);
   }
 
-  getSettingsComponent(): ReactElement {
+  getSettingsComponent(enabled: boolean): ReactElement {
     const key = 'transaction-row-height-settings'; //uid();
     return (
       <Fragment key={key}>
-        <ErrorBoundary fallback={<div>Error in Transaction Row Height feature settings</div>}>
-          <TransactionRowHeightSettings />
-        </ErrorBoundary>
+        <TransactionRowHeightSettings enabled={enabled} />
       </Fragment>
     );
   }

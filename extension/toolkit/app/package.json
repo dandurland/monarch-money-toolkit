@@ -28,6 +28,7 @@
     "@extension/over-budget-widget": "workspace:*",
     "@extension/over-budget-count-feature": "workspace:*",
     "@extension/transaction-row-height-feature": "workspace:*",
+    "@extension/effective-balance-widget": "workspace:*",
     "@extension/shared": "workspace:*",
     "@extension/storage": "workspace:*",
     "@extension/monarch": "workspace:*",
@@ -43,11 +44,13 @@
     "@extension/features": "workspace:*",
     "@apollo/client": "^3.11.10",
     "clsx": "^2.1.1",
-    "react-router": "^7.0.1",
     "styled-components": "^6.1.13",
     "tailwind-merge": "^2.4.0",
     "lucide-react": "^0.468.0",
-    "jquery": "^3.7.1"
+    "jquery": "^3.7.1",
+    "@tanstack/react-router": "^1.91.3",
+    "@tanstack/router-devtools": "^1.91.3",
+    "@tanstack/router-plugin": "^1.91.1"
   },
   "postcss": {
     "plugins": {

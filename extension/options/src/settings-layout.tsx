@@ -1,28 +1,28 @@
 import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { getMonarchAuthToken } from '@extension/monarch';
-import { toolkitEnabledStorage } from '@extension/storage';
+import { extensionSettingsStorage, toolkitEnabledStorage } from '@extension/storage';
 import { useStorage } from '@extension/shared';
 import { Separator, Switch } from '@extension/ui';
 import { SidebarNav } from '@src/components/sidebar-nav';
-import { Outlet } from 'react-router-dom';
+import { Outlet } from '@tanstack/react-router';
+import { isNil } from '../../../packages/core';
 
 const sidebarNavItems = [
   {
     title: 'Dashboard',
-    href: '/',
+    href: '/dashboard',
   },
   {
     title: 'Budget',
-    href: '/options/budget',
+    href: '/budget',
   },
   {
     title: 'Navigation Bar',
-    href: '/options/nav-bar',
+    href: '/nav-bar',
   },
   {
     title: 'Transactions',
-    href: '/options/transactions',
+    href: '/transactions',
   },
 ];
 
@@ -31,7 +31,11 @@ export function SettingsLayout() {
     uri: 'https://api.monarchmoney.com/graphql',
   });
 
-  const token = getMonarchAuthToken();
+  const { monarchSettings } = useStorage(extensionSettingsStorage);
+  const { enabled } = useStorage(toolkitEnabledStorage);
+
+  const token = monarchSettings.token;
+
   const authLink = setContext(async (_, { headers }) => {
     return {
       headers: {
@@ -46,7 +50,6 @@ export function SettingsLayout() {
     cache: new InMemoryCache(),
   });
 
-  const { enabled } = useStorage(toolkitEnabledStorage);
   const logo = 'options/logo_horizontal.svg';
   const goGithub = () => chrome.tabs.create({ url: 'https://github.com/dandurland/monarch-money-toolkit' });
 
@@ -54,6 +57,7 @@ export function SettingsLayout() {
     await toolkitEnabledStorage.toggleEnabled();
   }
 
+  //<TanStackRouterDevtools />
   return (
     <>
       <div className="hidden space-y-6 p-10 pb-16 md:block">
@@ -73,16 +77,20 @@ export function SettingsLayout() {
         </div>
 
         <Separator className="my-6" />
-        <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
-          <aside className="-mx-4 lg:w-1/5">
-            <SidebarNav items={sidebarNavItems} />
-          </aside>
-          <div className="flex-1 ">
-            <ApolloProvider client={client}>
-              <Outlet />
-            </ApolloProvider>
+        {isNil(token) ? (
+          <h4>You are not logged into Monarch Money. Please login to Monarch Money and refresh this page.</h4>
+        ) : (
+          <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
+            <aside className="-mx-4 lg:w-1/5">
+              <SidebarNav items={sidebarNavItems} />
+            </aside>
+            <div className="flex-1 ">
+              <ApolloProvider client={client}>
+                <Outlet />
+              </ApolloProvider>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </>
   );

@@ -3,14 +3,17 @@ import type { ReactElement } from 'react';
 import { Fragment } from 'react';
 import { OverBudgetWidget } from './components';
 import { ErrorBoundary, WidgetFeature } from '@extension/shared';
-import { OverBudgetFeatureSettings } from './settings';
 import { featureStorage } from './feature-storage';
-import type { EnabledSettings } from '@extension/storage';
+import type { EnabledSettings, EnabledStorage } from '@extension/storage';
 import { objectIs } from '@extension/core';
 
-export class OverBudgetFeature extends WidgetFeature {
+export class OverBudgetFeature extends WidgetFeature<EnabledStorage<EnabledSettings>> {
   constructor() {
-    super('OverBudgetFeature');
+    super(
+      'Over Budget Categories',
+      'Show over budget in the dashboard',
+      featureStorage as unknown as EnabledStorage<EnabledSettings>,
+    );
   }
 
   async initialize(): Promise<void> {
@@ -33,7 +36,7 @@ export class OverBudgetFeature extends WidgetFeature {
     return (
       <Fragment key={key}>
         <ErrorBoundary fallback={<div>Error in Over Budget widget</div>}>
-          <OverBudgetWidget />
+          <OverBudgetWidget name={this.featureName} />
         </ErrorBoundary>
       </Fragment>
     );
@@ -44,15 +47,8 @@ export class OverBudgetFeature extends WidgetFeature {
     return JSON.stringify(settings);
   }
 
-  getSettingsComponent(): ReactElement {
-    const key = 'over-budget-widget-settings';
-    return (
-      <Fragment key={key}>
-        <ErrorBoundary fallback={<div>Error in Over Budget feature settings</div>}>
-          <OverBudgetFeatureSettings />
-        </ErrorBoundary>
-      </Fragment>
-    );
+  get hasSettings(): boolean {
+    return false;
   }
 
   destroy(): void {

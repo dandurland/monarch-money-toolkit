@@ -8,9 +8,16 @@ export type EnabledSettings = {
 
 export type EnabledStorage<Data extends EnabledSettings> = BaseStorage<Data> & {
   toggleEnabled: () => Promise<void>;
+  enable(): Promise<void>;
+  disable(): Promise<void>;
+  isValid: () => Promise<boolean>;
 };
 
-export function createEnabledStorage<Data extends EnabledSettings>(key: string, data?: Data) {
+export function createEnabledStorage<Data extends EnabledSettings>(
+  key: string,
+  data?: Data,
+  isValid?: () => Promise<boolean>,
+) {
   const fallback: Data = data ?? ({ enabled: false } as Data);
 
   const storage = createStorage<Data>(key, fallback, {
@@ -23,6 +30,29 @@ export function createEnabledStorage<Data extends EnabledSettings>(key: string, 
     toggleEnabled: async () => {
       const { enabled } = await enabledStorage.get();
       await enabledStorage.patch({ enabled: !enabled } as Data);
+    },
+    enable: async () => {
+      const { enabled } = await enabledStorage.get();
+      if (enabled) {
+        return Promise.resolve();
+      }
+
+      await enabledStorage.patch({ enabled: true } as Data);
+    },
+    disable: async () => {
+      const { enabled } = await enabledStorage.get();
+      if (!enabled) {
+        return Promise.resolve();
+      }
+
+      await enabledStorage.patch({ enabled: false } as Data);
+    },
+    isValid: async () => {
+      if (isValid) {
+        return isValid();
+      }
+
+      return Promise.resolve(true);
     },
   };
 

@@ -1,4 +1,3 @@
-
 import { replaceTscAliasPaths } from 'tsc-alias';
 import esbuild from 'esbuild';
 

@@ -28,6 +28,8 @@
     "@types/jquery": "^3.5.29"
   },
   "dependencies": {
-    "jquery": "^3.7.1"
+    "jquery": "^3.7.1",
+    "@tanstack/react-router": "^1.91.3",
+    "@tanstack/history": "^1.90.0"
   }
 }

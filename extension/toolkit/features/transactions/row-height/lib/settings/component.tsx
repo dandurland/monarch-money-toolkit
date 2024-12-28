@@ -1,19 +1,21 @@
-import { EnabledSettings, useStorage } from '@extension/shared';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-  Label,
-  RadioGroup,
-  RadioGroupItem,
-} from '@extension/ui';
+import { useStorage } from '@extension/shared';
+import { Label, RadioGroup, RadioGroupItem } from '@extension/ui';
 import type { RowSize } from '../feature-storage';
 import { featureStorage } from '../feature-storage';
+import { useEffect } from 'react';
 
-export function TransactionRowHeightSettings() {
+export function TransactionRowHeightSettings({ enabled }: { enabled: boolean }) {
   const settings = useStorage(featureStorage);
+
+  useEffect(() => {
+    if (!enabled) {
+      featureStorage.disable();
+      return;
+    }
+
+    featureStorage.enable();
+  }, [enabled]);
+
   console.log(settings.size);
 
   const onChange = (value: RowSize) => {
@@ -22,31 +24,21 @@ export function TransactionRowHeightSettings() {
   };
 
   return (
-    <EnabledSettings featureStorage={featureStorage}>
-      <Card className={settings.enabled ? '' : 'pointer-events-none opacity-40'}>
-        <CardHeader>
-          <CardTitle>Transaction Row Height</CardTitle>
-          <CardDescription>Change transaction row height</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center justify-center">
-            <RadioGroup defaultValue={settings.size ?? 'default'} onValueChange={onChange}>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="compact" id="r1" />
-                <Label htmlFor="r1">Compact</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="default" id="r2" />
-                <Label htmlFor="r2">Default</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="large" id="r3" />
-                <Label htmlFor="r3">Large</Label>
-              </div>
-            </RadioGroup>
-          </div>
-        </CardContent>
-      </Card>
-    </EnabledSettings>
+    <div className="flex items-center justify-center">
+      <RadioGroup defaultValue={settings.size ?? 'default'} onValueChange={onChange}>
+        <div className="flex items-center space-x-2">
+          <RadioGroupItem value="compact" id="r1" />
+          <Label htmlFor="r1">Compact</Label>
+        </div>
+        <div className="flex items-center space-x-2">
+          <RadioGroupItem value="default" id="r2" />
+          <Label htmlFor="r2">Default</Label>
+        </div>
+        <div className="flex items-center space-x-2">
+          <RadioGroupItem value="large" id="r3" />
+          <Label htmlFor="r3">Large</Label>
+        </div>
+      </RadioGroup>
+    </div>
   );
 }

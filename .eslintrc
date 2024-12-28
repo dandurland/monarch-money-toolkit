@@ -37,5 +37,5 @@
   "globals": {
     "chrome": "readonly",
   },
-  "ignorePatterns": ["watch.js", "dist/**"],
+  "ignorePatterns": ["watch.js", "dist/**", "packages/ui/lib/components/ui/**"],
 }

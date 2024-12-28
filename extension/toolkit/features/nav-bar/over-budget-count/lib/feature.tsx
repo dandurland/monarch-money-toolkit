@@ -5,17 +5,21 @@ import '@extension/ui/dist/global.css';
 import type { ReactElement } from 'react';
 import { Fragment } from 'react';
 import { ErrorBoundary, Portal, PortalFeature } from '@extension/shared';
-import { OverBudgetCountFeatureSettings } from './settings';
 import { featureStorage } from './feature-storage';
 import { objectIs } from '@extension/core';
-import type { EnabledSettings } from '@extension/storage';
+import type { EnabledSettings, EnabledStorage } from '@extension/storage';
 import { OverBudgetCount } from './components';
 
-export class OverBudgetCountFeature extends PortalFeature {
+export class OverBudgetCountFeature extends PortalFeature<EnabledStorage<EnabledSettings>> {
   private id: string = `mmtk-over-budget-count`;
 
   constructor() {
-    super('nav-bar', 'OverBudgetCountFeature');
+    super(
+      'nav-bar',
+      'Over Budget Count',
+      'Displays count of over budget categories on Budget navigation',
+      featureStorage as unknown as EnabledStorage<EnabledSettings>,
+    );
   }
 
   async initialize(): Promise<void> {
@@ -65,15 +69,8 @@ export class OverBudgetCountFeature extends PortalFeature {
     return JSON.stringify(settings);
   }
 
-  getSettingsComponent(): ReactElement {
-    const key = 'over-budget-count-settings';
-    return (
-      <Fragment key={key}>
-        <ErrorBoundary fallback={<div>Error in Over Budget Count feature settings</div>}>
-          <OverBudgetCountFeatureSettings />
-        </ErrorBoundary>
-      </Fragment>
-    );
+  get hasSettings() {
+    return false;
   }
 
   destroy(): void {

@@ -23,12 +23,12 @@
     "@extension/shared": "workspace:*",
     "@extension/storage": "workspace:*",
     "@extension/ui": "workspace:*",
-    "react-router": "^7.0.1",
-    "react-router-dom": "^7.0.2"
+    "@tanstack/react-router": "^1.91.3",
+    "@tanstack/router-devtools": "^1.91.3",
+    "@tanstack/router-plugin": "^1.91.1"
   },
   "devDependencies": {
     "@extension/features": "workspace:*",
-    "@extension/transaction-row-height-feature": "workspace:*",
     "@extension/monarch": "workspace:*",
     "@extension/tailwindcss-config": "workspace:*",
     "@extension/tsconfig": "workspace:*",

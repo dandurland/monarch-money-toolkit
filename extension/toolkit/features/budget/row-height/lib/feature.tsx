@@ -1,21 +1,27 @@
 import $ from 'jquery';
 import large from './large.css?raw';
 import compact from './compact.css?raw';
-import { ErrorBoundary, Feature } from '@extension/shared';
+import { Feature } from '@extension/shared';
 import type { ReactElement } from 'react';
 import { Fragment } from 'react';
 import { BudgetRowHeightSettings } from './settings';
 import { objectIs } from '@extension/core';
 import type { Settings } from './feature-storage';
 import { featureStorage } from './feature-storage';
+import type { EnabledStorage, EnabledSettings } from '@extension/storage';
 
 type Options = 'compact' | 'default' | 'large';
 
-export class BudgetRowHeightFeature extends Feature {
+export class BudgetRowHeightFeature extends Feature<EnabledStorage<EnabledSettings>> {
   private id: string = `mmtk-budget-row-height-feature-style`;
 
   constructor() {
-    super('budget', 'BudgetRowHeightFeature');
+    super(
+      'budget',
+      'Budget Row Height',
+      'Change budget row height',
+      featureStorage as unknown as EnabledStorage<EnabledSettings>,
+    );
   }
 
   async initialize(): Promise<void> {
@@ -42,13 +48,11 @@ export class BudgetRowHeightFeature extends Feature {
     return JSON.stringify(settings);
   }
 
-  getSettingsComponent(): ReactElement {
+  getSettingsComponent(enabled: boolean): ReactElement {
     const key = 'budget-row-height-settings'; //uid();
     return (
       <Fragment key={key}>
-        <ErrorBoundary fallback={<div>Error in Budget Row Height feature settings</div>}>
-          <BudgetRowHeightSettings />
-        </ErrorBoundary>
+        <BudgetRowHeightSettings enabled={enabled} />
       </Fragment>
     );
   }

@@ -26,7 +26,8 @@
     "@extension/transaction-row-height-feature": "workspace:*",
     "@extension/over-budget-widget": "workspace:*",
     "@extension/over-budget-count-feature": "workspace:*",
-    "@extension/budget-row-height-feature": "workspace:*"
+    "@extension/budget-row-height-feature": "workspace:*",
+    "@extension/effective-balance-widget": "workspace:*"
   },
   "dependencies": {}
 }

@@ -1,16 +1,8 @@
 export enum InboundMessageType {
-  Bootstrap = 'mmtk-bootstrap',
   SettingChanged = 'mmtk-setting-changed',
   Navigation = 'mmtk-navigation',
   Mutation = 'mmtk-mutation',
 }
-
-export interface BootstrapMessage {
-  type: InboundMessageType.Bootstrap;
-  settings: any; // eslint-disable-line @typescript-eslint/no-explicit-any
-}
-
-export type BootstrapMessageEvent = MessageEvent<BootstrapMessage>;
 
 export interface SettingChangedMessage {
   type: InboundMessageType.SettingChanged;
@@ -49,18 +41,13 @@ export interface MutationMessage {
   request?: MutationRequest;
 }
 
-export type InboundMessage = BootstrapMessage | SettingChangedMessage | NavigationMessage | MutationMessage;
-export type InboundMessageEvent = BootstrapMessageEvent | SettingChangedMessageEvent | NavigationMessageEvent;
+export type InboundMessage = SettingChangedMessage | NavigationMessage | MutationMessage;
+export type InboundMessageEvent = SettingChangedMessageEvent | NavigationMessageEvent;
 
 export enum OutboundMessageType {
-  ToolkitLoaded = 'mmtk-loaded',
   OpenOptionsPage = 'mmtk-open-options',
   ToolkitError = 'mmtk-toolkit-error',
 }
-
-export type ToolkitLoadedMesssage = MessageEvent<{
-  type: OutboundMessageType.ToolkitLoaded;
-}>;
 
 export type OpenOptionsPageMesssage = MessageEvent<{
   type: OutboundMessageType.OpenOptionsPage;
@@ -75,4 +62,4 @@ export type ToolkitErrorMesssage = MessageEvent<{
   };
 }>;
 
-export type OutboundMessage = ToolkitLoadedMesssage | OpenOptionsPageMesssage | ToolkitErrorMesssage;
+export type OutboundMessage = OpenOptionsPageMesssage | ToolkitErrorMesssage;

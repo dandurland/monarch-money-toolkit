@@ -29,7 +29,7 @@
     "@extension/monarch": "workspace:*",
     "@extension/tsconfig": "workspace:*",
     "@extension/vite-config": "workspace:*",
-    "@laynezh/vite-plugin-lib-assets": "^0.5.23",
+    "@laynezh/vite-plugin-lib-assets": "^0.5.26",
     "@types/ws": "^8.5.12",
     "cross-env": "^7.0.3",
     "deepmerge": "^4.3.1",

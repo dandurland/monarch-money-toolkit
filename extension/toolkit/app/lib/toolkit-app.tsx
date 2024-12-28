@@ -1,18 +1,23 @@
-import { createMemoryRouter, RouterProvider } from 'react-router';
-import routes from './app/routes';
+import '@extension/ui/dist/global.css';
+import { StrictMode } from 'react';
 import type { Root } from 'react-dom/client';
 import { createRoot } from 'react-dom/client';
+import type { Router } from '@tanstack/react-router';
+import { createRouter, RouterProvider } from '@tanstack/react-router';
 
-import { StrictMode } from 'react';
-import '@extension/ui/dist/global.css';
+import { createBlockingMemoryHistory } from '@extension/shared';
+import routeTree from './app/routes';
 
 export class ToolkitApp {
   private root: Root | null = null;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private router?: any;
+  private router?: Router<any, any, any, any, Record<string, any>, Record<string, any>>;
 
-  mount() {
-    this.router = createMemoryRouter(routes);
+  async mount() {
+    this.router = createRouter({
+      routeTree,
+      history: createBlockingMemoryHistory({ initialEntries: ['/'] }),
+    });
 
     const root = document.createElement('div');
     root.id = 'mmtk-app-root';
@@ -32,10 +37,8 @@ export class ToolkitApp {
       </StrictMode>,
     );
 
-    this.initalizeFeatures();
-
     const url = new URL(window.location.href);
-    this.navigate(url?.pathname);
+    await this.navigate(url?.pathname);
   }
 
   unmount() {
@@ -44,34 +47,8 @@ export class ToolkitApp {
     el?.remove();
   }
 
-  navigate(pathname: string) {
+  async navigate(pathname: string) {
     console.log(pathname);
-    /*if(pathname?.includes('dashboard')){
-      console.log('dashbaord not enabled');
-      return;
-    }*/
-    this.router?.navigate(pathname);
-  }
-
-  private initalizeFeatures() {
-    //const rowHeightFeature = new TransactionRowHeightFeature();
-    //rowHeightFeature.initialize();
-    /*const css = rowHeightFeature.css();
-    if (css) {
-      const id = `mmtk-transaction-row-height-feature-style`;
-      const style = $('<style>', {
-        id: id,
-        type: 'text/css',
-      }).text(css);
-
-      if (style) {
-        const existingStyle = document.querySelector(`#${id}`);
-        if (existingStyle) {
-          $(existingStyle).replaceWith(style);
-        } else {
-          $('head').append(style);
-        }
-      }
-    }*/
+    await this.router?.navigate({ to: pathname });
   }
 }

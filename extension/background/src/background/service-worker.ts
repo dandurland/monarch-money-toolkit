@@ -10,6 +10,7 @@ import scope from './init-sentry';
 import TTLCache from '@isaacs/ttlcache';
 
 const HOST_NAME = 'app.monarchmoney.com';
+const REQUEST_URL_FILTER = ['*://*.monarchmoney.com/graphql'];
 
 function getMutationMessage(request?: GraphQLRequest): MutationMessage | undefined {
   switch (request?.operationName) {
@@ -46,11 +47,9 @@ export class ServiceWorker {
     chrome.tabs.onUpdated.addListener(this.onTabUpdated);
     chrome.runtime.onInstalled.addListener(this.onInstalled);
 
-    chrome.webRequest.onBeforeRequest.addListener(this.onBeforeRequest, { urls: ['*://*.monarchmoney.com/graphql'] }, [
-      'requestBody',
-    ]);
+    chrome.webRequest.onBeforeRequest.addListener(this.onBeforeRequest, { urls: REQUEST_URL_FILTER }, ['requestBody']);
 
-    chrome.webRequest.onCompleted.addListener(this.onCompletedRequest, { urls: ['*://*.monarchmoney.com/graphql'] }, [
+    chrome.webRequest.onCompleted.addListener(this.onCompletedRequest, { urls: REQUEST_URL_FILTER }, [
       'responseHeaders',
     ]);
   }
@@ -62,10 +61,16 @@ export class ServiceWorker {
       if (isNil(manifest) || isNil(manifest.content_scripts)) {
         return;
       }
+
+      let monarchTabId = -1;
       for (const cs of manifest!.content_scripts!) {
         for (const tab of await chrome.tabs.query({ url: cs.matches })) {
           if (tab.url?.match(/(chrome|chrome-extension):\/\//gi)) {
             continue;
+          }
+
+          if (monarchTabId === -1 && tab.id) {
+            monarchTabId = tab.id;
           }
 
           const target = { tabId: tab.id!, allFrames: cs.all_frames! };
@@ -84,6 +89,16 @@ export class ServiceWorker {
             });
           }
         }
+      }
+
+      if (monarchTabId === -1) {
+        return;
+      }
+
+      const persistRoot = await this.getPersistRootFromCurrentTab(monarchTabId);
+      const result = await this.authProvider.updateAuthInfo(persistRoot.user.token);
+      if (result !== AuthStatus.Success) {
+        console.log('Error getting AuthStatus');
       }
     } catch (e) {
       scope.captureException(e);

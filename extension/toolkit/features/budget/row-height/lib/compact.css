@@ -3,10 +3,10 @@
   --height: 36px;
 }
 
-[class*=PlanCell] {
+[class*='PlanCell'] {
   font-size: var(--font-size);
 }
 
-[class*=PlanGrid__PlanGridRow] {
+[class*='PlanGrid__PlanGridRow'] {
   height: var(--height);
 }

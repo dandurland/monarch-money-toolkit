@@ -1,7 +1,7 @@
 //"use client"
 
 import { cn, buttonVariants } from '@extension/ui';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from '@tanstack/react-router';
 
 interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
   items: {

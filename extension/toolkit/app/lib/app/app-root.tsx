@@ -1,11 +1,12 @@
 import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { getMonarchAuthToken } from '@extension/monarch';
-import { Outlet } from 'react-router';
 import { features } from '@extension/features';
 import { ThemeProvider } from './theme-provider';
 import { PortalFeature } from '@extension/shared';
 import '@extension/ui/dist/global.css';
+import { Outlet } from '@tanstack/react-router';
+import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 
 export default function AppRoot() {
   const httpLink = createHttpLink({
@@ -38,6 +39,7 @@ export default function AppRoot() {
           {portals && <>{portals.map(p => p.getPortal())}</>}
         </ThemeProvider>
       </ApolloProvider>
+      <TanStackRouterDevtools />
     </>
   );
 }

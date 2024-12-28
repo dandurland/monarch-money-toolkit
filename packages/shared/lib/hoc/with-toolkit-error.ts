@@ -9,7 +9,7 @@ export async function withFeatureError(wrappedFunction: any /* Function */, feat
     throw new Error('The first argument to withToolkitError must be a Function');
   }
 
-  const featureName = feature.featureName;
+  const featureName = feature.name;
   const featureSettings = await feature.getSettingsJson();
 
   return function () {

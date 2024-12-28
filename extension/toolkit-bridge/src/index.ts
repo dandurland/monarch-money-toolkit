@@ -1,9 +1,9 @@
+import '@extension/ui/dist/global.css';
 import { toolkitEnabledStorage } from '@extension/storage';
-import type { BootstrapMessage, InboundMessage, OutboundMessage } from '@extension/shared';
+import type { InboundMessage, OutboundMessage } from '@extension/shared';
 import { InboundMessageType, OutboundMessageType } from '@extension/shared';
 import { ToolkitApp } from '@extension/toolkit-app';
 import { features } from '@extension/features';
-import '@extension/ui/dist/global.css';
 
 const app = new ToolkitApp();
 
@@ -25,10 +25,6 @@ async function initalize() {
 function onToolkitMessage(event: MessageEvent<OutboundMessage>) {
   if (event.data && event.data.type) {
     switch (event.data.type) {
-      case OutboundMessageType.ToolkitLoaded: {
-        bootstrapToolkit();
-        break;
-      }
       case OutboundMessageType.OpenOptionsPage: {
         chrome.runtime.sendMessage(OutboundMessageType.OpenOptionsPage);
         break;
@@ -38,7 +34,7 @@ function onToolkitMessage(event: MessageEvent<OutboundMessage>) {
 }
 
 async function mountApp() {
-  app.mount();
+  await app.mount();
 
   features.featureInstances.forEach(async f => {
     await f.initialize();
@@ -64,16 +60,6 @@ function onServiceWorkerMessage(message: InboundMessage): void {
       break;
     }
   }
-}
-
-async function bootstrapToolkit(): Promise<void> {
-  window.postMessage(
-    {
-      type: InboundMessageType.Bootstrap,
-      settings: 'test',
-    } as BootstrapMessage,
-    '*',
-  );
 }
 
 //handle extension install/update
