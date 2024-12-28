@@ -4,9 +4,8 @@ import type { Feature } from '../feature';
 import type { ErrorInfo } from 'react';
 import type { EnabledSettings, EnabledStorage } from '@extension/storage';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function withFeatureError(
-  wrappedFunction: any /* Function */,
+  wrappedFunction: any /* Function */, // eslint-disable-line @typescript-eslint/no-explicit-any
   feature: Feature<EnabledStorage<EnabledSettings>>,
 ) {
   if (typeof wrappedFunction !== 'function') {
