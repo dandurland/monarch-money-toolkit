@@ -18,13 +18,13 @@ export function FeatureSettings({ feature }: { feature: Feature<EnabledStorage<E
   };
 
   return (
-    <ErrorBoundary fallback={<div>{`{Error in ${feature.name} settings.}`}</div>}>
+    <ErrorBoundary fallback={<div>{`{Error in ${feature.featureName} settings.}`}</div>}>
       <div className="flex w-full grow flex-row items-center justify-between gap-2">
         <Switch id="extension-enabled" checked={isEnabled} onCheckedChange={enabledChanged} />
         <div className="grow">
           <Card className={isEnabled ? '' : 'pointer-events-none opacity-40'}>
             <CardHeader>
-              <CardTitle>{feature.name}</CardTitle>
+              <CardTitle>{feature.featureName}</CardTitle>
               <CardDescription>{feature.description}</CardDescription>
             </CardHeader>
             {feature.hasSettings && <CardContent>{feature.getSettingsComponent(isEnabled) ?? <></>}</CardContent>}

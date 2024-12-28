@@ -75,6 +75,13 @@ function Settings() {
       const shouldLeave = confirm('You have unsaved changes. Are you sure you want to leave?');
       return !shouldLeave;
     },
+    enableBeforeUnload() {
+      if (isValid && !isDirty) {
+        return false;
+      }
+
+      return true;
+    },
   });
 
   const { data } = useSuspenseGetAccounts();
