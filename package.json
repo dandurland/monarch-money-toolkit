@@ -37,6 +37,7 @@
     "react-dom": "18.3.1"
   },
   "devDependencies": {
+    "@commitlint/config-conventional": "^19.6.0",
     "@types/chrome": "^0.0.270",
     "@types/node": "^20.16.5",
     "@types/react": "^18.3.3",

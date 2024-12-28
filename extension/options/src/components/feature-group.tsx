@@ -1,5 +1,5 @@
-import { Feature } from '@extension/shared';
-import { EnabledSettings, EnabledStorage } from '@extension/storage';
+import type { Feature } from '@extension/shared';
+import type { EnabledSettings, EnabledStorage } from '@extension/storage';
 import { FeatureSettings } from '@src/components/feature-settings';
 
 interface FeatureGroupProps {
