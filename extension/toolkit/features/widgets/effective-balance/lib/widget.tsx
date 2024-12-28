@@ -43,11 +43,6 @@ export class EffectiveBalanceFeature extends WidgetFeature<EnabledStorage<Enable
     );
   }
 
-  async getSettingsJson(): Promise<string> {
-    const settings = await featureStorage.get();
-    return JSON.stringify(settings);
-  }
-
   getSettingsComponent(enabled: boolean): ReactElement {
     const key = 'effective-balance-widget-settings';
     return (

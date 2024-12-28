@@ -43,11 +43,6 @@ export class TransactionRowHeightFeature extends Feature<EnabledStorage<EnabledS
     this.disable();
   }
 
-  async getSettingsJson(): Promise<string> {
-    const settings = await featureStorage.get();
-    return JSON.stringify(settings);
-  }
-
   getSettingsComponent(enabled: boolean): ReactElement {
     const key = 'transaction-row-height-settings'; //uid();
     return (

@@ -42,11 +42,6 @@ export class OverBudgetFeature extends WidgetFeature<EnabledStorage<EnabledSetti
     );
   }
 
-  async getSettingsJson(): Promise<string> {
-    const settings = await featureStorage.get();
-    return JSON.stringify(settings);
-  }
-
   get hasSettings(): boolean {
     return false;
   }

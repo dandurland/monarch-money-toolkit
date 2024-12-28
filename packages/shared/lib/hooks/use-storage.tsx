@@ -1,5 +1,6 @@
 import { useSyncExternalStore } from 'react';
 import type { BaseStorage } from '@extension/storage';
+import { wrapPromise } from '@extension/core';
 
 type WrappedPromise = ReturnType<typeof wrapPromise>;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -19,32 +20,4 @@ export function useStorage<
   }
 
   return (_data ?? storageMap.get(storage)!.read()) as Exclude<Data, PromiseLike<unknown>>;
-}
-
-function wrapPromise<R>(promise: Promise<R>) {
-  let status = 'pending';
-  let result: R;
-  const suspender = promise.then(
-    r => {
-      status = 'success';
-      result = r;
-    },
-    e => {
-      status = 'error';
-      result = e;
-    },
-  );
-
-  return {
-    read() {
-      switch (status) {
-        case 'pending':
-          throw suspender;
-        case 'error':
-          throw result;
-        default:
-          return result;
-      }
-    },
-  };
 }

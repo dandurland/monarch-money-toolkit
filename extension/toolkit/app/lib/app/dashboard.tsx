@@ -1,8 +1,10 @@
 import { Portal } from './portal';
 import type { OpenOptionsPageMesssage } from '@extension/shared';
-import { OutboundMessageType, WidgetFeature } from '@extension/shared';
+import { OutboundMessageType, useStorage, WidgetFeature } from '@extension/shared';
 import { Settings } from 'lucide-react';
 import { features } from '@extension/features';
+import type { EnabledSettings, EnabledStorage } from '@extension/storage';
+import { useMemo } from 'react';
 
 export function Dashboard() {
   const widgetMount =
@@ -13,8 +15,6 @@ export function Dashboard() {
   scrollRoot.insertBefore(widgetMount, scrollRoot.children[0]);
 
   const goSettings = () => {
-    console.log('goSettings');
-
     const message: OpenOptionsPageMesssage['data'] = {
       type: OutboundMessageType.OpenOptionsPage,
     };
@@ -22,14 +22,28 @@ export function Dashboard() {
     chrome.runtime.sendMessage(message);
   };
 
-  const widgets = features.featureInstances
-    .filter(f => f instanceof WidgetFeature)
+  const featureInstances = useMemo(() => {
+    return features.featureInstances.filter(f => f instanceof WidgetFeature);
+  }, []);
+
+  const widgets = featureInstances.map(w => ({
+    widget: w,
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    settings: useStorage<EnabledStorage<EnabledSettings>, EnabledSettings>(w.enabledStorage),
+  }));
+
+  const widgetInstances = widgets
+    .filter(f => f.settings.enabled)
     .map(p => (
-      <div key={p.featureName}>
+      <div key={p.widget.featureName}>
         <div className="h-[2px] bg-widget-secondary" />
-        {p.getComponent()}
+        {p.widget.getComponent()}
       </div>
     ));
+
+  if (widgetInstances.length === 0) {
+    return <></>;
+  }
 
   return (
     <Portal mount={widgetMount}>
@@ -40,7 +54,7 @@ export function Dashboard() {
             <Settings className="text-lightGray" />
           </button>
         </div>
-        {widgets && widgets}
+        {widgetInstances && widgetInstances}
       </div>
     </Portal>
   );

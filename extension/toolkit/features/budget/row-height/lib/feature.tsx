@@ -43,11 +43,6 @@ export class BudgetRowHeightFeature extends Feature<EnabledStorage<EnabledSettin
     this.disable();
   }
 
-  async getSettingsJson(): Promise<string> {
-    const settings = await featureStorage.get();
-    return JSON.stringify(settings);
-  }
-
   getSettingsComponent(enabled: boolean): ReactElement {
     const key = 'budget-row-height-settings'; //uid();
     return (

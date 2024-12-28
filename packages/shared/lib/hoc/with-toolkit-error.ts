@@ -2,14 +2,18 @@ import type { ToolkitErrorMesssage } from '../messages';
 import { OutboundMessageType } from '../messages';
 import type { Feature } from '../feature';
 import type { ErrorInfo } from 'react';
+import type { EnabledSettings, EnabledStorage } from '@extension/storage';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function withFeatureError(wrappedFunction: any /* Function */, feature: Feature) {
+export async function withFeatureError(
+  wrappedFunction: any /* Function */,
+  feature: Feature<EnabledStorage<EnabledSettings>>,
+) {
   if (typeof wrappedFunction !== 'function') {
     throw new Error('The first argument to withToolkitError must be a Function');
   }
 
-  const featureName = feature.name;
+  const featureName = feature.featureName;
   const featureSettings = await feature.getSettingsJson();
 
   return function () {

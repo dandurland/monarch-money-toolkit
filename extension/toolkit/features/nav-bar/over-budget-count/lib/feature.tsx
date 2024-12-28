@@ -1,6 +1,5 @@
 import $ from 'jquery';
 import '@extension/ui/dist/global.css';
-//import styles from './styles.css?raw';
 
 import type { ReactElement } from 'react';
 import { Fragment } from 'react';
@@ -37,14 +36,6 @@ export class OverBudgetCountFeature extends PortalFeature<EnabledStorage<Enabled
     });
   }
 
-  get registerForMutationNotification() {
-    return true;
-  }
-
-  mutationNotification() {
-    console.log('mutation notification');
-  }
-
   getComponent(): ReactElement {
     const key = 'over-budget-count';
     return (
@@ -64,11 +55,6 @@ export class OverBudgetCountFeature extends PortalFeature<EnabledStorage<Enabled
     );
   }
 
-  async getSettingsJson(): Promise<string> {
-    const settings = await featureStorage.get();
-    return JSON.stringify(settings);
-  }
-
   get hasSettings() {
     return false;
   }
@@ -83,44 +69,11 @@ export class OverBudgetCountFeature extends PortalFeature<EnabledStorage<Enabled
 
   private onSettingsChanged(settings: EnabledSettings | null) {
     if (settings?.enabled) {
-      console.log('OverBudgetCountFeature enabled');
-      this.enable();
       return;
     }
 
     console.log('OverBudgetCountFeature disabled');
     this.disable();
-  }
-
-  private enable() {
-    /*const css = styles;
-    if (!css) {
-      this.destroy();
-      return;
-    }
-
-    const existing = document.querySelector(`#${this.id}`);
-    if (existing) {
-     return;
-    }
-
-    const style = $('<style>', {
-      id: this.id,
-      type: 'text/css',
-    }).text(css);
-
-    if (style) {
-      const existingStyle = document.querySelector(`#${this.id}-style`);
-      if (existingStyle) {
-        $(existingStyle).replaceWith(style);
-      } else {
-        $('head').append(style);
-      }
-    }
-
-    const el = $('a[href*="/plan"]');
-    var count = $(`<span class="mmtk-nav-badge" id=${this.id}>5</span>`);
-    el?.append(count);*/
   }
 
   private disable(): void {

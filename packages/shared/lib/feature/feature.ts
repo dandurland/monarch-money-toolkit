@@ -12,7 +12,11 @@ export abstract class Feature<Storage extends EnabledStorage<EnabledSettings>> {
   ) {}
 
   abstract initialize(): Promise<void>;
-  abstract getSettingsJson(): Promise<string>;
+
+  async getSettingsJson(): Promise<string> {
+    const settings = await this.enabledStorage.get();
+    return JSON.stringify(settings);
+  }
 
   get hasSettings(): boolean {
     return true;
