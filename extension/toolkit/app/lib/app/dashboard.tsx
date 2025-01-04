@@ -5,14 +5,9 @@ import { features } from '@extension/features';
 import type { EnabledSettings, EnabledStorage } from '@extension/storage';
 import { useMemo } from 'react';
 
+const ROOT_ID = 'mmtk-dashboard-widget-root';
+
 export function Dashboard() {
-  const widgetMount =
-    document.getElementById('mmtk-dashboard-widget-root') ??
-    Object.assign(document.createElement('div'), { id: 'mmtk-dashboard-widget-root' });
-
-  const scrollRoot = document.querySelectorAll('[class*=Dashboard__DroppableColumn]')[1];
-  scrollRoot.insertBefore(widgetMount, scrollRoot.children[0]);
-
   const goSettings = () => {
     const message: OpenOptionsPageMesssage['data'] = {
       type: OutboundMessageType.OpenOptionsPage,
@@ -41,8 +36,14 @@ export function Dashboard() {
     ));
 
   if (widgetInstances.length === 0) {
+    document.getElementById(ROOT_ID)?.remove();
     return <></>;
   }
+
+  const widgetMount = document.getElementById(ROOT_ID) ?? Object.assign(document.createElement('div'), { id: ROOT_ID });
+
+  const scrollRoot = document.querySelectorAll('[class*=Dashboard__DroppableColumn]')[1];
+  scrollRoot.insertBefore(widgetMount, scrollRoot.children[0]);
 
   return (
     <Portal mount={widgetMount}>
