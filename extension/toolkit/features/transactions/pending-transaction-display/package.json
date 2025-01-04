@@ -1,7 +1,7 @@
 {
-  "name": "@extension/over-budget-widget",
+  "name": "@extension/pending-transaction-display-feature",
   "version": "0.1.2",
-  "description": "over budget dashboard widget",
+  "description": "Display pending transaction at the top of the transaction list",
   "private": true,
   "sideEffects": false,
   "type": "module",
@@ -31,14 +31,15 @@
     "@extension/tsconfig": "workspace:*",
     "@extension/ui": "workspace:*",
     "@extension/vite-config": "workspace:*",
+    "@types/jquery": "^3.5.29",
     "deepmerge": "^4.3.1",
     "tsc-alias": "^1.8.10"
   },
   "dependencies": {
     "@apollo/client": "^3.11.10",
     "clsx": "^2.1.1",
-    "react-virtuoso": "^4.12.3",
+    "jquery": "^3.7.1",
     "tailwind-merge": "^2.4.0",
-    "lucide-react": "^0.468.0"
+    "react-virtuoso": "^4.12.3"
   }
 }

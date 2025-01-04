@@ -2,13 +2,13 @@ import '@extension/ui/dist/global.css';
 import type { ReactElement } from 'react';
 import { Fragment } from 'react';
 import { EffectiveBalanceWidget } from './components';
-import { ErrorBoundary, WidgetFeature } from '@extension/shared';
+import { ErrorBoundary, DashboardWidgetFeature } from '@extension/shared';
 import { EffectiveBalanceFeatureSettings } from './settings';
 import { featureStorage } from './feature-storage';
 import type { EnabledSettings, EnabledStorage } from '@extension/storage';
 import { objectIs } from '@extension/core';
 
-export class EffectiveBalanceFeature extends WidgetFeature<EnabledStorage<EnabledSettings>> {
+export class EffectiveBalanceFeature extends DashboardWidgetFeature<EnabledStorage<EnabledSettings>> {
   constructor() {
     super(
       'Effective Balance',

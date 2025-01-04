@@ -27,6 +27,7 @@ export default {
           DEFAULT: 'hsl(var(--warning))',
           foreground: 'hsl(var(--warning-foreground))',
         },
+        text: 'hsl(var(--text))',
       },
     },
   },

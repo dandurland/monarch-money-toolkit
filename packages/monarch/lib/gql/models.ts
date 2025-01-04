@@ -95,6 +95,8 @@ export interface AccountType {
 export interface Account {
   id: string;
   displayName: string;
+  icon: string;
+  logoUrl: string;
   isAsset: boolean;
   displayBalance: number;
   currentBalance: number;
@@ -109,4 +111,43 @@ export interface AccountTypeSummary {
 export interface Accounts {
   hasAccounts: boolean;
   accountTypeSummaries: AccountTypeSummary[];
+}
+
+export interface Attachment {
+  id: string;
+}
+
+export interface Merchant {
+  id: string;
+  name: string;
+  transactionCount: number;
+  logoUrl: string;
+  //recurringTransactionStream?: string;
+}
+
+export interface Tag {
+  id: string;
+  name: string;
+  color: string;
+  order: number;
+}
+
+export interface Transaction {
+  id: string;
+  amount: number;
+  pending: true;
+  date: string;
+  hideFromReports: boolean;
+  plaidName: string;
+  notes: string;
+  isRecurring: boolean;
+  reviewStatus: string;
+  needsReview: boolean;
+  isSplitTransaction: boolean;
+  dataProviderDescription: string;
+  attachments: Attachment[];
+  category: Category;
+  merchant: Merchant;
+  tags: Tag[];
+  account: Account;
 }

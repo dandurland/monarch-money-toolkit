@@ -1,4 +1,4 @@
-import $ from 'jquery';
+//import $ from 'jquery';
 import '@extension/ui/dist/global.css';
 
 import type { ReactElement } from 'react';
@@ -7,16 +7,16 @@ import { ErrorBoundary, Portal, PortalFeature } from '@extension/shared';
 import { featureStorage } from './feature-storage';
 import { objectIs } from '@extension/core';
 import type { EnabledSettings, EnabledStorage } from '@extension/storage';
-import { OverBudgetCount } from './components';
+import { PendingTransactionList } from './components';
 
-export class OverBudgetCountFeature extends PortalFeature<EnabledStorage<EnabledSettings>> {
-  private id: string = `mmtk-over-budget-count`;
+export class PendingTransactionDisplayFeature extends PortalFeature<EnabledStorage<EnabledSettings>> {
+  private id: string = `mmtk-pending-transaction-display-root`;
 
   constructor() {
     super(
-      'nav-bar',
-      'Over Budget Count',
-      'Displays count of over budget categories on Budget navigation',
+      'transactions',
+      'Pending Transaction Display',
+      'Displays pending transaction at the top of the transaction list',
       featureStorage as unknown as EnabledStorage<EnabledSettings>,
     );
   }
@@ -37,46 +37,52 @@ export class OverBudgetCountFeature extends PortalFeature<EnabledStorage<Enabled
   }
 
   getComponent(): ReactElement {
-    const key = 'over-budget-count';
+    const key = 'pending-transaction-display';
     return (
       <Fragment key={key}>
         <ErrorBoundary fallback={<></>}>
-          <OverBudgetCount />
+          <PendingTransactionList />
         </ErrorBoundary>
       </Fragment>
     );
   }
 
   getPortal() {
+    const mount = document.getElementById(this.id) ?? Object.assign(document.createElement('div'), { id: this.id });
+
+    //const $firstTransaction = $('[data-index="1"]').first();
+    //$(mount).append($firstTransaction.clone(true, true));
+    //$parent.append(('<div data-index="1"></div>'));
+
+    const scrollRoot = document.querySelectorAll('[class*=Page__Root]')[0];
+    scrollRoot.insertBefore(mount, scrollRoot.children[1]);
+
+    if (!scrollRoot) {
+      return <></>;
+    }
+
     return (
       <>
-        <Portal mount={$('a[href*="/plan"]')[0]}>{this.getComponent()}</Portal>
+        <Portal mount={mount}>{this.getComponent()}</Portal>
       </>
     );
   }
 
-  shouldMount(): boolean {
-    return true;
+  shouldMount(pathname: string): boolean {
+    return pathname === '/transactions';
   }
 
   get hasSettings() {
     return false;
   }
 
-  destroy(): void {
-    /*const existing = document.getElementById(CONTAINER_ID);
-    if (existing) {
-      unmountComponentAtNode(existing);
-      existing.remove();
-    }*/
-  }
+  destroy(): void {}
 
   private onSettingsChanged(settings: EnabledSettings | null) {
     if (settings?.enabled) {
       return;
     }
 
-    console.log('OverBudgetCountFeature disabled');
     this.disable();
   }
 

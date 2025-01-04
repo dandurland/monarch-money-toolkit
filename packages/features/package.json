@@ -23,11 +23,13 @@
   "devDependencies": {
     "@extension/tsconfig": "workspace:*",
     "@extension/shared": "workspace:*",
+    "@extension/storage": "workspace:*",
     "@extension/transaction-row-height-feature": "workspace:*",
     "@extension/over-budget-widget": "workspace:*",
     "@extension/over-budget-count-feature": "workspace:*",
     "@extension/budget-row-height-feature": "workspace:*",
-    "@extension/effective-balance-widget": "workspace:*"
+    "@extension/effective-balance-widget": "workspace:*",
+    "@extension/pending-transaction-display-feature": "workspace:*"
   },
   "dependencies": {}
 }

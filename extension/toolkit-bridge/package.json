@@ -28,6 +28,7 @@
     "@extension/over-budget-count-feature": "workspace:*",
     "@extension/over-budget-widget": "workspace:*",
     "@extension/effective-balance-widget": "workspace:*",
+    "@extension/pending-transaction-display-feature": "workspace:*",
     "@extension/shared": "workspace:*",
     "@extension/storage": "workspace:*",
     "@extension/tailwindcss-config": "workspace:*",
