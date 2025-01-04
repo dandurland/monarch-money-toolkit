@@ -5,7 +5,6 @@ import type { EffectiveBalanceData } from './effective-balance-calculator';
 import { EffectiveBalanceCalculator } from './effective-balance-calculator';
 import { Spinner } from '@extension/ui';
 import { featureStorage } from '../feature-storage';
-import { getEnglishMonthName } from '@extension/core';
 
 interface Width {
   width: string;
@@ -16,12 +15,17 @@ interface ProgressSegment {
   width: Width;
 }
 
+interface Balance {
+  color: string;
+  value: number;
+}
+
 interface State extends EffectiveBalanceData {
   depositoryColor?: string;
   progress?: Record<string, ProgressSegment>;
 }
 
-const EffectiveBalance = () => {
+const EffectiveBalance = ({ setBalance }: { setBalance: (balance: Balance) => void }) => {
   const { depositoryAccountIds, creditAccountIds } = useStorage(featureStorage);
   const { data } = useSuspenseGetAccounts();
   const [state, setState] = useState<State>({ creditTotal: 0, depositoryTotal: 0 });
@@ -56,18 +60,24 @@ const EffectiveBalance = () => {
       },
     };
 
+    const depositoryColor =
+      percentRemaining < 25 ? 'text-warning' : percentRemaining < 50 ? 'text-yellow' : 'text-textGreen';
     setState({
       creditTotal: creditTotal,
       depositoryTotal: depositoryTotal,
-      depositoryColor:
-        percentRemaining < 25 ? 'text-warning' : percentRemaining < 50 ? 'text-yellow' : 'text-textGreen',
+      depositoryColor,
       progress,
     });
-  }, [data, depositoryAccountIds, creditAccountIds]);
+
+    setBalance({
+      color: depositoryColor,
+      value: depositoryTotal - creditTotal,
+    });
+  }, [data, depositoryAccountIds, creditAccountIds, setBalance]);
 
   return (
     <div className="flex flex-col place-content-start gap-2 pb-4 pl-6 pr-5 pt-5">
-      <div className="mb-4 flex h-2 overflow-hidden rounded bg-gray-100 text-xs">
+      <div className="mb-4 flex h-2 gap-px overflow-hidden rounded bg-gray-100 text-xs">
         <div
           style={state.progress?.green?.width}
           className={`${state.progress?.green.color} transition-all duration-500 ease-out`}></div>
@@ -94,10 +104,11 @@ const EffectiveBalance = () => {
 
 export function EffectiveBalanceWidget({ name }: { name: string }) {
   const { enabled } = useStorage(featureStorage);
-  const month = useMemo(() => {
-    const date = new Date();
-    return `${getEnglishMonthName(date.getMonth())} ${date.getFullYear()}`;
-  }, []);
+  const [balance, setbalance] = useState<Balance | undefined>(undefined);
+
+  function handleBalanceChange(balance: Balance) {
+    setbalance(balance);
+  }
 
   return (
     <>
@@ -108,8 +119,16 @@ export function EffectiveBalanceWidget({ name }: { name: string }) {
             className="flex flex-col place-content-stretch rounded-lg text-widget-foreground">
             <a href="/accounts" className="group pb-4 pl-6 pr-5 pt-5 text-inherit">
               <div className="bottom-3 flex flex-row items-center gap-2 text-lg font-semibold group-hover:text-lightBlue">
-                <span>{name}</span>
-                <span className="text-base text-widget-foreground-secondary">{month}</span>
+                {balance ? (
+                  <div className="flex flex-row items-center gap-1">
+                    <span className={`${balance.color} group-hover:text-lightBlue`}>
+                      {formatCurrency(balance.value)}
+                    </span>
+                    <span>{name.toLowerCase()}</span>
+                  </div>
+                ) : (
+                  <span>{name}</span>
+                )}
               </div>
             </a>
             <Suspense
@@ -118,7 +137,7 @@ export function EffectiveBalanceWidget({ name }: { name: string }) {
                   <Spinner />
                 </div>
               }>
-              <EffectiveBalance />
+              <EffectiveBalance setBalance={handleBalanceChange} />
             </Suspense>
           </div>
         </ErrorBoundary>
