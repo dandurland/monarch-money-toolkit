@@ -1,6 +1,5 @@
-import { Portal } from './portal';
 import type { OpenOptionsPageMesssage } from '@extension/shared';
-import { OutboundMessageType, useStorage, WidgetFeature } from '@extension/shared';
+import { OutboundMessageType, useStorage, DashboardWidgetFeature, Portal } from '@extension/shared';
 import { Settings } from 'lucide-react';
 import { features } from '@extension/features';
 import type { EnabledSettings, EnabledStorage } from '@extension/storage';
@@ -23,7 +22,7 @@ export function Dashboard() {
   };
 
   const featureInstances = useMemo(() => {
-    return features.featureInstances.filter(f => f instanceof WidgetFeature);
+    return features.featureInstances.filter(f => f instanceof DashboardWidgetFeature);
   }, []);
 
   const widgets = featureInstances.map(w => ({

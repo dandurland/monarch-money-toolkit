@@ -4,7 +4,8 @@ import { OverBudgetFeature } from '@extension/over-budget-widget';
 import { OverBudgetCountFeature } from '@extension/over-budget-count-feature';
 import { BudgetRowHeightFeature } from '@extension/budget-row-height-feature';
 import { EffectiveBalanceFeature } from '@extension/effective-balance-widget';
-import type { EnabledStorage, EnabledSettings } from '../../storage';
+//import { PendingTransactionDisplayFeature } from '@extension/pending-transaction-display-feature';
+import type { EnabledStorage, EnabledSettings } from '@extension/storage';
 
 export class Features {
   private instances: Feature<EnabledStorage<EnabledSettings>>[] = [];
@@ -34,6 +35,11 @@ export class Features {
       const feature = new EffectiveBalanceFeature();
       this.instances.push(feature);
     }
+
+    /*{
+      const feature = new PendingTransactionDisplayFeature();
+      this.instances.push(feature);
+    }*/
   }
 
   get featureInstances(): Feature<EnabledStorage<EnabledSettings>>[] {

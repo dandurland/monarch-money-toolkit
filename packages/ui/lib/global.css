@@ -54,6 +54,7 @@
     --text-green: 154 60% 32%;
     --yellow: 47 100% 50%;
     --gray-focus: 30 10% 88%;
+    --text:36 8% 12%;
   }
 
   .dark {
@@ -107,6 +108,7 @@
     --text-green: 151 65% 54%;
     --gray-focus: 60 3% 19%;
     --yellow: 42 100% 62%;
+    --text:60 6% 93%;
   }
 }
 

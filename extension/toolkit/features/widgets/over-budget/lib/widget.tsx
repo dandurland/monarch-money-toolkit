@@ -2,12 +2,12 @@ import '@extension/ui/dist/global.css';
 import type { ReactElement } from 'react';
 import { Fragment } from 'react';
 import { OverBudgetWidget } from './components';
-import { ErrorBoundary, WidgetFeature } from '@extension/shared';
+import { ErrorBoundary, DashboardWidgetFeature } from '@extension/shared';
 import { featureStorage } from './feature-storage';
 import type { EnabledSettings, EnabledStorage } from '@extension/storage';
 import { objectIs } from '@extension/core';
 
-export class OverBudgetFeature extends WidgetFeature<EnabledStorage<EnabledSettings>> {
+export class OverBudgetFeature extends DashboardWidgetFeature<EnabledStorage<EnabledSettings>> {
   constructor() {
     super(
       'Over Budget Categories',

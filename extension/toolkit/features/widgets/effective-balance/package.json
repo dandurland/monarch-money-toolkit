@@ -26,7 +26,6 @@
     "@apollo/client": "^3.11.10",
     "clsx": "^2.1.1",
     "react-virtuoso": "^4.12.3",
-    "styled-components": "^6.1.13",
     "tailwind-merge": "^2.4.0",
     "lucide-react": "^0.468.0",
     "@extension/ui": "workspace:*",
