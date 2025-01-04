@@ -1,4 +1,4 @@
-import { Suspense, useMemo, useState } from 'react';
+import { Suspense, useCallback, useMemo, useState } from 'react';
 import { ErrorBoundary, formatCurrency, useStorage } from '@extension/shared';
 import { useSuspenseGetAccounts } from '@extension/monarch';
 import type { EffectiveBalanceData } from './effective-balance-calculator';
@@ -73,7 +73,7 @@ const EffectiveBalance = ({ setBalance }: { setBalance: (balance: Balance) => vo
       color: depositoryColor,
       value: depositoryTotal - creditTotal,
     });
-  }, [data, depositoryAccountIds, creditAccountIds, setBalance]);
+  }, [data, depositoryAccountIds, creditAccountIds]);
 
   return (
     <div className="flex flex-col place-content-start gap-2 pb-4 pl-6 pr-5 pt-5">
@@ -106,9 +106,9 @@ export function EffectiveBalanceWidget({ name }: { name: string }) {
   const { enabled } = useStorage(featureStorage);
   const [balance, setbalance] = useState<Balance | undefined>(undefined);
 
-  function handleBalanceChange(balance: Balance) {
+  const handleBalanceChange = useCallback((balance: Balance) => {
     setbalance(balance);
-  }
+  }, []);
 
   return (
     <>
