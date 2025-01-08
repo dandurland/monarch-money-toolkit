@@ -2,7 +2,7 @@ import '@extension/ui/dist/global.css';
 import type { ReactElement } from 'react';
 import { Fragment } from 'react';
 import { EffectiveBalanceWidget } from './components';
-import { ErrorBoundary, DashboardWidgetFeature } from '@extension/shared';
+import { DashboardWidgetFeature } from '@extension/shared';
 import { EffectiveBalanceFeatureSettings } from './settings';
 import { featureStorage } from './feature-storage';
 import type { EnabledSettings, EnabledStorage } from '@extension/storage';
@@ -11,6 +11,7 @@ import { objectIs } from '@extension/core';
 export class EffectiveBalanceFeature extends DashboardWidgetFeature<EnabledStorage<EnabledSettings>> {
   constructor() {
     super(
+      'effective-balance-widget',
       'Effective Balance',
       'Show effective balance in the dashboard',
       featureStorage as unknown as EnabledStorage<EnabledSettings>,
@@ -36,9 +37,7 @@ export class EffectiveBalanceFeature extends DashboardWidgetFeature<EnabledStora
     const key = 'effective-balance-widget';
     return (
       <Fragment key={key}>
-        <ErrorBoundary fallback={<div>Error in Effective Balance widget</div>}>
-          <EffectiveBalanceWidget name={this.featureName} />
-        </ErrorBoundary>
+        <EffectiveBalanceWidget name={this.featureName} />
       </Fragment>
     );
   }

@@ -1,9 +1,9 @@
-import { Suspense, useCallback, useMemo, useState } from 'react';
-import { ErrorBoundary, formatCurrency, useStorage } from '@extension/shared';
+import { useCallback, useMemo, useState } from 'react';
+import { formatCurrency, useStorage } from '@extension/shared';
 import { useSuspenseGetAccounts } from '@extension/monarch';
 import type { EffectiveBalanceData } from './effective-balance-calculator';
 import { EffectiveBalanceCalculator } from './effective-balance-calculator';
-import { Spinner } from '@extension/ui';
+import { DashboardWidget } from '@extension/ui';
 import { featureStorage } from '../feature-storage';
 
 interface Width {
@@ -104,43 +104,23 @@ const EffectiveBalance = ({ setBalance }: { setBalance: (balance: Balance) => vo
 
 export function EffectiveBalanceWidget({ name }: { name: string }) {
   const { enabled } = useStorage(featureStorage);
-  const [balance, setbalance] = useState<Balance | undefined>(undefined);
+  const [state, setState] = useState<{ name: string; description: string }>({ name, description: '' });
 
   const handleBalanceChange = useCallback((balance: Balance) => {
-    setbalance(balance);
+    setState({ name: formatCurrency(balance.value), description: name.toLowerCase() });
   }, []);
 
   return (
     <>
       {enabled ? (
-        <ErrorBoundary fallback={<div>Error retrieving effective balance data</div>}>
-          <div
-            id="mmtk-effective-balance"
-            className="flex flex-col place-content-stretch rounded-lg text-widget-foreground">
-            <a href="/accounts" className="group pb-4 pl-6 pr-5 pt-5 text-inherit">
-              <div className="bottom-3 flex flex-row items-center gap-2 text-lg font-semibold group-hover:text-lightBlue">
-                {balance ? (
-                  <div className="flex flex-row items-center gap-1">
-                    <span className={`${balance.color} group-hover:text-lightBlue`}>
-                      {formatCurrency(balance.value)}
-                    </span>
-                    <span>{name.toLowerCase()}</span>
-                  </div>
-                ) : (
-                  <span>{name}</span>
-                )}
-              </div>
-            </a>
-            <Suspense
-              fallback={
-                <div className="m-6 flex flex-row justify-center">
-                  <Spinner />
-                </div>
-              }>
-              <EffectiveBalance setBalance={handleBalanceChange} />
-            </Suspense>
-          </div>
-        </ErrorBoundary>
+        <DashboardWidget
+          id="mmtk-effective-balance"
+          title={state.name}
+          description={state.description}
+          link="/accounts"
+          useSuspense>
+          <EffectiveBalance setBalance={handleBalanceChange} />
+        </DashboardWidget>
       ) : (
         <></>
       )}

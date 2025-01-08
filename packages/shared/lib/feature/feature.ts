@@ -5,6 +5,7 @@ export type FeatureTarget = 'nav-bar' | 'dashboard-widgets' | 'dashboard' | 'tra
 
 export abstract class Feature<Storage extends EnabledStorage<EnabledSettings>> {
   constructor(
+    private featureMoniker: string,
     public featureTarget: FeatureTarget,
     public featureName: string,
     public description: string,
@@ -13,6 +14,9 @@ export abstract class Feature<Storage extends EnabledStorage<EnabledSettings>> {
 
   abstract initialize(): Promise<void>;
 
+  get featureId() {
+    return `mmtk-${this.featureMoniker}-feature`;
+  }
   async getSettingsJson(): Promise<string> {
     const settings = await this.enabledStorage.get();
     return JSON.stringify(settings);

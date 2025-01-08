@@ -17,6 +17,7 @@ export class BudgetRowHeightFeature extends Feature<EnabledStorage<EnabledSettin
 
   constructor() {
     super(
+      'budget-row-height',
       'budget',
       'Budget Row Height',
       'Change budget row height',

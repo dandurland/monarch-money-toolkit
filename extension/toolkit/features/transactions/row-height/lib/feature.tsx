@@ -17,6 +17,7 @@ export class TransactionRowHeightFeature extends Feature<EnabledStorage<EnabledS
 
   constructor() {
     super(
+      'transaction-row-height',
       'transactions',
       'Transaction Row Height',
       'Change transaction row height',

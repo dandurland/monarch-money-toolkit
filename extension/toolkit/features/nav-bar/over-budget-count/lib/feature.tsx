@@ -14,6 +14,7 @@ export class OverBudgetCountFeature extends PortalFeature<EnabledStorage<Enabled
 
   constructor() {
     super(
+      'over-budget-count',
       'nav-bar',
       'Over Budget Count',
       'Displays count of over budget categories on Budget navigation',

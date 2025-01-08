@@ -12,3 +12,5 @@ export * from './command';
 export * from './badge';
 export * from './toast';
 export * from './toaster';
+export * from './drag-dots';
+export * from './dashboard-widget';

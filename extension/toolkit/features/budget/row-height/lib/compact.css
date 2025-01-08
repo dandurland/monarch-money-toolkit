@@ -1,6 +1,7 @@
 :root {
   --font-size: 14px;
   --height: 36px;
+  --padding: 2px 18px;
 }
 
 [class*='PlanCell'] {
@@ -9,4 +10,12 @@
 
 [class*='PlanGrid__PlanGridRow'] {
   height: var(--height);
+}
+
+[class^='OverBudgetRow'] {
+  font-size: var(--font-size);
+}
+
+[class^='OverBudgetRow_Item'] {
+  padding: var(--padding)
 }

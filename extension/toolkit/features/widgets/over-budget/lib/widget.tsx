@@ -2,7 +2,7 @@ import '@extension/ui/dist/global.css';
 import type { ReactElement } from 'react';
 import { Fragment } from 'react';
 import { OverBudgetWidget } from './components';
-import { ErrorBoundary, DashboardWidgetFeature } from '@extension/shared';
+import { DashboardWidgetFeature } from '@extension/shared';
 import { featureStorage } from './feature-storage';
 import type { EnabledSettings, EnabledStorage } from '@extension/storage';
 import { objectIs } from '@extension/core';
@@ -10,6 +10,7 @@ import { objectIs } from '@extension/core';
 export class OverBudgetFeature extends DashboardWidgetFeature<EnabledStorage<EnabledSettings>> {
   constructor() {
     super(
+      'over-budget-widget',
       'Over Budget Categories',
       'Show over budget in the dashboard',
       featureStorage as unknown as EnabledStorage<EnabledSettings>,
@@ -35,9 +36,7 @@ export class OverBudgetFeature extends DashboardWidgetFeature<EnabledStorage<Ena
     const key = 'over-budget-widget';
     return (
       <Fragment key={key}>
-        <ErrorBoundary fallback={<div>Error in Over Budget widget</div>}>
-          <OverBudgetWidget name={this.featureName} />
-        </ErrorBoundary>
+        <OverBudgetWidget name={this.featureName} />
       </Fragment>
     );
   }

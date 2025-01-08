@@ -8,6 +8,7 @@ export default {
         textGreen: 'hsl(var(--text-green))',
         green: 'hsl(var(--green))',
         grayFocus: 'hsl(var(--gray-focus))',
+        darkGray: 'hsl(var(--dark-gray))',
         lightGray: 'hsl(30 2% 46%)',
         lightBlue: 'hsl(191 100% 39%)',
         lightGreen: 'hsl(131 50% 63%)',

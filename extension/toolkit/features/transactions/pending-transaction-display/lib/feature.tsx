@@ -14,6 +14,7 @@ export class PendingTransactionDisplayFeature extends PortalFeature<EnabledStora
 
   constructor() {
     super(
+      'pending-transaction-display',
       'transactions',
       'Pending Transaction Display',
       'Displays pending transaction at the top of the transaction list',
