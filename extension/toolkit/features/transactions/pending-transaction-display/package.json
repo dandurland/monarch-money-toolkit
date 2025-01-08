@@ -1,6 +1,6 @@
 {
   "name": "@extension/pending-transaction-display-feature",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Display pending transaction at the top of the transaction list",
   "private": true,
   "sideEffects": false,

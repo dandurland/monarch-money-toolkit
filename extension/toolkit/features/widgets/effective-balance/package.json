@@ -1,6 +1,6 @@
 {
   "name": "@extension/effective-balance-widget",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "effective balance dashboard widget",
   "private": true,
   "sideEffects": false,

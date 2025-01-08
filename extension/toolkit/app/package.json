@@ -1,6 +1,6 @@
 {
   "name": "@extension/toolkit-app",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "react toolkit app",
   "private": true,
   "sideEffects": false,

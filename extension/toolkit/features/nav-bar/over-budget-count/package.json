@@ -1,6 +1,6 @@
 {
   "name": "@extension/over-budget-count-feature",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Display count of over budget categories",
   "private": true,
   "sideEffects": false,
