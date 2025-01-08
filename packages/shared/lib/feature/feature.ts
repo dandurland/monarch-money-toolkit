@@ -17,6 +17,7 @@ export abstract class Feature<Storage extends EnabledStorage<EnabledSettings>> {
   get featureId() {
     return `mmtk-${this.featureMoniker}-feature`;
   }
+
   async getSettingsJson(): Promise<string> {
     const settings = await this.enabledStorage.get();
     return JSON.stringify(settings);

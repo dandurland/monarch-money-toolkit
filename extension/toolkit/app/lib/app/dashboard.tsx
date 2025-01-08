@@ -11,26 +11,15 @@ import { DraggableContext } from '@extension/ui';
 
 const ROOT_ID = 'mmtk-dashboard-widget-root';
 
-interface FeatureInstance {
-  id: string;
-  widget: DashboardWidgetFeature<any>; // eslint-disable-line @typescript-eslint/no-explicit-any
-  settings: EnabledSettings;
-}
-
-function getFeatureInstances(widgetOrder: string[]): FeatureInstance[] {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function getFeatureInstances(widgetOrder: string[]): DashboardWidgetFeature<any>[] {
   return features.featureInstances
     .filter(f => f instanceof DashboardWidgetFeature)
-    .map(f => ({
-      id: f.featureId,
-      widget: f,
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      settings: useStorage<EnabledStorage<EnabledSettings>, EnabledSettings>(f.enabledStorage),
-    }))
-    .filter(f => f.settings.enabled)
-    .toSorted((x, y) => (widgetOrder.indexOf(x.id) > widgetOrder.indexOf(y.id) ? 1 : -1));
+    .toSorted((x, y) => (widgetOrder.indexOf(x.featureId) > widgetOrder.indexOf(y.featureId) ? 1 : -1));
 }
 
-const sortWidgets = (list: FeatureInstance[], start: number, end: number) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const sortWidgets = (list: DashboardWidgetFeature<any>[], start: number, end: number) => {
   const result = Array.from(list);
   const [removed] = result.splice(start, 1);
   result.splice(end, 0, removed);
@@ -49,6 +38,17 @@ export function Dashboard() {
   const storage = useStorage(toolkitStorage);
   const [widgets, setWidgets] = useState(getFeatureInstances(storage.dashboard.widgetOrder));
 
+  //TODO: refactor into hook
+  const enabledHooks = features.featureInstances
+    .filter(f => f instanceof DashboardWidgetFeature)
+    .map(f => {
+      return {
+        featureId: f.featureId,
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        enabled: useStorage<EnabledStorage<EnabledSettings>, EnabledSettings>(f.enabledStorage),
+      };
+    });
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async function onDragEnd(result: any) {
     if (!result.destination) {
@@ -56,9 +56,8 @@ export function Dashboard() {
     }
 
     const items = sortWidgets(widgets, result.source.index, result.destination.index);
-
     setWidgets(items);
-    await toolkitStorage.patch({ dashboard: { ...storage.dashboard, widgetOrder: items.map(x => x.id) } });
+    await toolkitStorage.patch({ dashboard: { ...storage.dashboard, widgetOrder: items.map(x => x.featureId) } });
   }
 
   const getItemStyle = (/*isDragging: boolean,*/ draggableStyle: DraggableStyle | undefined) => ({
@@ -66,7 +65,7 @@ export function Dashboard() {
     ...draggableStyle,
   });
 
-  if (widgets.length === 0) {
+  if (enabledHooks.findIndex(w => w.enabled.enabled) === -1) {
     document.getElementById(ROOT_ID)?.remove();
     return <></>;
   }
@@ -88,8 +87,8 @@ export function Dashboard() {
           <Droppable droppableId="droppable">
             {provided => (
               <ul className="last:rounded-b-lg" {...provided.droppableProps} ref={provided.innerRef}>
-                {widgets.map((item, index) => (
-                  <Draggable key={item.id} draggableId={item.id} index={index}>
+                {widgets.map((widget, index) => (
+                  <Draggable key={widget.featureId} draggableId={widget.featureId} index={index}>
                     {(provided, snapshot) => (
                       <li
                         {...provided.draggableProps}
@@ -101,8 +100,8 @@ export function Dashboard() {
                         <DraggableContext.Provider
                           value={{ dragHandleProps: provided.dragHandleProps ?? undefined, state: snapshot }}>
                           <div className="h-[2px] bg-widget-secondary" />
-                          <ErrorBoundary fallback={<div>{`Error retrieving ${item.widget.featureName}`}</div>}>
-                            {item.widget.getComponent()}
+                          <ErrorBoundary fallback={<div>{`Error retrieving ${widget.featureName}`}</div>}>
+                            {widget.getComponent()}
                           </ErrorBoundary>
                         </DraggableContext.Provider>
                       </li>

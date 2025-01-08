@@ -8,7 +8,7 @@ interface DashboardWidgetProps {
   title: string;
   description?: string;
   link: string;
-  useSuspense: boolean;
+  useSuspense?: boolean;
   loading?: boolean;
   children: React.ReactNode;
 }
@@ -29,8 +29,8 @@ export function DashboardWidget({
   title,
   description,
   link,
-  useSuspense = true,
-  loading,
+  useSuspense = false,
+  loading = false,
   children,
 }: DashboardWidgetProps) {
   //pb-4 pl-6 pr-5 pt-5
