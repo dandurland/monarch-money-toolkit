@@ -7,6 +7,7 @@ interface DashboardWidgetProps {
   id: string;
   title: string;
   description?: string;
+  descriptionStyle?: string;
   link: string;
   useSuspense?: boolean;
   loading?: boolean;
@@ -28,45 +29,50 @@ export function DashboardWidget({
   id,
   title,
   description,
+  descriptionStyle,
   link,
   useSuspense = false,
   loading = false,
   children,
 }: DashboardWidgetProps) {
-  //pb-4 pl-6 pr-5 pt-5
   return (
-    <div id={id} className="relative group/root flex flex-col place-content-stretch rounded-lg text-widget-foreground">
-      <div className="group flex flex-row">
-        <a href={link} className="flex flex-row items-center px-6 py-3 text-inherit">
-          <DragHandle />
-          <div className="bottom-3 flex flex-row items-center gap-2 text-lg font-semibold group-hover:text-lightBlue">
-            <div className="flex flex-row items-center gap-2 align-bottom">
-              <span className="group-hover:text-lightBlue">{title}</span>
-              {!!description && <span className="text-base text-widget-foreground-secondary">{description}</span>}
+    <>
+      <div className="h-[2px] bg-widget-secondary" />
+      <div
+        id={id}
+        className="relative group/root flex flex-col place-content-stretch rounded-lg text-widget-foreground">
+        <div className="group flex flex-row">
+          <a href={link} className="flex flex-row items-center px-6 py-3 text-inherit">
+            <DragHandle />
+            <div className="bottom-3 flex flex-row items-center gap-2 text-lg font-semibold group-hover:text-lightBlue">
+              <div className="flex flex-row items-center gap-2 align-bottom text-[18px] leading-[150%] font-medium">
+                <span className="group-hover:text-lightBlue">{title}</span>
+                {!!description && <span className={descriptionStyle}>{description}</span>}
+              </div>
             </div>
-          </div>
-        </a>
+          </a>
+        </div>
+        {useSuspense ? (
+          <Suspense
+            fallback={
+              <div className="m-6 flex flex-row justify-center">
+                <Spinner />
+              </div>
+            }>
+            {children}
+          </Suspense>
+        ) : (
+          <>
+            {loading ? (
+              <div className="m-6 flex flex-row justify-center">
+                <Spinner />
+              </div>
+            ) : (
+              children
+            )}
+          </>
+        )}
       </div>
-      {useSuspense ? (
-        <Suspense
-          fallback={
-            <div className="m-6 flex flex-row justify-center">
-              <Spinner />
-            </div>
-          }>
-          {children}
-        </Suspense>
-      ) : (
-        <>
-          {loading ? (
-            <div className="m-6 flex flex-row justify-center">
-              <Spinner />
-            </div>
-          ) : (
-            children
-          )}
-        </>
-      )}
-    </div>
+    </>
   );
 }

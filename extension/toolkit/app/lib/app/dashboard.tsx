@@ -99,7 +99,6 @@ export function Dashboard() {
                         )}>
                         <DraggableContext.Provider
                           value={{ dragHandleProps: provided.dragHandleProps ?? undefined, state: snapshot }}>
-                          <div className="h-[2px] bg-widget-secondary" />
                           <ErrorBoundary fallback={<div>{`Error retrieving ${widget.featureName}`}</div>}>
                             {widget.getComponent()}
                           </ErrorBoundary>

@@ -1,18 +1,26 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { formatCurrency, getCurrentMonth, useStorage, useTransactionMutationEvent } from '@extension/shared';
-import { useSuspenseGetJointPlanningData } from '@extension/monarch';
+import { useGetJointPlanningData } from '@extension/monarch';
 import type { OverBudgetCategory } from './over-budget-calculator';
 import { OverBudgetCalculator } from './over-budget-calculator';
 import { DashboardWidget } from '@extension/ui';
 import { VirtuosoGrid } from 'react-virtuoso';
 import { ArrowDownNarrowWide, ArrowUpNarrowWide } from 'lucide-react';
 import { featureStorage } from '../feature-storage';
-import { getEnglishMonthName } from '@extension/core';
+import { getEnglishMonthName, isNil } from '@extension/core';
 
 const CategoryAmount = ({ amount }: { amount: number }) => {
   return (
     <div className={`w-1/5 truncate text-center ${amount < 0 ? 'text-red-500' : ''}`}>
       {formatCurrency(amount ?? 0)}
+    </div>
+  );
+};
+
+const AllClearRow = () => {
+  return (
+    <div className="flex w-full flex-row items-center justify-center overflow-x-hidden border-t border-t-background px-[24px] py-[14px]">
+      No over budget categories
     </div>
   );
 };
@@ -76,7 +84,7 @@ export function OverBudgetWidget({ name }: { name: string }) {
     return request.variables.categoryId !== undefined;
   });
 
-  const { data, refetch } = useSuspenseGetJointPlanningData(
+  const { data, refetch, loading } = useGetJointPlanningData(
     currentMonth.firstDay,
     currentMonth.lastDay,
     'cache-and-network',
@@ -89,8 +97,12 @@ export function OverBudgetWidget({ name }: { name: string }) {
   const [sortAsc, setSortAsc] = useState(false);
 
   const categories = useMemo(() => {
+    if (isNil(data)) {
+      return [];
+    }
+
     const calculator = new OverBudgetCalculator();
-    const overBudgetCategories = calculator.getOverBudgetData(data, sortAsc, true);
+    const overBudgetCategories = calculator.getOverBudgetData(data!, sortAsc, true);
     return overBudgetCategories?.catagories ?? [];
   }, [data, sortAsc]);
 
@@ -98,15 +110,27 @@ export function OverBudgetWidget({ name }: { name: string }) {
 
   return (
     <>
-      {enabled && categories.length > 0 ? (
-        <DashboardWidget id="mmtk-over-budget" title={name} description={month} link="/budget" useSuspense>
+      {enabled ? (
+        <DashboardWidget
+          id="mmtk-over-budget"
+          title={name}
+          description={month}
+          descriptionStyle="text-widget-foreground-secondary"
+          link="/budget"
+          loading={loading}>
           <div className="flex flex-col justify-start">
-            <OverBudgetHeader canSort={categories?.length > 1} onSort={sortCallback} />
-            <VirtuosoGrid
-              style={{ height: Math.min(categories.length * 56, 220) }}
-              totalCount={categories.length}
-              itemContent={index => <OverBudgetRow item={categories[index]} />}
-            />
+            {categories.length === 0 ? (
+              <AllClearRow />
+            ) : (
+              <>
+                <OverBudgetHeader canSort={categories?.length > 1} onSort={sortCallback} />
+                <VirtuosoGrid
+                  style={{ height: Math.min(categories.length * 56, 220) }}
+                  totalCount={categories.length}
+                  itemContent={index => <OverBudgetRow item={categories[index]} />}
+                />
+              </>
+            )}
           </div>
         </DashboardWidget>
       ) : (
