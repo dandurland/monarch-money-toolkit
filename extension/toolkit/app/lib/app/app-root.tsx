@@ -4,7 +4,6 @@ import { getMonarchAuthToken } from '@extension/monarch';
 import { ThemeProvider } from './theme-provider';
 import '@extension/ui/dist/global.css';
 import { Outlet } from '@tanstack/react-router';
-import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 import { PortalMount } from './portal-mount';
 
 export default function AppRoot() {
@@ -36,7 +35,6 @@ export default function AppRoot() {
           <PortalMount />
         </ThemeProvider>
       </ApolloProvider>
-      <TanStackRouterDevtools />
     </>
   );
 }
