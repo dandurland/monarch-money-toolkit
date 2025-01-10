@@ -23,6 +23,7 @@
     "type-check": "tsc --noEmit"
   },
   "devDependencies": {
+    "@extension/core": "workspace:*",
     "@extension/effective-balance-widget": "workspace:*",
     "@extension/monarch": "workspace:*",
     "@extension/over-budget-count-feature": "workspace:*",
